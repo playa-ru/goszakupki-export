@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ru.gov.zakupki</groupId>
+    <artifactId>eis-export-fz44</artifactId>
+    <version>8.1.7-SNAPSHOT</version>
+    <name>Java библиотека для схем экспорта данных ЕИС</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <version.deploy.plugin>2.8.2</version.deploy.plugin>
+        <version.release.plugin>2.5.3</version.release.plugin>
+    </properties>
+
+    <scm>
+        <url>scm:git:git@github.com:playa-ru/keycloak-russian.git</url>
+        <developerConnection>scm:git:git@github.com:playa-ru/keycloak-russian.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <build>
+
+        <finalName>${project.artifactId}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <xjbSources>
+                        <xjbSource>src/main/resources/export.xjb</xjbSource>
+                    </xjbSources>
+                    <sources>
+                        <source>src/main/resources/fcsExport.xsd</source>
+                    </sources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${version.deploy.plugin}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${version.release.plugin}</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <preparationGoals>clean</preparationGoals>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.9.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>playa-releases</id>
+            <name>playa-repositories</name>
+            <url>https://nexus.playa.ru/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+</project>
