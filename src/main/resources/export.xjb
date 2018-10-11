@@ -2,26 +2,44 @@
     
   <bindings schemaLocation="fcsExport.xsd">
     <schemaBindings>
-      <package name="ru.gov.zakupki.v817.export"/>
+      <package name="ru.gov.zakupki.v8305.export"/>
     </schemaBindings>
   </bindings>
 
   <bindings schemaLocation="IntegrationTypes.xsd">
     <schemaBindings>
-      <package name="ru.gov.zakupki.v817.it"/>
+      <package name="ru.gov.zakupki.v8305.it"/>
     </schemaBindings>
   </bindings>
 
   <bindings schemaLocation="Integration615Types.xsd">
     <schemaBindings>
-      <package name="ru.gov.zakupki.v817.it615"/>
+      <package name="ru.gov.zakupki.v8305.it615"/>
     </schemaBindings>
   </bindings>
   
   <bindings schemaLocation="BaseTypes.xsd">
     <schemaBindings>
-      <package name="ru.gov.zakupki.v817.base"/>
+      <package name="ru.gov.zakupki.v8305.base"/>
     </schemaBindings>
-  </bindings>  
-  
+  </bindings>
+
+  <bindings schemaLocation="CommonTypes.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v8305.common"/>
+    </schemaBindings>
+  </bindings>
+
+  <bindings schemaLocation="IntegrationCPTypes.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v8305.itcp"/>
+    </schemaBindings>
+  </bindings>
+
+  <bindings schemaLocation="IntegrationEPTypes.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v8305.itep"/>
+    </schemaBindings>
+  </bindings>
+
 </bindings>

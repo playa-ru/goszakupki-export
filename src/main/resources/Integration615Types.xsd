@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by End User (free.org) -->
-<!-- FCS INTEGRATION_TYPES Integration Scheme, version 8.1, create date 04.04.2018-->
-<xs:schema xmlns:base="http://zakupki.gov.ru/oos/base/1" xmlns="http://zakupki.gov.ru/oos/pprf615types/1" xmlns:pp615="http://zakupki.gov.ru/oos/pprf615types/1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://zakupki.gov.ru/oos/types/1" targetNamespace="http://zakupki.gov.ru/oos/pprf615types/1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- FCS INTEGRATION_TYPES Integration Scheme, version 8.3, create date 28.09.2018 -->
+<xs:schema xmlns:base="http://zakupki.gov.ru/oos/base/1" xmlns:cmn="http://zakupki.gov.ru/oos/common/1" xmlns="http://zakupki.gov.ru/oos/pprf615types/1" xmlns:pp615="http://zakupki.gov.ru/oos/pprf615types/1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://zakupki.gov.ru/oos/pprf615types/1" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://zakupki.gov.ru/oos/base/1" schemaLocation="BaseTypes.xsd"/>
+	<xs:import namespace="http://zakupki.gov.ru/oos/common/1" schemaLocation="CommonTypes.xsd"/>
 	<!--Основные документы-->
 	<xs:complexType name="notificationPOType">
 		<xs:annotation>
@@ -107,7 +107,7 @@ RPO - Орган, уполномоченный на ведение реестр�
 					<xs:documentation>Внешний идентификатор документа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="versionNumber" type="xs:int" minOccurs="0">
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер версии</xs:documentation>
 				</xs:annotation>
@@ -286,12 +286,12 @@ RPO - Орган, уполномоченный на ведение реестр�
 													<xs:documentation>Организационно-правовая форма организации в ОКОПФ. При приеме содержимое контролируется на  присутствие в справочнике "Общероссийский классификатор организационно-правовых форм (ОКОПФ)" (nsiOKOPF)</xs:documentation>
 												</xs:annotation>
 											</xs:element>
-											<xs:element name="shortName" type="base:longTextType" minOccurs="0">
+											<xs:element name="shortName" type="base:text2000Type" minOccurs="0">
 												<xs:annotation>
 													<xs:documentation>Сокращенное наименование организации</xs:documentation>
 												</xs:annotation>
 											</xs:element>
-											<xs:element name="firmName" type="base:longTextType" minOccurs="0">
+											<xs:element name="firmName" type="base:text2000Type" minOccurs="0">
 												<xs:annotation>
 													<xs:documentation>Фирменное наименование организации</xs:documentation>
 												</xs:annotation>
@@ -348,12 +348,12 @@ RPO - Орган, уполномоченный на ведение реестр�
 								<xs:complexContent>
 									<xs:extension base="legalEntityForeignStateType">
 										<xs:sequence>
-											<xs:element name="shortName" type="base:longTextType" minOccurs="0">
+											<xs:element name="shortName" type="base:text2000Type" minOccurs="0">
 												<xs:annotation>
 													<xs:documentation>Сокращенное наименование организации</xs:documentation>
 												</xs:annotation>
 											</xs:element>
-											<xs:element name="firmName" type="base:longTextType" minOccurs="0">
+											<xs:element name="firmName" type="base:text2000Type" minOccurs="0">
 												<xs:annotation>
 													<xs:documentation>Фирменное наименование организации</xs:documentation>
 												</xs:annotation>
@@ -492,12 +492,12 @@ RPO - Орган, уполномоченный на ведение реестр�
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="changeInfo" type="base:longTextType" minOccurs="0">
+						<xs:element name="changeInfo" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Краткое описание изменения</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="changeOrgInfo" type="base:longTextType">
+						<xs:element name="changeOrgInfo" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Основания для внесения изменений в сведения подрядной организации</xs:documentation>
 							</xs:annotation>
@@ -625,7 +625,7 @@ RPO - Орган, уполномоченный на ведение реестр�
 										</xs:annotation>
 									</xs:element>
 									<xs:choice>
-										<xs:element name="fullName" type="base:longTextType">
+										<xs:element name="fullName" type="base:text2000Type">
 											<xs:annotation>
 												<xs:documentation>Полное наименование организации</xs:documentation>
 											</xs:annotation>
@@ -697,7 +697,7 @@ RPO - Орган, уполномоченный на ведение реестр�
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="addInfo" type="base:longTextType" minOccurs="0">
+						<xs:element name="addInfo" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Дополнительная информация</xs:documentation>
 							</xs:annotation>
@@ -714,7 +714,7 @@ RPO - Орган, уполномоченный на ведение реестр�
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
-												<xs:element name="authorityName" type="base:longTextType">
+												<xs:element name="authorityName" type="base:text2000Type">
 													<xs:annotation>
 														<xs:documentation>Наименование органа, уполномоченного на осуществление контроля</xs:documentation>
 													</xs:annotation>
@@ -749,7 +749,7 @@ RPO - Орган, уполномоченный на ведение реестр�
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
-												<xs:element name="courtName" type="base:longTextType">
+												<xs:element name="courtName" type="base:text2000Type">
 													<xs:annotation>
 														<xs:documentation>Наименование судебного органа</xs:documentation>
 													</xs:annotation>
@@ -822,7 +822,7 @@ RPO - Орган, уполномоченный на ведение реестр�
 										</xs:annotation>
 									</xs:element>
 									<xs:choice>
-										<xs:element name="fullName" type="base:longTextType">
+										<xs:element name="fullName" type="base:text2000Type">
 											<xs:annotation>
 												<xs:documentation>Полное наименование организации</xs:documentation>
 											</xs:annotation>
@@ -935,7 +935,7 @@ TC - Орган местного самоуправления и (или) гос
 					<xs:documentation>Время проведения</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="notificationVersionNumber" type="xs:int" minOccurs="0">
+			<xs:element name="notificationVersionNumber" type="base:versionNumberType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Версия извещения по закупке, для которого задается время проведения аукциона. В случае если значение не указано, считается что версия 1</xs:documentation>
 				</xs:annotation>
@@ -1096,7 +1096,7 @@ TC - Орган местного самоуправления и (или) гос
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="actName" type="base:longTextType" minOccurs="0">
+						<xs:element name="actName" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Наиенование отменяемого акта</xs:documentation>
 							</xs:annotation>
@@ -1118,7 +1118,8 @@ TC - Орган местного самоуправления и (или) гос
 	</xs:complexType>
 	<xs:complexType name="contractType">
 		<xs:annotation>
-			<xs:documentation>Сведения о договоре о проведении капитального ремонта по ПП РФ № 615</xs:documentation>
+			<xs:documentation>Сведения о договоре о проведении капитального ремонта по ПП РФ № 615;
+ внесение изменений</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="id" type="xs:long" minOccurs="0">
@@ -1131,7 +1132,7 @@ TC - Орган местного самоуправления и (или) гос
 					<xs:documentation>Внешний идентификатор документа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="versionNumber" type="xs:int" minOccurs="0">
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер версии</xs:documentation>
 				</xs:annotation>
@@ -1174,7 +1175,7 @@ TC - Орган местного самоуправления и (или) гос
 														<xs:documentation>Дата подведения результатов определения подрядной организации. Игнорируется при приёме, заполняется заполняется из протокола проведения электронного аукциона  (protocolEF1) зачением  "Дата размещения документа" commonInfo/docPublishDate Заполняется при передаче</xs:documentation>
 													</xs:annotation>
 												</xs:element>
-												<xs:element name="protocolEFProperties" type="docPropertyType" minOccurs="0">
+												<xs:element name="protocolEFProperties" type="cmn:docPropertyType" minOccurs="0">
 													<xs:annotation>
 														<xs:documentation>Реквизиты документа подтверждающего основание заключения договора. Игнорируется при приёме, заполняется заполняется из протокола проведения электронного аукциона  (protocolEF1). Заполняется при передаче </xs:documentation>
 													</xs:annotation>
@@ -1184,7 +1185,7 @@ TC - Орган местного самоуправления и (или) гос
 									</xs:element>
 									<xs:element name="contractorInfo" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Сведения о подрядной организации. Игнорируется при приёме, заполняется заполняется на основании протокола проведения электронного аукциона (protocolEF1). Заполняется при передаче </xs:documentation>
+											<xs:documentation>Сведения о подрядной организации. Игнорируется при приёме, заполняется на основании протокола проведения электронного аукциона (protocolEF2), если в протоколе-основании присутствуют сведения о подрядной организации. Заполняется при передаче. Не игнорируется при приеме в случае отсутствия сведений о подрядной организации в протоколе-основании</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:choice>
@@ -1206,7 +1207,7 @@ TC - Орган местного самоуправления и (или) гос
 																			<xs:documentation>Организационно-правовая форма организации в ОКОПФ. При приеме содержимое контролируется на  присутствие в справочнике "Общероссийский классификатор организационно-правовых форм (ОКОПФ)" (nsiOKOPF)</xs:documentation>
 																		</xs:annotation>
 																	</xs:element>
-																	<xs:element name="shortName" type="base:longTextType" minOccurs="0">
+																	<xs:element name="shortName" type="base:text2000Type" minOccurs="0">
 																		<xs:annotation>
 																			<xs:documentation>Сокращенное наименование организации</xs:documentation>
 																		</xs:annotation>
@@ -1285,7 +1286,7 @@ TC - Орган местного самоуправления и (или) гос
 																	<xs:documentation>ИНН</xs:documentation>
 																</xs:annotation>
 															</xs:element>
-															<xs:element name="factAddress" type="base:longTextType">
+															<xs:element name="factAddress" type="base:text2000Type">
 																<xs:annotation>
 																	<xs:documentation>Адрес места жительства</xs:documentation>
 																</xs:annotation>
@@ -1352,7 +1353,7 @@ TC - Орган местного самоуправления и (или) гос
 														<xs:documentation>Дата подведения результатов определения подрядной организации</xs:documentation>
 													</xs:annotation>
 												</xs:element>
-												<xs:element name="protocolPOProperties" type="docPropertyType">
+												<xs:element name="protocolPOProperties" type="cmn:docPropertyType">
 													<xs:annotation>
 														<xs:documentation>Реквизиты документа подтверждающего основание заключения договора</xs:documentation>
 													</xs:annotation>
@@ -1384,7 +1385,7 @@ TC - Орган местного самоуправления и (или) гос
 																			<xs:documentation>Организационно-правовая форма организации в ОКОПФ. При приеме содержимое контролируется на  присутствие в справочнике "Общероссийский классификатор организационно-правовых форм (ОКОПФ)" (nsiOKOPF)</xs:documentation>
 																		</xs:annotation>
 																	</xs:element>
-																	<xs:element name="shortName" type="base:longTextType" minOccurs="0">
+																	<xs:element name="shortName" type="base:text2000Type" minOccurs="0">
 																		<xs:annotation>
 																			<xs:documentation>Сокращенное наименование организации</xs:documentation>
 																		</xs:annotation>
@@ -1517,7 +1518,7 @@ TC - Орган местного самоуправления и (или) гос
 </xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="name" type="base:longTextType">
+									<xs:element name="name" type="base:text2000Type">
 										<xs:annotation>
 											<xs:documentation>Наименование источника финансирования</xs:documentation>
 										</xs:annotation>
@@ -1530,29 +1531,38 @@ TC - Орган местного самоуправления и (или) гос
 			</xs:element>
 			<xs:element name="enforcementInfo" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Обеспечение исполнения договора</xs:documentation>
+					<xs:documentation>Обеспечение исполнения контракта</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:choice>
-						<xs:element name="bankGuaranteeInfo">
-							<xs:annotation>
-								<xs:documentation>Банковская гарантия, выданная банком</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="regNumber" type="base:bankGuaranteeRegNumberType">
-										<xs:annotation>
-											<xs:documentation>Номер реестровой записи банковской гарантии</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-									<xs:element name="guaranteeAmount" type="base:moneyPositiveType">
-										<xs:annotation>
-											<xs:documentation>Сумма банковской гарантии в российских рублях</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
+						<xs:choice>
+							<xs:element name="bankGuaranteeInfo">
+								<xs:annotation>
+									<xs:documentation>Банковская гарантия, выданная банком</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="regNumber" type="base:bankGuaranteeRegNumberType">
+											<xs:annotation>
+												<xs:documentation>Номер реестровой записи банковской гарантии</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="guaranteeAmount" type="base:moneyPositiveType" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Сумма банковской гарантии в российских рублях.
+Игнорируется при приеме, автоматически заполняется при передаче  на основании реестровой записи  из реестра банковских гарантий</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="notPublishedOnEIS" type="xs:boolean" fixed="true">
+								<xs:annotation>
+									<xs:documentation>Информация о банковской гарантии, выданной банком, не будет размещена на официальном сайте ЕИС в соответствии с ч. 8.1 ст. 45 Федерального закона № 44-ФЗ.
+Игнорируется при приеме, заполняется при передаче, в случае если информация не должна быть размещена в открытой части ЕИС </xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:choice>
 						<xs:element name="amount" type="base:moneyPositiveType">
 							<xs:annotation>
 								<xs:documentation>Размер обеспечения исполнения договора в российских рублях</xs:documentation>
@@ -1572,7 +1582,7 @@ TC - Орган местного самоуправления и (или) гос
 								<xs:documentation>Значение цены договора в российских рублях</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="stagesInfo" minOccurs="1">
+						<xs:element name="stagesInfo">
 							<xs:annotation>
 								<xs:documentation>Этапы исполнения договора</xs:documentation>
 							</xs:annotation>
@@ -1609,7 +1619,7 @@ TC - Орган местного самоуправления и (или) гос
 </xs:documentation>
 																					</xs:annotation>
 																				</xs:element>
-																				<xs:element name="name" type="base:longTextType">
+																				<xs:element name="name" type="base:text2000Type">
 																					<xs:annotation>
 																						<xs:documentation>Наименование источника финансирования</xs:documentation>
 																					</xs:annotation>
@@ -1697,7 +1707,7 @@ TC - Орган местного самоуправления и (или) гос
 														<xs:documentation>Вид услуги или работы в соотвествии со ст. 166 Жилищного кодекса РФ. При приеме код контролируется на  присутствие в справочнике "Справочник: Предметы электронного аукциона по ПП РФ № 615" (nsiPurchaseSubject) элемента "Вид услуги или работы в соотвествии со ст. 166 Жилищного кодекса РФ" (nsiPurchaseSubject/servicesWorksSt166Info/serviceWorkSt166Info) для записи справочника с кодом предмета ЭА  данного документа</xs:documentation>
 													</xs:annotation>
 												</xs:element>
-												<xs:element name="serviceWorkKindSubjectRFNPAInfo" type="base:longTextType">
+												<xs:element name="serviceWorkKindSubjectRFNPAInfo" type="base:text2000Type">
 													<xs:annotation>
 														<xs:documentation>Другой вид услуги или работы в соотвествии с НПА субъекта РФ</xs:documentation>
 													</xs:annotation>
@@ -1726,6 +1736,11 @@ TC - Орган местного самоуправления и (или) гос
 					<xs:documentation>Электронный документ, полученный из внешней системы</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="scanAttachmentsInfo" type="attachmentListType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отсканированная копия договора или электронный договор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="attachmentsInfo" type="attachmentListType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Информация о прикрепленных документах</xs:documentation>
@@ -1737,14 +1752,19 @@ TC - Орган местного самоуправления и (или) гос
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="reasonInfo" type="base:longTextType">
+						<xs:element name="reasonInfo" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Основание для внесения изменений в договор</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="info" type="base:longTextType">
+						<xs:element name="info" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Описание условий договора, которые бвли изменены</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="attachmentsInfo" type="attachmentListType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Документы, являющиеся основанием изменения договора</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
@@ -1756,7 +1776,7 @@ TC - Орган местного самоуправления и (или) гос
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="fullNameSigner" type="base:longTextType" minOccurs="0">
+						<xs:element name="fullNameSigner" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>ФИО подписавшего</xs:documentation>
 							</xs:annotation>
@@ -1773,7 +1793,8 @@ TC - Орган местного самоуправления и (или) гос
 	</xs:complexType>
 	<xs:complexType name="contractProcedureType">
 		<xs:annotation>
-			<xs:documentation>Сведения об исполнении/расторжении договора о проведении капитального ремонта по ПП РФ № 615</xs:documentation>
+			<xs:documentation>Сведения об исполнении/расторжении договора о проведении капитального ремонта по ПП РФ № 615;
+ внесение изменений</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="id" type="xs:long" minOccurs="0">
@@ -1786,7 +1807,7 @@ TC - Орган местного самоуправления и (или) гос
 					<xs:documentation>Внешний идентификатор документа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="versionNumber" type="xs:int" minOccurs="0">
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер версии</xs:documentation>
 				</xs:annotation>
@@ -1829,7 +1850,7 @@ TC - Орган местного самоуправления и (или) гос
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
-												<xs:element name="prescriptionProperty" type="docPropertyType">
+												<xs:element name="prescriptionProperty" type="cmn:docPropertyType">
 													<xs:annotation>
 														<xs:documentation>Реквизиты документа</xs:documentation>
 													</xs:annotation>
@@ -1840,7 +1861,7 @@ TC - Орган местного самоуправления и (или) гос
 															<xs:documentation>Фактически оплачено в рублях</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="product" type="base:longTextType">
+													<xs:element name="product" type="base:text2000Type">
 														<xs:annotation>
 															<xs:documentation>Объем выполненных работ, оказанных услуг</xs:documentation>
 														</xs:annotation>
@@ -1864,7 +1885,7 @@ TC - Орган местного самоуправления и (или) гос
 </xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="prescriptionProperty" type="docPropertyType" minOccurs="0">
+									<xs:element name="prescriptionProperty" type="cmn:docPropertyType" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Реквизиты документа</xs:documentation>
 										</xs:annotation>
@@ -1885,7 +1906,7 @@ TC - Орган местного самоуправления и (или) гос
 														<xs:documentation>Причина расторжения договора из справочника. При приеме содержимое контролируется на  присутствие в справочнике "Справочник: Причины расторжения договора по капитальному ремонту ПП РФ № 615" (pprf615NsiTerminationReason)</xs:documentation>
 													</xs:annotation>
 												</xs:element>
-												<xs:element name="reasonUsingTextForm" type="base:longTextType">
+												<xs:element name="reasonUsingTextForm" type="base:text2000Type">
 													<xs:annotation>
 														<xs:documentation>Причина расторжения договора, введенная вручную</xs:documentation>
 													</xs:annotation>
@@ -1905,7 +1926,7 @@ TC - Орган местного самоуправления и (или) гос
 				</xs:annotation>
 				<xs:complexType>
 					<xs:choice>
-						<xs:element name="penaltyText" type="base:longTextType">
+						<xs:element name="penaltyText" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Неструкутурированная информация о начислении неустойки (штрафа, пени)</xs:documentation>
 							</xs:annotation>
@@ -1930,7 +1951,7 @@ F - Штраф;
 I - Пени.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="prescriptionProperty" type="docPropertyType">
+									<xs:element name="prescriptionProperty" type="cmn:docPropertyType">
 										<xs:annotation>
 											<xs:documentation>Наименование и реквизиты требования об уплате неустойки (штрафа, пени)</xs:documentation>
 										</xs:annotation>
@@ -1952,7 +1973,7 @@ I - Пени.</xs:documentation>
 													</xs:annotation>
 													<xs:complexType>
 														<xs:sequence>
-															<xs:element name="documentInfo" type="docPropertyType">
+															<xs:element name="documentInfo" type="cmn:docPropertyType">
 																<xs:annotation>
 																	<xs:documentation>Наименования и реквизиты платёжных документов</xs:documentation>
 																</xs:annotation>
@@ -1985,7 +2006,7 @@ I - Пени.</xs:documentation>
 													</xs:annotation>
 													<xs:complexType>
 														<xs:sequence>
-															<xs:element name="prescriptionProperty" type="docPropertyType">
+															<xs:element name="prescriptionProperty" type="cmn:docPropertyType">
 																<xs:annotation>
 																	<xs:documentation>Основание для возврата излишне уплаченной (взысканой) неустойки (штрафа, пени)</xs:documentation>
 																</xs:annotation>
@@ -2007,7 +2028,7 @@ I - Пени.</xs:documentation>
 																			</xs:annotation>
 																			<xs:complexType>
 																				<xs:sequence>
-																					<xs:element name="documentInfo" type="docPropertyType">
+																					<xs:element name="documentInfo" type="cmn:docPropertyType">
 																						<xs:annotation>
 																							<xs:documentation>Наименования и реквизиты платёжных документов</xs:documentation>
 																						</xs:annotation>
@@ -2061,7 +2082,7 @@ I - Пени.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="description" type="base:longTextType">
+						<xs:element name="description" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Описание изменений</xs:documentation>
 							</xs:annotation>
@@ -2099,7 +2120,7 @@ I - Пени.</xs:documentation>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="fullNameSigner" type="base:longTextType" minOccurs="0">
+						<xs:element name="fullNameSigner" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>ФИО подписавшего</xs:documentation>
 							</xs:annotation>
@@ -2137,7 +2158,7 @@ I - Пени.</xs:documentation>
 					<xs:complexContent>
 						<xs:extension base="contractDocCommonInfoType">
 							<xs:sequence>
-								<xs:element name="cancelDocType" type="base:longTextType" minOccurs="0">
+								<xs:element name="cancelDocType" type="base:text2000Type" minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>Тип отменяемого документа. Игнорируется при приёме, заполняется при передаче </xs:documentation>
 									</xs:annotation>
@@ -2152,12 +2173,12 @@ I - Пени.</xs:documentation>
 										<xs:documentation>Этап исполнения договора</xs:documentation>
 									</xs:annotation>
 								</xs:element>
-								<xs:element name="cancelReason" type="base:longTextType">
+								<xs:element name="cancelReason" type="base:text2000Type">
 									<xs:annotation>
 										<xs:documentation>Причина отмены</xs:documentation>
 									</xs:annotation>
 								</xs:element>
-								<xs:element name="prescriptionProperty" type="docPropertyType" minOccurs="0">
+								<xs:element name="prescriptionProperty" type="cmn:docPropertyType" minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>Реквизиты документа, подтверждающие основание отмены</xs:documentation>
 									</xs:annotation>
@@ -2199,7 +2220,7 @@ I - Пени.</xs:documentation>
 					<xs:documentation>Внешний идентификатор документа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="versionNumber" type="xs:int" minOccurs="0">
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер версии документа</xs:documentation>
 				</xs:annotation>
@@ -2220,7 +2241,7 @@ I - Пени.</xs:documentation>
 								<xs:documentation>Реестровый номер документа, размещаемого в составе реестровой записи</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="docName" type="base:longTextType">
+						<xs:element name="docName" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Наименование документа</xs:documentation>
 							</xs:annotation>
@@ -2230,7 +2251,7 @@ I - Пени.</xs:documentation>
 								<xs:documentation>Дата и время направления документа на размещение</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="discrepancyInfo" type="base:longTextType">
+						<xs:element name="discrepancyInfo" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Перечень выявленных несоответствий и (или) основания, по которым документы и информация не включены в реестр договоров</xs:documentation>
 							</xs:annotation>
@@ -2280,7 +2301,7 @@ I - Пени.</xs:documentation>
 											<xs:documentation>Номер договора о проведении капитального ремонта</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="versionNumber" type="xs:int" minOccurs="0">
+									<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Номер версии договора </xs:documentation>
 										</xs:annotation>
@@ -2293,9 +2314,9 @@ I - Пени.</xs:documentation>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="fullNameSigner" type="base:longTextType" minOccurs="0">
+						<xs:element name="fullNameSigner" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>ФИО подписавшего протокол</xs:documentation>
+								<xs:documentation>ФИО подписавшего</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
@@ -2371,7 +2392,7 @@ RESPONSIBLE_DECISION_CANCEL_CONTRACT - Расторжение договора �
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
-						<xs:element name="approveReason" type="base:longTextType" minOccurs="0">
+						<xs:element name="approveReason" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Основание для включения в РНПО</xs:documentation>
 							</xs:annotation>
@@ -2400,12 +2421,12 @@ RESPONSIBLE_DECISION_CANCEL_CONTRACT - Расторжение договора �
 								<xs:documentation>Код по Сводному Реестру. Должен быть заполнен в случае, если в поле regNum указано значение 00000000000</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="fullName" type="base:longTextType" minOccurs="0">
+						<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Полное наименование организации. Игнорируется при приеме, автоматически заполняется при передаче из справочника организаций nsiOrganization</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="postAddress" type="base:longTextType" minOccurs="0">
+						<xs:element name="postAddress" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Почтовый адрес организации. Игнорируется при приеме, автоматически заполняется при передаче из справочника организаций nsiOrganization</xs:documentation>
 							</xs:annotation>
@@ -2447,12 +2468,12 @@ UF - Юридическое лицо иностранного государст
 B - Индивидуальный предприниматель</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="fullName" type="base:longTextType">
+						<xs:element name="fullName" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Наименование юридического лица (фамилия, имя и отчество физического лица)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="firmName" type="base:longTextType" minOccurs="0">
+						<xs:element name="firmName" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Фирменное наименование </xs:documentation>
 							</xs:annotation>
@@ -2479,7 +2500,7 @@ B - Индивидуальный предприниматель</xs:documentatio
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
-												<xs:element name="names" type="base:longTextType">
+												<xs:element name="names" type="base:text2000Type">
 													<xs:annotation>
 														<xs:documentation>ФИО учредителей, членов коллегиальных исполнительных органов, лиц, исполняющих
 функции единоличного исполнительного органа юридического лица</xs:documentation>
@@ -2520,7 +2541,7 @@ B - Индивидуальный предприниматель</xs:documentatio
 								<xs:documentation>Идентификационный номер электронного аукциона</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="purchaseObjectInfo" type="base:longTextType" minOccurs="0">
+						<xs:element name="purchaseObjectInfo" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Наименование электронного аукциона</xs:documentation>
 							</xs:annotation>
@@ -2546,7 +2567,7 @@ B - Индивидуальный предприниматель</xs:documentatio
 								<xs:documentation>Предмет электронного аукциона. При приеме код контролируется на  присутствие в справочнике "Справочник: Предметы электронного аукциона по ПП РФ № 615" (nsiPurchaseSubject)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="documentInfo" type="docPropertyType" minOccurs="0">
+						<xs:element name="documentInfo" type="cmn:docPropertyType" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Реквизиты подтверждающего документа</xs:documentation>
 							</xs:annotation>
@@ -2632,7 +2653,7 @@ B - Индивидуальный предприниматель</xs:documentatio
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="basis" type="base:longTextType" minOccurs="0">
+						<xs:element name="basis" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Основание исключения из реестра</xs:documentation>
 							</xs:annotation>
@@ -2643,7 +2664,7 @@ B - Индивидуальный предприниматель</xs:documentatio
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="documentInfo" type="docPropertyType" maxOccurs="unbounded">
+									<xs:element name="documentInfo" type="cmn:docPropertyType" maxOccurs="unbounded">
 										<xs:annotation>
 											<xs:documentation>Реквизиты подтверждающего документа</xs:documentation>
 										</xs:annotation>
@@ -2718,7 +2739,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 								<xs:documentation>Дата поступления запроса на разъяснение</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="topic" type="base:longTextType">
+						<xs:element name="topic" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Тема запроса на разъяснение /
 краткое описание запроса на разъяснение</xs:documentation>
@@ -2733,7 +2754,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="name" type="base:longTextType">
+						<xs:element name="name" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Наименование (фамилия, имя, отчество)</xs:documentation>
 							</xs:annotation>
@@ -2757,7 +2778,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="purchaseObjectInfo" type="base:longTextType" minOccurs="0">
+						<xs:element name="purchaseObjectInfo" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Наименование объекта закупки</xs:documentation>
 							</xs:annotation>
@@ -2767,7 +2788,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 								<xs:documentation>Cпособ определения поставщика</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="fullNameResponsible" type="base:longTextType" minOccurs="0">
+						<xs:element name="fullNameResponsible" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Наименование организации, осуществляющей закупку</xs:documentation>
 							</xs:annotation>
@@ -2828,7 +2849,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 								<xs:documentation>Номер разъяснения</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="topic" type="base:longTextType">
+						<xs:element name="topic" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Тема разъяснения /
 краткое описание разъяснения</xs:documentation>
@@ -2848,7 +2869,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 								<xs:documentation>Номер запроса на разъяснение</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="question" type="base:longTextType">
+						<xs:element name="question" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Тема запроса на разъяснение</xs:documentation>
 							</xs:annotation>
@@ -2877,7 +2898,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="purchaseObjectInfo" type="base:longTextType" minOccurs="0">
+						<xs:element name="purchaseObjectInfo" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Наименование объекта закупки</xs:documentation>
 							</xs:annotation>
@@ -2887,7 +2908,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 								<xs:documentation>Cпособ определения поставщика</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="fullNameResponsible" type="base:longTextType" minOccurs="0">
+						<xs:element name="fullNameResponsible" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Закупку осуществляет</xs:documentation>
 							</xs:annotation>
@@ -2940,7 +2961,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 					<xs:documentation>Печатная форма документа в ЕИС. Элемент игнорируется при приёме. При передаче заполняется ссылкой на печатную форму  и электронную подпись размещенного в ЕИС документа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="extPrintFormInfo" type="extPrintFormType" minOccurs="1">
+			<xs:element name="extPrintFormInfo" type="extPrintFormType">
 				<xs:annotation>
 					<xs:documentation>Электронный документ, полученный из внешней системы</xs:documentation>
 				</xs:annotation>
@@ -2972,7 +2993,7 @@ ROLLBACK - Решение суда об отмене решения ФАС.</xs:
 											<xs:documentation>Организация, разместившая отмену протокола. При приеме содержимое контролируется на присутствие в справочнике "Сводный перечень заказчиков (СПЗ)" nsiOrganization</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="publisherRole" type="base:responsibleRoleType">
+									<xs:element name="publisherRole" type="base:responsibleRoleRKPOType">
 										<xs:annotation>
 											<xs:documentation>Роль организации:
 RPO - Орган, уполномоченный на ведение реестра квалифицированных подрядных организацийии тех-нического заказчика;
@@ -2983,7 +3004,7 @@ TC - Орган местного самоуправления и (или) гос
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="protocolName" type="base:longTextType" minOccurs="0">
+						<xs:element name="protocolName" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Наиенование отменяемого протокола</xs:documentation>
 							</xs:annotation>
@@ -3051,7 +3072,7 @@ TC - Орган местного самоуправления и (или) гос
 					<xs:documentation>Код типа источника финансирования</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="name" type="base:mediumTextType">
+			<xs:element name="name" type="base:text200Type">
 				<xs:annotation>
 					<xs:documentation>Наименование типа источника финансирования</xs:documentation>
 				</xs:annotation>
@@ -3078,7 +3099,7 @@ TC - Орган местного самоуправления и (или) гос
 					<xs:documentation>Код основания исключения сведений из реестра квалифицированных подрядных организаций</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="fullName" type="base:longTextType">
+			<xs:element name="fullName" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Наименование основания исключения сведений из реестра квалифицированных подрядных организаций</xs:documentation>
 				</xs:annotation>
@@ -3105,7 +3126,7 @@ TC - Орган местного самоуправления и (или) гос
 					<xs:documentation>Код</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="fullName" type="base:longTextType">
+			<xs:element name="fullName" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Полное наименование предмета электронного аукциона по ПП РФ № 615</xs:documentation>
 				</xs:annotation>
@@ -3127,7 +3148,7 @@ TC - Орган местного самоуправления и (или) гос
 											<xs:documentation>Код вида услуги или работы в соотвествии с ч. 1 ст. 166 Жилишного кодекса РФ</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="fullName" type="base:longTextType">
+									<xs:element name="fullName" type="base:text2000Type">
 										<xs:annotation>
 											<xs:documentation>Полное наименование вида услуги или работы в соответствии с ч. 1 ст. 166 Жилищного кодекса РФ</xs:documentation>
 										</xs:annotation>
@@ -3321,12 +3342,12 @@ TC - Орган местного самоуправления и (или) гос
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="deliveryTerm" type="base:longTextType">
+						<xs:element name="deliveryTerm" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Сроки выполнения работ и (или) оказания услуг</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="deliveryConditions" type="base:longTextType">
+						<xs:element name="deliveryConditions" type="base:text2000Type">
 							<xs:annotation>
 								<xs:documentation>Условия оплаты выполненных работ и (или) оказанных услуг</xs:documentation>
 							</xs:annotation>
@@ -3535,7 +3556,7 @@ TC - Орган местного самоуправления и (или) гос
 			<xs:documentation>Тип: Информация о проведении предварительного отбора</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="place" type="base:longTextType">
+			<xs:element name="place" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Место проведения процедуры</xs:documentation>
 				</xs:annotation>
@@ -3759,7 +3780,7 @@ TC - Орган местного самоуправления и (или) гос
 					<xs:documentation>Причина отказа. При приеме содержимое контролируется на  присутствие в справочнике "Справочник причин отказа в допуске" (nsiPurchaseRejectReason). Для записи должен быть элемент placingWays/placingWay/code со значением "EA615"</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="explanation" type="base:longTextType">
+			<xs:element name="explanation" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Обоснование решения об отказе в допуске участника</xs:documentation>
 				</xs:annotation>
@@ -3878,12 +3899,12 @@ CAdES-A</xs:documentation>
 			<xs:documentation>Тип: Предписание органа, уполномоченного на осуществление контроля</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="authorityName" type="base:longTextType">
+			<xs:element name="authorityName" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Наименование органа, уполномоченного на осуществление контроля</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="prescriptionProperty" type="docPropertyType">
+			<xs:element name="prescriptionProperty" type="cmn:docPropertyType">
 				<xs:annotation>
 					<xs:documentation>Реквизиты предписания контролирующего органа</xs:documentation>
 				</xs:annotation>
@@ -3966,7 +3987,7 @@ CAdES-A</xs:documentation>
 			<xs:documentation>Тип: Комиссии по размещению заказа (определению поставщика)</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="commissionName" type="base:longTextType">
+			<xs:element name="commissionName" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Название комиссии</xs:documentation>
 				</xs:annotation>
@@ -4014,12 +4035,12 @@ CAdES-A</xs:documentation>
 			<xs:documentation>Тип: Решение судебного органа</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="courtName" type="base:longTextType">
+			<xs:element name="courtName" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Наименование судебного органа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="decisionProperty" type="docPropertyType">
+			<xs:element name="decisionProperty" type="cmn:docPropertyType">
 				<xs:annotation>
 					<xs:documentation>Реквизиты документа</xs:documentation>
 				</xs:annotation>
@@ -4057,28 +4078,6 @@ CAdES-A</xs:documentation>
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
-	<xs:complexType name="docPropertyType">
-		<xs:annotation>
-			<xs:documentation>Тип: Реквизиты докумета</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="docName" type="base:docNameType">
-				<xs:annotation>
-					<xs:documentation>Наименование документа</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="docNumber" type="base:prescriptionNumberType">
-				<xs:annotation>
-					<xs:documentation>Номер документа</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="docDate" type="xs:date">
-				<xs:annotation>
-					<xs:documentation>Дата документа</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
 	<xs:complexType name="docType">
 		<xs:annotation>
 			<xs:documentation>Тип: Информация о типе документа в рамках закупки</xs:documentation>
@@ -4114,7 +4113,12 @@ CAdES-A</xs:documentation>
 			<xs:choice>
 				<xs:element name="content" type="xs:base64Binary">
 					<xs:annotation>
-						<xs:documentation>Содержимое файла электронного документа. Контролируется заполнение поля при приёме. Поле не заполняется при передаче</xs:documentation>
+						<xs:documentation>Содержимое файла электронного документа. Контролируется заполнение поля content или contentID при приёме. Поле не заполняется при передаче</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="contentId" type="base:guidType">
+					<xs:annotation>
+						<xs:documentation>Уникальный идентификатор контента прикрепленного документа в ЕИС. Поле не заполняется при передаче</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="url" type="base:hrefType">
@@ -4163,7 +4167,7 @@ CAdES-A</xs:documentation>
 					<xs:documentation>ИНН</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="factAddress" type="base:longTextType" minOccurs="0">
+			<xs:element name="factAddress" type="base:text2000Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Адрес места жительства</xs:documentation>
 				</xs:annotation>
@@ -4187,7 +4191,7 @@ CAdES-A</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:choice>
-			<xs:element name="deliveryPlace" type="base:longTextType">
+			<xs:element name="deliveryPlace" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Место</xs:documentation>
 				</xs:annotation>
@@ -4247,12 +4251,12 @@ CAdES-A</xs:documentation>
 			<xs:documentation>Тип: Юридическое лицо иностранного государства</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="fullName" type="base:longTextType">
+			<xs:element name="fullName" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Полное наименование организации</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="fullNameLat" type="base:longTextType" minOccurs="0">
+			<xs:element name="fullNameLat" type="base:text2000Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Полное наименование организации (латинскими буквами)</xs:documentation>
 				</xs:annotation>
@@ -4277,12 +4281,12 @@ CAdES-A</xs:documentation>
 					<xs:documentation>Страна регистрации. При приеме содержимое контролируется на  присутствие в справочнике "Общероссийский классификатор стран мира (ОКСМ)" (nsiOKSM)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="address" type="base:longTextType">
+			<xs:element name="address" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Адрес места нахождения в стране регистрации</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="placeOfStayInRF" type="base:longTextType" minOccurs="0">
+			<xs:element name="placeOfStayInRF" type="base:text2000Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Адрес места нахождения на территории РФ</xs:documentation>
 				</xs:annotation>
@@ -4294,7 +4298,7 @@ CAdES-A</xs:documentation>
 			<xs:documentation>Тип: Юридическое лицо РФ</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="fullName" type="base:longTextType">
+			<xs:element name="fullName" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Полное наименование организации</xs:documentation>
 				</xs:annotation>
@@ -4309,7 +4313,7 @@ CAdES-A</xs:documentation>
 					<xs:documentation>КПП</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="orgFactAddress" type="base:longTextType">
+			<xs:element name="orgFactAddress" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Адрес местонахождения организации</xs:documentation>
 				</xs:annotation>
@@ -4331,7 +4335,7 @@ CAdES-A</xs:documentation>
 					<xs:documentation>Номер документа. Элемент ингорируется при приёме. Заполняется при передаче номерод документа присвоенным в ЕИС</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="purchaseObjectInfo" type="base:longTextType">
+			<xs:element name="purchaseObjectInfo" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Наименование объекта закупки</xs:documentation>
 				</xs:annotation>
@@ -4505,7 +4509,7 @@ CAdES-A</xs:documentation>
 					<xs:documentation>Внешний идентификатор документа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="versionNumber" type="xs:int" minOccurs="0">
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер версии документа</xs:documentation>
 				</xs:annotation>
@@ -4523,7 +4527,7 @@ CAdES-A</xs:documentation>
 										<xs:documentation>Организация заказчика</xs:documentation>
 									</xs:annotation>
 								</xs:element>
-								<xs:element name="place" type="base:longTextType">
+								<xs:element name="place" type="base:text2000Type">
 									<xs:annotation>
 										<xs:documentation>Место составления акта</xs:documentation>
 									</xs:annotation>
@@ -4565,12 +4569,12 @@ CAdES-A</xs:documentation>
 											<xs:documentation>Запись реестра квалифицированных подрядных организаций для участника. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="fullName" type="base:longTextType" minOccurs="0">
+									<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Полное наименование организации. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="orgFactAddress" type="base:longTextType" minOccurs="0">
+									<xs:element name="orgFactAddress" type="base:text2000Type" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Адрес местонахождения организации. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
@@ -4599,12 +4603,12 @@ CAdES-A</xs:documentation>
 											<xs:documentation>Запись реестра квалифицированных подрядных организаций для участника. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="fullName" type="base:longTextType" minOccurs="0">
+									<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Полное наименование организации. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="fullNameLat" type="base:longTextType" minOccurs="0">
+									<xs:element name="fullNameLat" type="base:text2000Type" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Полное наименование организации (латинскими буквами). Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
@@ -4619,12 +4623,12 @@ CAdES-A</xs:documentation>
 											<xs:documentation>Страна регистрации. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="address" type="base:longTextType" minOccurs="0">
+									<xs:element name="address" type="base:text2000Type" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Адрес места нахождения в стране регистрации. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="placeOfStayInRF" type="base:longTextType" minOccurs="0">
+									<xs:element name="placeOfStayInRF" type="base:text2000Type" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Адрес места нахождения на территории РФ. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
@@ -4653,7 +4657,7 @@ CAdES-A</xs:documentation>
 											<xs:documentation>Фамилия, имя, отчество индивидуального предпринимателя. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="factAddress" type="base:longTextType" minOccurs="0">
+									<xs:element name="factAddress" type="base:text2000Type" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Адрес места жительства. Игнорируется при приеме, автоматически заполняется при передаче по ИНН, КПП (при наличии) из протокола проведения электронного аукциона protocolEF2</xs:documentation>
 										</xs:annotation>
@@ -4701,7 +4705,7 @@ CAdES-A</xs:documentation>
 					<xs:documentation>Основание отмены</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="addInfo" type="base:longTextType" minOccurs="0">
+			<xs:element name="addInfo" type="base:text2000Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Дополнительная информация</xs:documentation>
 				</xs:annotation>
@@ -4829,12 +4833,12 @@ CAdES-A</xs:documentation>
 					<xs:documentation> Код по Сводному Реестру. Должен быть заполнен в случае, если в поле regNum указано значение 00000000000</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="fullName" type="base:longTextType" minOccurs="0">
+			<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Полное наименование</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="shortName" type="base:longTextType" minOccurs="0">
+			<xs:element name="shortName" type="base:text2000Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Сокращенное наименование организации. Игнорируется при приеме, автоматически заполняется при передаче из справочика организаций nsiOrganization</xs:documentation>
 				</xs:annotation>
@@ -4993,7 +4997,7 @@ CAdES-A</xs:documentation>
 								</xs:complexContent>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="purchaseObjectInfo" type="base:longTextType" minOccurs="0">
+						<xs:element name="purchaseObjectInfo" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Наименование объекта закупки</xs:documentation>
 							</xs:annotation>
@@ -5013,7 +5017,7 @@ CAdES-A</xs:documentation>
 			<xs:documentation>Тип: Внесение исправлений в документ закупки</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="info" type="base:longTextType">
+			<xs:element name="info" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Краткое описание изменения</xs:documentation>
 				</xs:annotation>
@@ -5040,7 +5044,7 @@ CAdES-A</xs:documentation>
 					<xs:documentation>Внешний идентификатор документа.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="versionNumber" type="xs:int" minOccurs="0">
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер версии документа</xs:documentation>
 				</xs:annotation>
@@ -5107,7 +5111,7 @@ CAdES-A</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="NPA" type="base:longTextType" minOccurs="0">
+						<xs:element name="NPA" type="base:text2000Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Сведения о нормативном правовом акте субъекта РФ, в котором установлен перечень дополнительных видов работ по капитальному ремонту</xs:documentation>
 							</xs:annotation>
@@ -5132,7 +5136,7 @@ CAdES-A</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="serviceWorkKindSubjectRFNPA" type="base:longTextType" maxOccurs="unbounded">
+									<xs:element name="serviceWorkKindSubjectRFNPA" type="base:text2000Type" maxOccurs="unbounded">
 										<xs:annotation>
 											<xs:documentation>Другой вид услуги или работы в соотвествии с НПА субъекта РФ</xs:documentation>
 										</xs:annotation>
@@ -5176,7 +5180,7 @@ CAdES-A</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="serviceWorkKindSubjectRFNPA" type="base:longTextType" maxOccurs="unbounded">
+									<xs:element name="serviceWorkKindSubjectRFNPA" type="base:text2000Type" maxOccurs="unbounded">
 										<xs:annotation>
 											<xs:documentation>Другой вид услуги или работы в соотвествии с НПА субъекта РФ</xs:documentation>
 										</xs:annotation>
@@ -5204,12 +5208,12 @@ CAdES-A</xs:documentation>
 					<xs:documentation>Код по Сводному Реестру. Должен быть заполнен в случае, если в поле regNum указано значение 00000000000</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="fullName" type="base:longTextType" minOccurs="0">
+			<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Полное наименование организации. Игнорируется при приеме, автоматически заполняется при передаче из справочника организаций nsiOrganization</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="postAddress" type="base:longTextType" minOccurs="0">
+			<xs:element name="postAddress" type="base:text2000Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Почтовый адрес организации. Игнорируется при приеме, автоматически заполняется при передаче из справочника организаций nsiOrganization</xs:documentation>
 				</xs:annotation>
@@ -5246,7 +5250,7 @@ CAdES-A</xs:documentation>
 					<xs:documentation>Внешний идентификатор документа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="versionNumber" type="xs:int" minOccurs="0">
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер версии документа. Если значение поля не указано, то считается, что версия документа 1</xs:documentation>
 				</xs:annotation>
@@ -5288,12 +5292,12 @@ CAdES-A</xs:documentation>
 			<xs:documentation>Тип: Отказ от заключения контракта</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="foundation" type="base:longTextType">
+			<xs:element name="foundation" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Сведения о фактах, являющихся основанием для принятия решения</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="voucherEntry" type="base:longTextType">
+			<xs:element name="voucherEntry" type="base:text2000Type">
 				<xs:annotation>
 					<xs:documentation>Реквизиты подтверждающих документов</xs:documentation>
 				</xs:annotation>

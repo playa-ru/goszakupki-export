@@ -1,12 +1,923 @@
-Р’РµСЂСЃРёСЏ 8.1.7
+Версия 8.3
 
 
-===========================================================================================Integration615Types.xsd=================================================================================================================================
+FCSNF-5534 Интеграция проектов контрактов. Прием из внешних систем электронных документов, подтверждающих исполнение контракта
 
-1. Р’ С‚РёРїРµ "РўРёРї: Р®СЂРёРґРёС‡РµСЃРєРѕРµ Р»РёС†Рѕ РёРЅРѕСЃС‚СЂР°РЅРЅРѕРіРѕ РіРѕСЃСѓРґР°СЂСЃС‚РІР°" (legalEntityForeignStateType)
-  - РїРѕР»Рµ "РРќРќ" (INN) СЃРґРµР»Р°РЅРѕ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рј
+Создана схема IntegrationCPTypes.xsd
 
-===========================================================================================IntegrationTypes.xsd=================================================================================================================================
+FCSNF-6233 Интеграция РБГ. Выгрузка данных РБГ через web-сервис
 
-1. Р’ С‚РёРїРµ "РЎРїСЂР°РІРѕС‡РЅРёРє РѕСЂРіР°РЅРёР·Р°С†РёР№" (zfcs_nsiOrganizationType)
-   - РїРѕР»Рµ "РљРѕРґ РћРљРџРћ" (OKPO) СЃРґРµР»Р°РЅРѕ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рј
+Создана схема docs-https-api.xsd
+
+
+===========================================================================================Base.xsd===============================================================================================================================
+
+1.Добавлены следующие типы:
+  - "Тип:Период, в течении которого заключен контракт до даты подачи заявки" (contractPeriodEnum)
+  - "Тип:Роль организации, разместившей контракт" (placerRoleContractProjectEnum)
+  
+  - "Тип: Код ОКФС"  (okfsCodeType)
+  - "Тип: Код ОКТМО" (oktmoCodeType)
+  - "Тип: Код ОКВ" (currencyCodeType)  
+  - "Тип: Код бюджета" (budgetCodeType)
+  - "Тип: Текстовое поле 50 символов" (text50Type)
+  - "Тип: Текстовое поле 100 символов" (text100Type)
+   
+
+2. Тип "Тип: Роль организации, осуществляющей закупку" (responsibleRoleType) переименован в "Тип: Роль организации, осуществляющей закупку РКПО ПП РФ № 615" (responsibleRoleRKPOType)
+
+
+3. Добавлены следующие типы:
+   "Тип: Документы для контроля по 99 статье" (control99DocumentTypeEnum)
+   "Ссылка на справочник "Обоснования изменения цены контратка" (changePriceFoundationRef)
+   "Тип: Код обоснования изменения цены контратка" (changePriceFoundationNumType)
+
+   - "Тип: ИКУ" (ikuType);
+   - "Тип: Текстовое поле 1000 символов" (text1000Type)
+   - "Ссылка на ОКФС" (OKFSRef)
+   - "Ссылка на Код и наименование бюджета в контракте" (budgetFundsContractRef)
+   - "Ссылка на ОКТМО" (OKTMORef)
+   - "Ссылка на ОКТМО ППО (Справочник ZAKUPKI_DEV.NSI_PPO)" (OKTMOPPORef)
+
+4. В типе "Ссылка на справочник Причины признания участника уклонившимся от заключения контракта" (deviationFactFoundationRef)
+   - у поля "Наименование причины признания участника уклонившимся" (name) изменен тип на text1000Type
+
+5. У типа "Тип: Наименование товара, работы или услуги" (okpdNameType) изменен тип на text2000Type
+
+6. Создан тип "Ссылка на ОКЕИ в Реестре контрактов" (contractOKEIRef)
+
+FCSNF-5740 Интеграция ПРИЗ: Доработка функций формирования и размещения извещений в части указания соответствующей части статьи 15 Закона №44-ФЗ при осуществлении закупок в соответствии с ч.4-6 ст.15. 44-ФЗ
+
+7. Добавлен новый тип "Особенности осуществления закупки в соответствии с ч. 4-6 ст. 15 Закона № 44-ФЗ" (article15PartsType)
+
+FCSNF-5956 Интеграция РПГ, ПРИЗ, РК. Усложение "ручной" корректировки лекарств
+
+8. Добавлен тип "Ссылка на справочник: Причины корректировки справочных данных о лекарственных препаратах" (drugChangeReasonRef) 
+
+
+FCSNF-5959 Интеграция РК. Доработка по исполнениям по лекарствам
+
+9. Добавлен тип "Тип: Ставка НДС, процентов" (VATRateEnum)
+
+FCSNF-6417 Интеграция. Изменение формата поля "Количество"
+
+10. Добавлен тип "Тип: Количество с 18 знаками до запятой и 11 знаками после запятой" (quantity18p11Type)
+
+FCSNF-6467 Интеграция. Выгрузка справочников на FTP и в составе masterData
+
+11. Добавлен тип "Тип: СНИЛС" (SNILSType)
+
+FCSNF-6196 Интеграция ПРИЗ. Доработки по НМЦК в валюте
+
+12. Создан новый тип "Ссылка на справочник "Список валют, курс на которые устанавливается ЦБ РФ" (nsiContractCurrencyCBRF)" (currencyCBRFRef)
+
+FCSNF-5541 Интеграция КТРУ. Загрузка сведений из отраслевых классификаторов
+
+13. Создан тип "Тип КТРУ: Код в классификаторе" (ktruClassifierCodeType)
+
+
+===========================================================================================CommonTypes.xsd===============================================================================================================================
+
+1. Добавлены типы:
+
+   - "Тип: Данные организации" (organizationType);
+   - "Тип: Сведения об органе контроля для контроля по 99 статье" (control99ControlAuthorityInfoType);
+   - "Тип: Сведения о заказчике в ПЗ/ПГ для контроля по 99 статье" (control99CustomerInfoType);
+   - "Тип: Платежные реквизиты" (paymentPropertysType);
+
+FCSNF-6256 : Интеграция. ПРИЗ. Доработки интеграции на 8.3
+
+2. В типе "Тип: Электронный документ, полученный из внешней системы" (extPrintFormType) в чойсе добавлено обязательное поле "Уникальный идентификатор контента прикрепленного документа на ЕИС" (contentId)
+
+https://fk.jira.lanit.ru/browse/FCS-81331
+
+3. В тип "Тип: Комиссии по размещению заказа (определению поставщика)" (commissionType)
+   - добавлено поле "Дополнительная информация" (addInfo)
+
+4. Удалены типы: 
+   - "Тип: Платежные реквизиты" (accountType);
+
+5. В типе "Тип: Сведения об объектах закупки в том случае, когда объектами закупки являются лекарственные препараты (ПРИЗ)" (purchaseDrugObjectsInfoType):
+   - у элемента "Обоснование необходимости указания сведений об упаковке лекарственного препарата" 
+     (drugPurchaseObjectInfo/objectInfoUsingReferenceInfo/mustSpecifyDrugPackage/specifyDrugPackageReason) изменен тип на "Текст 4000 символов" (base:text4000Type)
+   - У элемента "Обоснование необходимости указания сведений об упаковке лекарственного препарата" 
+     (drugPurchaseObjectInfo/objectInfoUsingTextForm/mustSpecifyDrugPackage/specifyDrugPackageReason) изменен тип на "Текст 4000 символов" (base:text4000Type)
+
+FCSNF-5956 Интеграция РПГ, ПРИЗ, РК. Усложение "ручной" корректировки лекарств
+
+6. Добавлен тип "Информация, указываемая при ручном изменении лекарственного препарата" (drugChangeInfoType)
+
+7. В типе "Тип: Сведения о МНН, ТН, лекарственной форме и дозировке в случае когда информация о лекарственных препаратах формируется в текстовой форме" (drugInfoUsingTextFormType):
+   - Добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата" (MNNInfo/drugChangeInfo);
+   - Добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата" (tradeInfo/drugChangeInfo);
+   - Добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата" (drugChangeInfo)
+
+
+FCSNF-6196 Интеграция ПРИЗ. Доработки по НМЦК в валюте
+
+8. Добавлен новый тип "Тип: НМЦК в валюте контракта" (purchaseIsMaxPriceCurrencyType)
+
+9. В типе "Тип: Сведения об объектах закупки в том случае, когда объектами закупки являются лекарственные препараты (ПРИЗ)" (purchaseDrugObjectsInfoType) 
+   - добавлено необязательное поле "Общая сумма позиций в валюте контракта" (totalSumCurrency) 
+
+10. В типе "Тип: Информация по объектам закупки, не являющимся лекарственными препаратами" (purchaseObjectsType) 
+    - добавлено необязательное поле "Общая сумма позиций в валюте контракта" (totalSumCurrency) 
+
+11. В типе "Тип: Реквизиты документа" (docPropertyType) у поля docNumber изменен тип на base:docNumberType
+
+https://fk.jira.lanit.ru/browse/FCS-83071
+
+12. В тип "Тип: Информация по объектам закупки, не являющимся лекарственными препаратами" (purchaseObjectsType)
+
+    - добавлено поле "Функциональные, технические, качественные характеристики, эксплуатационные характеристики" (purchaseObject/OKPD2/addCharacteristics)
+
+FCSNF-6417 Интеграция. Изменение формата поля "Количество"
+
+13. В типе "Тип: Информация по объектам закупки, не являющимся лекарственными препаратами" (purchaseObjectsType)
+    
+    - у полей "Количество для заказчика" (purchaseObject/customerQuantities/customerQuantity/quantity), "Количество" (purchaseObject/quantity/value)
+       изменен тип на base:quantity18p11Type
+
+   В типе "Тип: Сведения об объектах закупки в том случае, когда объектами закупки являются лекарственные препараты (ПРИЗ)" (purchaseDrugObjectsInfoType) 
+   
+   - у полей "Количество" (drugPurchaseObjectInfo/drugQuantityCustomersInfo/drugQuantityCustomerInfo/quantity), "Всего" (drugPurchaseObjectInfo/drugQuantityCustomersInfo/total)
+     "Количество (объем) закупаемого лекарственного препарата" (drugPurchaseObjectInfo/objectInfoUsingReferenceInfo/drugsInfo/drugInfo/drugQuantity),
+     "Количество (объем) закупаемого лекарственного препарата" (drugPurchaseObjectInfo/objectInfoUsingTextForm/drugsInfo/drugInfo/drugQuantity)
+    
+      изменен тип на base:quantity18p11Type
+    
+===========================================================================================IntegrationTypes.xsd===============================================================================================================================
+
+FCSNF-5888 Интеграция проектов контрактов. Доработка выгрузки НСИ
+
+1. Добавлен тип "Обоснование изменения цены контракта в проекте контракта" (zfcs_nsiChangePriceFoundationType)
+
+2. В тип "Набор элементов справочников и классификаторов" (zfcs_masterDataType):
+   - добавлен элемент "Обоснование изменения цены контракта в проекте контракта" (cpNsiChangePriceFoundation)
+
+FCSNF-6070 Интеграция ОЗ. Учет закрытия информации
+
+3. В типе "Отчет об исполнении контракта (результатах отдельного этапа исполнения контракта)" (zfcs_customerReportContractExecutionType)
+
+   - к блоку "Поставщик" (/suppliers/supplier) добавлен choice 
+   - добавлено поле "Информация не будет размещена на официальном сайте ЕИС в соответствии с ч. 5 ст. 103 Федерального закона № 44-ФЗ" (/suppliers/supplier/notPublishedOnEIS)
+   
+4. В типе "Общая информация отчета заказчика и недействительности" (zfcs_customerReportBaseType)
+
+   - у блока "Копии документов" (attachments) убран тип на zfcs_attachmentListType
+   - добавлен блок attachment, choice к нему
+   - добавлено поле "Информация не будет размещена на официальном сайте ЕИС в соответствии с ч. 5 ст. 103 Федерального закона № 44-ФЗ" (attachments/attachment/notPublishedOnEIS)
+
+5. В типе "Тип: Ссылка на валюту" (zfcs_currencyRef) у поля code изменен тип на base:currencyCodeType. У поля name изменен тип на base::text50Type.
+
+   В типе "Тип: Ссылка на КТРУ" (zfcs_KTRURef) у поля code изменен тип на base:ktruCodeType. У поля name изменен тип на base:text2000Type
+
+   Удален тип "Тип КТРУ: Код позиции" (zfcs_KTRUCodeType). В тексте ссылки на тип zfcs_KTRUCodeType заменены на тип base:ktruCodeType
+
+   В типе "Тип: Ссылка на Код и наименование бюджета в контракте" (zfcs_budgetFundsContract2015) у поля code изменен тип на base:budgetCodeType. У поля name изменен тип на base:text2000Type
+
+   В типе "Тип: Ссылка на справочник: Случаи заключения контракта жизненного цикла" (zfcs_tenderPlan2017ContractLifeCycleCaseRef) у поля code изменен тип на base:contractLifeCycleCaseCodeType. У поля name изменен тип на base:text2000Type
+
+   В типе "Тип: Причина признания участника уклонившимся от заключения контракта" (zfcs_deviationFactFoundation) у поля code изменен тип на base:deviationFactFoundationCodeType. У поля name изменен тип на base:text1000Type
+ 
+   В типе "Тип: Электронная торговая площадка" (zfcs_ETPType) у поля code изменен тип на base:etpCodeType. У поля name изменен тип на base:text200Type. У поля url изменен тип на base:hrefType
+
+   В типе "Тип: Ссылка на ОКОПФ" (zfcs_okopfRef)  У поля name изменен тип на base:text2000Type.
+
+   В типе "Тип: Ссылка на ОКПД2" (zfcs_OKPD2Ref) У поля code изменен тип на base:okpdCodeType. У поля name изменен тип на base:okpdNameType.
+
+   В типе "Тип: Ссылка на ОКЕИ" (zfcs_OKEIRef)  У поля code изменен тип на base:okeiCodeType. У поля name изменен тип на base:text1000Type
+
+   В типе "Тип: Ссылка на ОКЕИ в Реестре контрактов" (zfcs_contract.OKEIType ) у поля code изменен тип на base:okeiCodeType. У поля name изменен тип на base:text1000Type
+
+   В типе "Тип: Ссылка на ОКСМ" (zfcs_OKSMRef)  У поля countryCode изменен тип на base:countryCodeType. У поля countryFullName изменен тип на base:text200Type
+
+   В типе "Тип: Ссылка на ОКФС" (zfcs_OKFSRef)  У поля name изменен тип на base:text2000Type
+
+   В типе "Тип: Ссылка на ОКТМО" (zfcs_OKTMORef)  У поля code изменен тип на base:oktmoCodeType. У поля name изменен тип на base:text1000Type
+
+   В типе "Тип: Ссылка на ОКТМО ППО" (zfcs_OKTMOPPORef)  У поля code изменен тип на base:oktmoCodeType. У поля name изменен тип на base:text2000Type
+
+   В типе "Тип: Ссылка на организацию" (zfcs_organizationRef) п У поля regNum изменен тип на base:spzNumType. У поля consRegistryNum изменен тип на base:consRegistryNumType  У поля fullName изменен тип на base:text2000Type
+
+   Тип "Тип: Подспособ определения поставщика" (zfcs_placingWayType) У поля code изменен тип на base:placingWayCodeType. У поля name изменен тип на base:text500Type
+
+   Удален тип "Вид органа" (zfcs_modification.authorityType)
+   В тексте ссылки на тип zfcs_modification.authorityType заменены на тип base:authorityType
+
+   Удален тип "Тип: Номер реестровой записи банковской гарантии" (zfcs_bankGuaranteeRegNumberType)
+   В тексте ссылки на тип zfcs_bankGuaranteeRegNumberType заменены на тип base:bankGuaranteeRegNumberType
+
+   Удален тип "Тип: Номер бюджетного обязательства" (zfcs_control99BONumber)
+   В тексте ссылки на тип zfcs_control99BONumber заменены на тип base:boNumberType
+
+   Удален тип "БИК" (zfcs_bikType)
+   В тексте ссылки на тип zfcs_bikType заменены на тип base:bikType
+
+   Удален тип "Результат приема пакета" (zfcs_confirmationResultType)
+   В тексте ссылки на тип zfcs_confirmationResultType заменены на тип base:confirmationResultType
+
+   Удален тип "Код по Сводному реестру" (zfcs_consRegistryNumType)
+   В тексте ссылки на тип zfcs_consRegistryNumType заменены на тип base:consRegistryNumType
+
+   Удален тип "Сторона в контракте" (zfcs_contractPartyType)
+   В тексте ссылки на тип zfcs_contractPartyType заменены на тип base:contractPartyTypeEnum
+
+   Удален тип "Тип: Документы для контроля по 99 статье" (zfcs_control99DocumentType)
+   В тексте ссылки на тип zfcs_control99DocumentType заменены на тип base:control99DocumentTypeEnum
+
+   Удален тип "Реестровый номер результата контроля, сформированный контрольным органом" (zfcs_checkResultNumberType)
+   В тексте ссылки на тип zfcs_checkResultNumberType заменены на тип base:checkResultNumberType
+
+   Удален тип "Тип: Уникальный код в справочнике для справочника "Лекарственные препараты"" (zfcs_nsiFarmDrugDictExternalCodeType)
+   В тексте ссылки на тип zfcs_nsiFarmDrugDictExternalCodeType заменены на тип base:drugExternalCodeType
+
+   Удален тип "Тип: Наименование для справочника "Лекарственные препараты"" (zfcs_nsiFarmDrugDictNameType, zfcs_contract2015DrugDictNameType)
+   В тексте ссылки на тип zfcs_nsiFarmDrugDictNameType, zfcs_contract2015DrugDictNameType заменены на тип base:drugNameType
+
+   Удален тип "Тип:Количество лекарственных форм в первичной упаковке в справочнике "Лекарственные препараты"" (zfcs_contract2015DrugPackaging1QuantityType)
+   В тексте ссылки на тип zfcs_contract2015DrugPackaging1QuantityType заменены на тип base:drugPackaging1QuantityType
+
+   Удален тип "Тип:Количество лекарственных форм во вторичной (потребительской) упаковке в справочнике "Лекарственные препараты"" (zfcs_contract2015DrugPackaging2QuantityType)
+   В тексте ссылки на тип zfcs_contract2015DrugPackaging2QuantityType заменены на тип base:drugPackaging2QuantityType
+
+   Удален тип "Количество лекарственных форм во вторичной (потребительской) упаковке в справочнике "Лекарственные препараты"" (zfcs_contract2015DrugSumaryPackagingQuantityType)
+   В тексте ссылки на тип zfcs_contract2015DrugSumaryPackagingQuantityType заменены на тип base:drugSumaryPackagingQuantityType
+
+   Удален тип "Адрес электронной почты" (zfcs_eMailType), eMailType, zfcs_complaintEMailType
+   В тексте ссылки на тип zfcs_eMailType, eMailType, zfcs_complaintEMailType  заменены на тип base:eMailType
+
+   Удален тип "Внешний идентификатор" (zfcs_externalIdType)
+   В тексте ссылки на тип zfcs_externalIdType заменены на тип base:externalIdType
+
+   Удален тип "Глобальный идентификатор" (zfcs_guidType)
+   В тексте ссылки на тип zfcs_guidType заменены на тип base:guidType
+
+   Удален тип "Тип: Гиперссылка" (zfcs_hrefType)
+   В тексте ссылки на тип zfcs_hrefType заменены на тип base:hrefType
+
+   Удален тип "ИНН" (zfcs_innOrganizationType)
+   В тексте ссылки на тип zfcs_innOrganizationType заменены на тип base:innOrganizationType
+
+   Удален тип "ИНН" (zfcs_innType)
+   В тексте ссылки на тип zfcs_innType заменены на тип base:innType
+
+   Удален тип "Индивидуальный код закупки (ИКЗ)" (zfcs_IKZCodeType)
+   В тексте ссылки на тип zfcs_IKZCodeType заменены на тип base:ikzCodeType
+
+   Удален тип "ИКУ" (zfcs_ikuType)
+   В тексте ссылки на тип zfcs_ikuType заменены на тип base:ikuType
+
+   Удален тип "Значение показателя критерия оценки заявок участников" (zfcs_indicatorValueType)
+   В тексте ссылки на тип zfcs_indicatorValueType заменены на тип base:indicatorValueType
+
+   Удален тип Номер заявки" (zfcs_journalNumberType)
+   В тексте ссылки на тип zfcs_journalNumberType заменены на тип base:journalNumberType
+
+   Удален типы "КБК" (zfcs_kbkType), "КБК с 01.01.2016" (zfcs_kbk2016Type)
+   В тексте ссылки на тип zfcs_kbkType, zfcs_kbk2016Type заменены на тип base:kbkType
+
+   Удален тип "ИНН физического лица РФ" (zfcs_innPersonType)
+   В тексте ссылки на тип zfcs_innPersonType заменены на тип base:innIndividualType
+
+   Удален тип "КПП" (zfcs_kppType), kppType
+   В тексте ссылки на тип zfcs_kppType, kppType заменены на тип base:kppType
+
+   Удален тип "Тип КТРУ: Тип характеристики позиции КТРУ" (zfcs_KTRUCharacteristicTypeType)
+   В тексте ссылки на тип zfcs_KTRUCharacteristicTypeType заменены на тип base:ktruCharacteristicTypeType
+
+   Удален тип "Наименование стандарта (поле является частью ключа, идентифицирующего регламент или стандарт)" (zfcs_KTRUDictNameType)
+   В тексте ссылки на тип zfcs_KTRUDictNameType заменены на тип base:ktruDictNameType
+
+   Удален тип "Тип КТРУ: Код в справочнике" (zfcs_KTRUDictCodeType)
+   В тексте ссылки на тип zfcs_KTRUDictCodeType заменены на тип base:ktruDictCodeType
+
+   Удален тип "Тип КТРУ: Вид характеристики позиции КТРУ" (zfcs_KTRUCharacteristicKindType)
+   В тексте ссылки на тип zfcs_KTRUCharacteristicKindType заменены на тип base:ktruCharacteristicKindType
+
+   Удален тип "Тип КТРУ: Математическое обозначение отношения к минимальному значению диапазона" (zfcs_KTRUMinMathNotationType)
+   В тексте ссылки на тип zfcs_KTRUMinMathNotationType  заменены на тип base:ktruMinMathNotationType
+
+   Удален тип "Тип КТРУ: Математическое обозначение отношения к максимальному значению диапазона" (zfcs_KTRUMaxMathNotationType)
+   В тексте ссылки на тип zfcs_KTRUMaxMathNotationType заменены на тип base:ktruMaxMathNotationType
+
+   Удален тип "Тип: Порядок оценки по показателю" (zfcs_measurementOrderEnum)
+   В тексте ссылки на тип zfcs_measurementOrderEnum заменены на тип base:measurementOrderEnum
+
+   Удален тип "Сумма" (zfcs_moneyType)
+   В тексте ссылки на тип zfcs_moneyType заменены на тип base:moneyType
+
+   Удален тип "Неотрицательная сумма" (zfcs_moneyPositiveType)
+   В тексте ссылки на тип zfcs_moneyPositiveType заменены на тип base:moneyPositiveType
+
+   Удален тип "Неотрицательная сумма c максимальной длиной до точки 18 символов" (zfcs_moneyMaxLengthToPoint18Type)
+   В тексте ссылки на тип zfcs_moneyMaxLengthToPoint18Type заменены на тип base:moneyMaxLengthToPoint18Type
+
+   Удален тип "Номер месяца" (zfcs_monthType)
+   В тексте ссылки на тип zfcs_monthType заменены на тип base:monthType
+
+   Удален тип "ОГРН" (zfcs_ogrnType)
+   В тексте ссылки на тип zfcs_ogrnType заменены на тип base:ogrnCodeType
+
+   Удален тип "Статусы поставщика" (zfcs_participantStatusType)
+   В тексте ссылки на тип zfcs_participantStatusType заменены на тип base:participantStatusType
+
+   Удален тип "Лицевой счет" (zfcs_personalAccountType), personalAccountType
+   В тексте ссылки на тип zfcs_personalAccountType заменены на тип base:personalAccountType
+
+   Удален тип "Номер телефона/факса" (zfcs_phoneType), phoneType
+   В тексте ссылки на тип zfcs_phoneType заменены на тип base:phoneType
+
+   Удален тип "Код способа размещения заказа (определения поставщика)" (zfcs_nsiPlacingWayCodeType)
+   В тексте ссылки на тип zfcs_nsiPlacingWayCodeType заменены на тип base:placingWayCodeType
+
+   Удален тип "Номер предписания" (zfcs_prescriptionNumberType)
+   В тексте ссылки на тип zfcs_prescriptionNumberType заменены на тип base:prescriptionNumberType
+
+   Удален тип "Краткое наименование преимущества (требования)" (zfcs_prefsReqsShortNameType)
+   В тексте ссылки на тип zfcs_prefsReqsShortNameType  заменены на тип base:prefsReqsShortNameType
+
+   Удален тип "Тип файла печатной формы" (zfcs_printFormFileType)
+   В тексте ссылки на тип zfcs_printFormFileType заменены на тип base:printFormFileType
+
+   Удален тип "Реестровый номер общественного обсуждения" (zfcs_publicDiscussionNumType)
+   В тексте ссылки на тип zfcs_publicDiscussionNumType заменены на тип base:publicDiscussionNumType
+
+   Удален тип "Место проведения общественного обсуждения" (zfcs_publicDiscussionPlaceEnum)
+   В тексте ссылки на тип zfcs_publicDiscussionPlaceEnum заменены на тип base:publicDiscussionPlaceEnum
+
+   Удален тип "Номер закупки" (zfcs_purchaseNumberType)
+   В тексте ссылки на тип zfcs_purchaseNumberType заменены на тип base:purchaseNumberType
+
+   Удален тип "Количество ТРУ" (zfcs_quantityType)
+   В тексте ссылки на тип zfcs_quantityType заменены на тип base:quantityType
+
+   Удален тип "Тип: Количество для лекарственных препаратов в плане-графике" (zfcs_tenderPlan2017DrugQuantityType)
+   В тексте ссылки на тип zfcs_tenderPlan2017DrugQuantityType заменены на тип base:drugQuantityType
+
+   Удален тип "Расчетный счет" (zfcs_settlementAccountType), settlementAccountType
+   В тексте ссылки на тип zfcs_settlementAccountType заменены на тип base:settlementAccountType
+
+   Удален тип "Тип подписи" (zfcs_signatureType), signatureType
+   В тексте ссылки на тип zfcs_signatureType, signatureType заменены на тип base:signatureType
+
+   Удален тип "Код по СПЗ" (zfcs_spzNumType), spzNumType
+   В тексте ссылки на тип zfcs_spzNumType, spzNumType заменены на тип base:spzNumType
+
+   Удален тип "Номер типового контракта, типовых условий контракта" (zfcs_standardContractNumberType)
+   В тексте ссылки на тип zfcs_standardContractNumberType  заменены на тип base:standardContractNumberType
+
+   Удален тип "Тип нарушения в протоколе приема" (zfcs_violationLevelType)
+   В тексте ссылки на тип zfcs_violationLevelType заменены на тип base:violationLevelType
+
+   Удален тип "Значимость критерия/показателя" (zfcs_valueType)
+   В тексте ссылки на тип zfcs_valueType заменены на тип base:valueType
+
+   Удален тип "Номер года" (zfcs_yearType)
+   В тексте ссылки на тип zfcs_yearType заменены на тип base:yearType
+
+   Удален тип "Реестровый номер позиции (уникальный реестровый номер закупки) в плане-графике с 01.01.2017" (zfcs_tenderPlan2017PositionNumberType)
+   В тексте ссылки на тип zfcs_tenderPlan2017PositionNumberType заменены на тип base:tenderPlan2017PositionNumberType
+
+   Удален тип "Реестровый номер плана-графика с 01.01.2017" (zfcs_tenderPlan2017RegNumberType)
+   В тексте ссылки на тип zfcs_tenderPlan2017RegNumberType заменены на тип base:tenderPlan2017RegNumberType
+
+   Удален тип "Этап размещения заказа по 44ФЗ" (zfcs_tenderStageType), tenderStageType
+   В тексте ссылки на тип zfcs_tenderStageType, tenderStageType заменены на тип base:tenderStageType
+   
+   Удалён тип "Тип: Торговое наименование (ТН) лекарственного препарата в случае когда информация о лекарственных препаратах формируется в текстовой форме" (zfcs_tradeInfoUsingTextFormType)
+   В тексте ссылки на zfcs_tradeInfoUsingTextFormType заменены на тип base:drugNameType
+
+6. Создан тип "Тип: Международное, группировочное или химическое наименование лекарственного препарата (МНН)" (zfcs_MNNInfoType)
+   Создан тип "Тип: Торговое наименование (ТН) лекарственного препарата" (zfcs_tradeInfoType)
+
+7. В типе "Тип: Сведения об объектах закупки в том случае, когда объектами закупки являются лекарственные препараты (РПГ)" (zfcs_tenderPlan2017DrugPurchaseObjectsInfoType):
+   - У элемента "Обоснование необходимости указания сведений об упаковке лекарственного препарата" 
+     (drugPurchaseObjectInfo/objectInfoUsingReferenceInfo/mustSpecifyDrugPackage/specifyDrugPackageReason) изменен тип на "Текст 4000 символов" (base:text4000type)
+   - У элемента "Обоснование необходимости указания сведений об упаковке лекарственного препарата" 
+     (drugPurchaseObjectInfo/objectInfoUsingTextForm/mustSpecifyDrugPackage/specifyDrugPackageReason) изменен тип на "Текст 4000 символов" (base:text4000type)
+
+FCSNF-5956 Интеграция РПГ, ПРИЗ, РК. Усложение "ручной" корректировки лекарств
+
+8. В типе "Информация об объекте закупки -  лекарственном препарате" (zfcs_contract2015DrugPurchaseInfoType)
+    
+    - добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата" (drugInfoUsingReferenceInfo/MNNsInfo/MNNInfo/MNNTextForm/drugChangeInfo)
+    - добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата" (drugInfoUsingReferenceInfo/MNNsInfo/MNNInfo/positionsTradeName/positionTradeName/drugChangeInfo)
+    - добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата" (drugInfoUsingReferenceInfo/MNNsInfo/MNNInfo/positionsTradeName/positionTradeName/positionTradeNameUsingTextForm/drugChangeInfo)
+
+    В типе "Тип: Сведения о МНН, ТН, лекарственной форме и дозировке в случае когда информация о лекарственных препаратах формируется в текстовой форме" (zfcs_drugInfoUsingTextFormType)
+
+    - добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата"  (MNNInfo/drugChangeInfo)
+    - добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата"  (tradeInfo/drugChangeInfo)
+    - добавлен блок "Информация, указываемая при ручном изменении лекарственного препарата"  (drugChangeInfo)
+
+9. Добавлен тип "Справочник: "Причины корректировки справочных данных о лекарственных препаратах"" (zfcs_nsiDrugChangeReason)
+
+FCSNF-5959 Интеграция РК. Доработка по исполнениям по лекарствам
+
+10. В типе "Информация об исполнении (исполнении обязательств по предоставленной гарантии качества, расторжении) контракта с 01.01.2015" (zfcs_contractProcedure2015Type):
+    - У элемента "Цена за упаковку в рублях" (executions/execution/quantityDrugContractSubjects/quantityDrugContractSubject/packagePrice) изменена аннотация на "Цена за упаковку с НДС в рублях";
+    - Добавлен элемент "Ставка НДС, процентов" (executions/execution/quantityDrugContractSubjects/quantityDrugContractSubject/VATRate);
+    - Добавлен элемент "Размер НДС в рублях" (executions/execution/quantityDrugContractSubjects/quantityDrugContractSubject/VATRUR);
+    - Добавлен элемент "Суммарный размер фактических оптовых надбавок в рублях" (executions/execution/quantityDrugContractSubjects/quantityDrugContractSubject/pricesZNVLPInfo/wholesaleAllowancesRUR)
+
+FCSNF-5541 Интеграция КТРУ. Загрузка сведений из отраслевых классификаторов
+
+11. В типе "Позиция КТРУ" (zfcs_KTRUPositionType)
+
+    - у блока (//element(/data/industryClassifier) изменена аннотация на "Позиция отраслевого классификатора, соответствующая позиции КТРУ. Устарело, не применяется"
+    - у блока (//element(data/NSI/classifiers)  изменена аннотация на "Информация о классификаторах, связанных с позицией КТРУ"
+    - у блока (//element(data/NSI/classifiers/classifier)  изменена аннотация на "Информация о классификаторе"
+    
+12. В типе "Тип КТРУ: Общероссийский или международный классификатор" (zfcs_KTRUClassifierType)     
+
+    - у поля (//element(*,zfcs_KTRUClassifierType)/values/value/name) изменена аннотация на "Наименование значения классификатора"
+    - добавлено поле "Код значения классификатора" (//element(*,zfcs_KTRUClassifierType)/values/value/code)
+
+https://fk.jira.lanit.ru/browse/FCS-82529
+
+13. В типе "Справочник пользователей" (zfcs_nsiUserType)
+    - у поля "Должность" (position) изменен maxLength с 200 до 255
+
+FCSNF-6196 Интеграция ПРИЗ. Доработки по НМЦК в валюте
+
+14. В типе "Информация о лоте для способа по ст. 111 Федерального закона № 44-ФЗ" (zfcs_lotI111Type) 
+    - для блока "Указать НМЦК в валюте контракта" (isMaxPriceCurrency) изменена аннотация на "Указать НМЦК в валюте контракта. Заполнение доступно только при значении «Российский рубль» поля currency"
+
+15. Удален тип "Тип: НМЦК в валюте контракта" (zfcs_purchaseIsMaxPriceCurrencyType) 
+    
+    - В тексте ссылки на тип zfcs_purchaseIsMaxPriceCurrencyType заменены на тип cmn:purchaseIsMaxPriceCurrencyType
+
+16. В типах
+     "Извещение о проведении ЭА (электронный аукцион); внесение изменений" (zfcs_notificationEFType)
+     "Извещение о проведении закупки у ЕП (единственного поставщика); внесение изменений" (zfcs_notificationEPType)
+     "Извещение о проведении ПО (предварительный отбор); внесение изменений" (zfcs_notificationPOType)
+     "Извещение о проведении ЗП (запрос предложений); внесение изменений" (zfcs_notificationZPType)
+     "Общая информация об объекте закупки и структурированный протокол рассмотрения и оценки заявок на участие в ЗК-БИ (запрос котировок без извещения); внесение изменений" (zfcs_protocolZKBIType)
+
+    - для поля lot/isMaxPriceCurrency изменена аннотация на "Указать НМЦК в валюте контракта. Заполнение доступно только при значении «Российский рубль» поля lot/currency"
+
+    В типах
+     "Информация о лоте для конкурсов (открытых и закрытых)" (zfcs_lotOKType)
+     "Информация о лоте для запроса котировок, запроса предложений" (zfcs_lotZKType)
+
+     - для поля isMaxPriceCurrency изменена аннотация на "Указать НМЦК в валюте контракта. Заполнение доступно только при значении «Российский рубль» поля lot/currency"
+
+    В типе "Информация из извещения (конкурсной документации) (ПРИЗ), направляемая на контроль по 99 статье в орган контроля" (zfcs_control99NotificationExtractType) 
+    - изменена аннотация поля notificationLots/lot/isMaxPriceCurrency на "Указать НМЦК в валюте контракта"
+
+    В типах
+     "Извещение о проведении ЭА (электронный аукцион); внесение изменений" (zfcs_notificationEFType)
+     "Извещение о проведении закупки у ЕП (единственного поставщика); внесение изменений" (zfcs_notificationEPType)
+     "Извещение о проведении ПО (предварительный отбор); внесение изменений" (zfcs_notificationPOType)
+     "Извещение о проведении ЗП (запрос предложений); внесение изменений" (zfcs_notificationZPType)
+     "Общая информация об объекте закупки и структурированный протокол рассмотрения и оценки заявок на участие в ЗК-БИ (запрос котировок без извещения); внесение изменений" (zfcs_protocolZKBIType)
+
+    - аннотация блока lot/customerRequirements/customerRequirement/maxPriceCurrency изменена на "Начальная (максимальная) цена в валюте контракта.  Заполняется автоматически по формуле: «Начальная (максимальная) цена контракта» / «Курс конвертации»"
+
+    В типах
+     "Информация о лоте для конкурсов (открытых и закрытых)" (zfcs_lotOKType)
+     "Информация о лоте для запроса котировок, запроса предложений" (zfcs_lotZKType)
+
+    - аннотация блока maxPriceCurrency изменена на "Начальная (максимальная) цена в валюте контракта.  Заполняется автоматически по формуле: «Начальная (максимальная) цена контракта» / «Курс конвертации». Игнорируется при приеме и передаче. Добавлено на развитие" (customerRequirements/customerRequirement/maxPriceCurrency) изменена на "Начальная (максимальная) цена в валюте контракта.  Заполняется автоматически по формуле: «Начальная (максимальная) цена контракта» / «Курс конвертации»."
+
+    В типе "Информация о лоте ОК (для печатной формы)" (zfcs_lotInfoType) 
+    для поля isMaxPriceCurrency изменена аннотация на "Указать НМЦК в валюте контракта"
+
+    В типах
+    "Извещение о проведении ЭА (электронный аукцион); внесение изменений" (zfcs_notificationEFType)
+    "Извещение о проведении закупки у ЕП (единственного поставщика); внесение изменений" (zfcs_notificationEPType)
+    "Извещение о проведении ПО (предварительный отбор); внесение изменений" (zfcs_notificationPOType)
+    "Извещение о проведении ЗП (запрос предложений); внесение изменений" (zfcs_notificationZPType)
+    "Общая информация об объекте закупки и структурированный протокол рассмотрения и оценки заявок на участие в ЗК-БИ (запрос котировок без извещения); внесение изменений" (zfcs_protocolZKBIType)
+
+    - добавлено необязательное поле "Общая сумма позиций в валюте контракта" (lot/purchaseObjects/totalSumCurrency).
+
+    В типах
+    "Информация о лоте для конкурсов (открытых и закрытых)" (zfcs_lotOKType)
+    "Информация о лоте для запроса котировок, запроса предложений" (zfcs_lotZKType)
+
+    - добавлено необязательное поле "Общая сумма позиций в валюте контракта" (purchaseObjects/totalSumCurrency).
+
+FCSNF-5900 Интеграция РПЗ. Перепривязка ООКЗ 1-го этапа к ПЗ на следующий финансовый год
+
+17. В типе "Общие сведения позиции плана закупок" (zfcs_purchasePlanPositionType):
+    Добавлен элемент "Реестровый номер первого этапа общественного обсуждения, для установки связи с ранее сформированным обязательным общественным обсужденем" (commonInfo/publicDiscussionPhase1NumLink)
+
+https://fk.jira.lanit.ru/browse/FCS-82725
+
+18. В тип "Информация об исполнении (исполнении обязательств по предоставленной гарантии качества, расторжении) контракта с 01.01.2015" (zfcs_contractProcedure2015Type)
+    - добавлено поле "Номер государственного контракта по государственному оборонному заказу" (defenseContractNumber)
+
+FCSNF-6441 Интеграция. РК. Изменение логики указания срока, на который выдана гарантия качества
+
+19. В тип "Информация (проект информации) о заключенном контракте с 01.01.2015" (zfcs_contract2015Type)
+
+    - добавлено поле "Срок в текстовом формате" (//element(*,zfcs_contract2015Type)/qualityGuaranteeInfo/providedPeriod/otherPeriodText)
+
+FCSNF-5963 Интеграция РК. Добавление поля Цена за право заключения контракта в РК
+
+20. В типе "Информация (проект информации) о заключенном контракте с 01.01.2015" (zfcs_contract2015Type)
+
+    - добавлен блок "Цена за право заключения контракта" (priceInfo\rightToConcludeContractPriceInfo)
+    - у блока advancePaymentSum измененеа аннотация на 
+      "Предусмотрена выплата аванса. В блоке должно быть заполнено либо поле sumInPercents либо поле priceValue. Оба поля одновременно заполнены быть не могут. 
+       Не может быть заполнен если заполнен блок "Цена за право заключения контракта" (priceInfo\rightToConcludeContractPriceInfo)"
+   
+FCSNF-5707 РК. Доработки для учета появления проектов контрактов в электронной форме
+
+21. В типе "Информация (проект информации) о заключенном контракте с 01.01.2015" (zfcs_contract2015Type) добавлены поля:
+
+    - "Реестровый номер проекта контракта, заключенного в электронной форме" (foundation/fcsOrder/order/contractProjectNumber)
+    - "Реестровый номер проекта контракта, заключенного в электронной форме" (foundation/fcsOrder/singleCustomer/contractProjectNumber)
+    - "Реестровый номер проекта контракта, заключенного в электронной форме" (foundation/fcsOrder/notOosOrder/contractProjectNumber)
+
+FCSNF-6467 Интеграция. Выгрузка справочников на FTP и в составе masterData
+
+22. Добавлен новый тип "Тип: Справочник: Общероссийский классификатор форм собственности (ОКФС) (nsiOKFS)" (zfcs_nsiOKFSType)
+
+23. В тип "Справочник организаций" (zfcs_nsiOrganizationType) добавлено необязательное поле "ОКФС организации" (OKFS)
+
+24. В типе "Набор элементов справочников и классификаторов" (zfcs_masterDataType) в choice добавлен обязательный блок "Справочник: Общероссийский классификатор форм собственности (ОКФС) (nsiOKFS)" (nsiOKFS)
+
+25. В тип "Справочник пользователей" (zfcs_nsiUserType) добавлены новые поля:
+ 
+    "Страховой номер индивидуального лицевого счета (СНИЛС)" (snils)
+    "Признак наличия полномочия - Руководитель" (isChief)
+    "Признак наличия полномочия - Лицо, уполномоченное на размещение информации и документов" (isPublishSpecialist)
+    "Признак наличия полномочия - Лицо, имеющее право подписи документов от имени организации" (isSigningSpecialist)
+    "Признак наличия полномочий - Дополнительный администратор" (isAdditionalAdmin)
+    "Дата окончания действия сертификата" (certificateExpirationDate)
+    "ИНН пользователя" (INN)
+    "Признак наличия полномочия - Администратор" (isAdmin)
+    "Признак наличия полномочия - Уполномоченный специалист" (isSpecialist)
+    "Признак наличия полномочия - Должностное лицо с правом подписи контракта" (isContractSpecialist)
+    "Признак наличия полномочия - Специалист с правом согласования закупки" (isCoordinatingSpecialist)
+
+FCSNF-6417 Интеграция. Изменение формата поля "Количество"
+
+26. РПГ
+    В типе "Количество (объем) закупаемых товаров, работ, услуг в позиции плана-графика с 01.01.2017" (zfcs_tenderPlan2017NumberType)
+    - у полей "Всего" (total), "Количество на текущий плановый год" (currentYear), "Количество на первый плановый год" (firstYear), "Количество на второй плановый год" (secondYear), "Количество на последующие годы" (subsecYears)
+      изменен тип на base:quantity18p11Type
+
+    В типе "Количество (объем) закупаемых лекарственных препаратов в плане-графике" (zfcs_tenderPlan2017DrugNumberType)
+    - у полей "Всего" (total), "Количество на текущий плановый год" (currentYear), "Количество на первый плановый год" (firstYear), "Количество на второй плановый год" (secondYear), "Количество на последующие годы" (subsecYears)
+      изменен тип на base:quantity18p11Type
+
+    ПРИЗ 
+    В типах 
+    "Извещение о проведении ЭА (электронный аукцион); внесение изменений" (zfcs_notificationEFType)
+    "Извещение о проведении закупки у ЕП (единственного поставщика); внесение изменений" (zfcs_notificationEPType)
+    "Извещение о проведении ПО (предварительный отбор); внесение изменений" (zfcs_notificationPOType)
+    "Извещение о проведении ЗП (запрос предложений); внесение изменений" (zfcs_notificationZPType)
+    "Общая информация об объекте закупки и структурированный протокол рассмотрения и оценки заявок на участие в ЗК-БИ (запрос котировок без извещения); внесение изменений"(zfcs_protocolZKBIType)
+
+    - у полей "Количество для заказчика" (lot/purchaseObjects/purchaseObject/customerQuantities/customerQuantity/quantity), "Количество" (lot/purchaseObjects/purchaseObject/quantity/value)
+      изменен тип на base:quantity18p11Type
+    
+    В типах
+    "Информация о лоте для конкурсов (открытых и закрытых)" (zfcs_lotOKType)
+    "Информация о лоте для запроса котировок, запроса предложений" (zfcs_lotZKType)
+
+    - у полей "Количество для заказчика" (purchaseObjects/purchaseObject/customerQuantities/customerQuantity/quantity), "Количество" (purchaseObjects/purchaseObject/quantity/value)
+      изменен тип на base:quantity18p11Type
+    
+    В типе "Тип: Сведения об объектах закупки в том случае, когда объектами закупки являются лекарственные препараты (ПРИЗ)" (zfcs_purchaseDrugPurchaseObjectsInfoType) 
+    - у полей "Количество" (drugPurchaseObjectInfo/drugQuantityCustomersInfo/drugQuantityCustomerInfo/quantity), "Всего" (drugPurchaseObjectInfo/drugQuantityCustomersInfo/total)
+      изменен тип на base:quantity18p11Type
+
+
+    В типе "Тип: Сведения об объектах закупки в том случае, когда объектами закупки являются лекарственные препараты (ПРИЗ)" (zfcs_purchaseDrugPurchaseObjectsInfoType)
+    - у полей "Количество (объем) закупаемого лекарственного препарата" (drugPurchaseObjectInfo/objectInfoUsingReferenceInfo/drugsInfo/drugInfo/drugQuantity)
+      "Количество (объем) закупаемого лекарственного препарата" (drugPurchaseObjectInfo/objectInfoUsingTextForm/drugsInfo/drugInfo/drugQuantity"
+      изменен тип на base:quantity18p11Type
+
+    ЗЦ
+    В типе "Версия запроса цен товаров, работ, услуг" (zfcs_requestForQuotationType)
+  
+   - у поля "Количество поставляемого товара, объёма выполняемых работ, оказываемых услуг" (products/product/quantity)
+     изменен тип на base:quantity18p11Type
+ 
+    ОЗ
+    В типе "Отчет об исполнении контракта (результатах отдельного этапа исполнения контракта)" (zfcs_customerReportContractExecutionType)
+
+    - у полей "Количество (объем)  предусмотренное контрактом" (executionInfo/quantity/quantityItem/quantityItemByContract), "Количество (объем)  исполнено по контракту" (executionInfo/quantity/quantityItem/quantityItemExecution)
+    изменен тип на base:quantity18p11Type
+
+    РК 
+    В типе "Информация (проект информации) о заключенном контракте с 01.01.2015" (zfcs_contract2015Type)
+
+    - у поля "Количество поставляемого товара, объёма выполняемых работ, оказываемых услуг" (products/product/quantity)
+    изменен тип на base:quantity18p11Type
+
+    В типе "Тип: Реквизиты предмета контракта для поиска в исполнении контракта" (zfcs_contractProcedure2015SearchProductsAttrsType)
+
+    - у поля "Количество поставляемого товара, объёма выполняемых работ, оказываемых услуг" (quantity)
+    изменен тип на base:quantity18p11Type
+   
+    В типе "Информация об исполнении (исполнении обязательств по предоставленной гарантии качества, расторжении) контракта с 01.01.2015"
+
+    - у поля "Объем поставленных товаров, выполненных работ, оказанных услуг" (executions/execution/quantityContractSubjects/quantityContractSubject/quantity)
+    изменен тип на base:quantity18p11Type и аннотация на "Объем поставленных товаров, выполненных работ, оказанных услуг. При приеме контролируется обязательность заполнения"
+
+    - у полей 
+    "Количество (согласно контракту)" (executions/execution/quantityContractSubjects/quantityContractSubject/product/quantity), 
+    "Объем ранее поставленных товаров, выполненных работ, оказанных услуг" (executions/execution/quantityContractSubjects/quantityContractSubject/product/previouslySuppliedQuantity)
+    "Количество (согласно контракту)" (executions/execution/quantityDrugContractSubjects/quantityDrugContractSubject/product/quantity)
+    "Объем ранее поставленных товаров, выполненных работ, оказанных услуг" (executions/execution/quantityDrugContractSubjects/quantityDrugContractSubject/product/previouslySuppliedQuantity) 
+    изменен тип на base:quantity18p11Type 
+
+
+    В типе "Информация об объекте закупки -  лекарственном препарате" (zfcs_contract2015DrugPurchaseInfoType) у полей
+
+   - "Количество товара" (drugInfoUsingReferenceInfo/MNNsInfo/MNNInfo/positionsTradeName/positionTradeName/packagingsInfo/packagingInfo/drugQuantity)
+   - "Количество товара" (drugInfoUsingReferenceInfo/MNNsInfo/MNNInfo/positionsTradeName/positionTradeName/editedPackagingsInfo/packagingInfo/drugQuantity)     
+   - "Количество товара" (drugInfoUsingReferenceInfo/MNNsInfo/MNNInfo/positionsTradeName/positionTradeName/positionTradeNameUsingTextForm/packagingsInfo/packagingInfo/drugQuantity)
+   - "Количество товара" (drugInfoUsingReferenceInfo/positionsTradeName/positionTradeName/packagingsInfo/packagingInfo/drugQuantity)
+   - "Количество товара" (drugInfoUsingTextForm/MNNsInfo/MNNInfo/positionsTradeName/positionTradeName/packagingsInfo/packagingInfo/drugQuantity)
+   - "Количество товара" (drugInfoUsingTextForm/positionsTradeName/positionTradeName/packagingsInfo/packagingInfo/drugQuantity)
+
+      изменен тип на base:quantity18p11Type
+
+    РОПТ
+
+    В типе "Тип: Сведения о товаре отчета производителя товаров о соблюдении требований п.5 ч.1 ст. 111" (zfcs_manufacturerReportProductType)
+    - у полей «Количество произведенного товара» (quantity), "Количество поставленного товара" (contractsInfo/contractInfo/usingRGKInfo/deliveredQuantity), "Количество поставленного товара" (contractsInfo/contractInfo/usingTextForm/deliveredQuantity)
+    изменен тип на base:quantity18p11Type 
+
+FCSNF-6160 Интеграция ПРИЗ, проектов контрактов. Доработать прием СontractSign, проектов контрактов для учета настройки ППА
+
+27. В типе "Общая информация об извещении по закупке" (zfcs_purchaseNotificationType) 
+    - добавлен элемент "Заключение контракта по статье 83 ч. 2. Игнорируется при приёме, заполняется при выгрузке" (contractConclusionOnSt83Ch2)
+
+    В типе "Извещение о проведении закупки у ЕП (единственного поставщика); внесение изменений" (zfcs_notificationEPType) 
+    - добавлен элемент "Заключение контракта по статье 83 ч.2. Игнорируется при приёме, заполняется при выгрузке" (contractConclusionOnSt83Ch2)
+
+FCSNF-6152 Интеграция. Доработка интеграционных контролей при приеме ОКЕИ в части учета временных единиц измерения
+
+28. В тип "Общероссийский классификатор единиц измерения (ОКЕИ)" (zfcs_nsiOKEIType)
+    - добавлено поле "Является временной" (isTemporaryForKTRU)
+
+    В типе "Тип КТРУ: Значение характеристики позиции КТРУ" (zfcs_KTRUCharacteristicValueType)
+    - у блока OKEI изменена аннотация на 
+      "Единица измерения. Ссылка на классификатор ОКЕИ (nsiOKEI). Допустимо указание как постоянных, так и временных единиц измерения (для которых установлено поле isTemporaryForKTRU в выгрузке справочника nsiOKEI)"
+
+https://fk.jira.lanit.ru/browse/FCS-83834
+
+29. В типе "Информация об исполнении (исполнении обязательств по предоставленной гарантии качества, расторжении) контракта с 01.01.2015" (zfcs_contractProcedure2015Type)
+    - у поля "Наименование платежного документа" (executions/execution/payDoc/documentName) изменен тип на base:text1000Type
+
+
+30. В типе "Информация (проект информации) о заключенном контракте с 01.01.2015" (zfcs_contract2015Type)
+
+   - у поля isGOZ изменена аннотация на "Закупка товара, работы, услуги по государственному оборонному заказу в соответствии с ФЗ № 275-ФЗ от 29 декабря 2012 г. При наличии связи с извещением (блок foundation\fcsOrder\order), имеющим признак «Закупка товар, работ, услуг по государственному оборонному заказу в соответствии с ФЗ № 275-ФЗ от 29 декабря 2012 г», игнорируется при приеме и заполняется автоматически"
+
+
+FCSNF-6437 Интеграция. РК. Лекарства. Ограничение единиц измерения (приказ МЗ 870н),
+
+31. В типе "Информация (проект информации) о заключенном контракте с 01.01.2015" (zfcs_contract2015Type)
+
+у блока products\product\OKEI изменена аннотация на
+
+"Единица измерения. 
+Блок по бизнесу обязателен для заполнения.
+Если заполнен блок "Классификация по ОКПД2" (OKPD2) (или "Классификация по ОКПД" (OKPD)), то контролируется обязательность заполнения блока и наличие значения в классификаторе ОКЕИ (либо в справочнике Единицы измерения потребительских единиц измерения лекарственных препа-ратов по ОКЕИ" (nsiDrugOKEI) в случае если заполнен блок drugPurchaseObjectInfo).
+Если заполнен блок "Классификация по КТРУ" (KTRU), то:
+-если в справочнике nsiKTRU для данной позиции одна запись в блоке "Единицы измерения позиции КТРУ" (//element(*,zfcs_nsiKTRUType)/position/data/OKEIs), то если блок OKEI заполнен в принимаемом документе, то сохраняется это "ручное" значение, иначе автоматически подставляется значение OKEI из КТРУ.
+-если в справочнике nsiKTRU для данной позиции несколько записей в блоке "Единицы измерения позиции КТРУ",
+то если блок OKEI заполнен в принимаемом документе, то сохраняется это "ручное" значение, иначе автоматически подставляется значение ОКЕИ, для которой полное наименование  единицы измерения при сортировке в возрастающем порядке по алфавиту идет первым.
+- если в справочнике nsiKTRU для данной позиции нет записей в блоке "Единицы измерения позиции КТРУ", то контролируется обязательность заполнения блока и наличие значения в классификаторе ОКЕИ (либо в справочнике Единицы измерения потребительских единиц измерения лекарственных препа-ратов по ОКЕИ" (nsiDrugOKEI) в случае если заполнен блок drugPurchaseObjectInfo)"
+
+
+FCSNF-6437 Интеграция КТРУ. Уточнение схем в части необязательности полей в блоке информации о гос.стандартах
+
+32. В типе "Тип КТРУ: Информация о техническом регламенте или стандарте" (zfcs_KTRUStandartType)
+
+   - удалено поле "Номер стандарта" (docNumber)
+   - удалено поле "Вид документа " (docKind)
+   - удалено поле "Дата принятия стандарта" (docDate)
+
+   - у поля docName изменена аннотация на "Наименование стандарта (поле является ключом, идентифицирующим регламент или стандарт)"
+
+https://fk.jira.lanit.ru/browse/FCSNF-6131
+
+33. В тип "Тип основания" (zfcs_abandonedReasonTypeEnum)
+    - добавлено значение OV3 - По результатам рассмотрения вторых частей заявок только одна заявка признана соответствующей требованиям ФЗ и требованиям, указанным в извещении.
+
+34. В типе "Тип КТРУ: Информация о техническом регламенте или стандарте" (zfcs_KTRUStandartType)
+    - блок "Прикрепленный файл" (docFileData) сделан множественным
+
+https://fk.jira.lanit.ru/browse/FCS-86256
+
+35. В типе "Особая позиция в плане-графике с 01.01.2017" (zfcs_tenderPlan2017SpecialPurchaseType)
+    - у поля "Централизованная закупка" (//element(*,zfcs_tenderPlan2017SpecialPurchaseType)/drugsTypeDetails/centralizedPurchasing) установлено свойство fixed=true
+
+===========================================================================================Integration615Types.xsd===============================================================================================================================
+
+FCSNF-6481 Интеграция. ПП РФ 615. Доработки интеграции на 8.3
+
+1. В типе "Сведения о договоре о проведении капитального ремонта по ПП РФ № 615; внесение изменений" (contractType) 
+   - у блока purchaseEFInfo/publishedInEISEFInfo/contractorInfo изменена аннотация на "Сведения о подрядной организации. Игнорируется при приёме, заполняется заполняется на основании протокола проведения электронного аукциона (protocolEF1), если в протоколе-основании присутствуют сведения о подрядной организации. Заполняется при передаче. Не игнорируется при приеме в случае отсутствия сведений о подрядной организации в протоколе-основании"
+ 
+2. В типе "Тип: Электронный документ, полученный из внешней системы" (extPrintFormType)
+
+   - добавлено поле "Уникальный идентификатор контента прикрепленного документа в ЕИС" (contentId)
+
+
+===========================================================================================IntegrationEPTypes.xsd===============================================================================================================================
+
+https://fk.jira.lanit.ru/browse/FCS-80860
+
+1. В тип "Тип: Внесение исправлений в документ закупки без изменений на основании решения заказчика" (modificationWithoutCustomerDecisionType)
+   - добавлено поле "Дополнительная информация (addInfo)" 
+
+2. В тексте ссылки на тип cmn:accountType заменены на тип cmn:paymentPropertysType
+
+FCSNF-5536 Интеграция ПРИЗ: Доработка функций формирования и размещения извещений в части размещения сведений о закупках по государственному оборонному заказу
+
+3. В тип "Тип: Общая информация о извещении" (notificationCommonInfoType) добавлено необязательное поле "Закупка товар, работ, услуг по государственному оборонному заказу в соответствии с ФЗ № 275-ФЗ от 29 декабря 2012 г" (isGOZ)
+
+FCSNF-5740 Интеграция ПРИЗ: Доработка функций формирования и размещения извещений в части указания соответствующей части статьи 15 Закона №44-ФЗ при осуществлении закупок в соответствии с ч.4-6 ст.15. 44-ФЗ
+
+4. В тип "Тип: Общая информация о извещении" (notificationCommonInfoType)   
+   - добавлено необязательное поле "Информация об особенностях осуществления закупки в соответствии с ч. 4-6 ст. 15 Закона № 44-ФЗ" (article15FeaturesInfo)
+
+
+FCSNF-6196 Интеграция ПРИЗ. Доработки по НМЦК в валюте
+
+5. В тип "Тип: Условия контракта" (contractConditionsType) 
+   - добавлен необязательный блок "Указать НМЦК в валюте контракта" (maxPriceInfo/isMaxPriceCurrency)
+
+   В тип 
+   "Тип: Реквизиты находящиеся на уровне требований заказчиков" (customerRequirementType) 
+   "Тип: Реквизиты находящиеся на уровне требований заказчиков для ЭЗП (запрос предложений в электронной форме)" (customerRequirementEZPType) 
+   "Тип: Реквизиты находящиеся на уровне требований заказчиков для ЭЗК (запрос котировок в электронной форме)" (customerRequirementEZKType) 
+   - добавлено необязательное поле "Начальная (максимальная) цена в валюте контракта. Заполняется автоматически по формуле: «Начальная (максимальная) цена контракта» / «Курс конвертации»" (contractConditionsInfo/maxPriceCurrency)
+  
+   В типе "Тип: Общие поля протоколов" (protocolType) 
+   - добавлен необязательный блок "Дополнительная информация для печатной формы" (printFormFieldsInfo)
+
+FCSNF-6160 Интеграция ПРИЗ, проектов контрактов. Доработать прием СontractSign, проектов контрактов для учета настройки ППА
+
+6. В типе "Тип: Общая информация о извещении" (notificationCommonInfoType) 
+   - добавлен элемент "Заключение контракта по 83.2. Игнорируется при приёме, заполняется при выгрузке" (contractConclusionOnSt83Ch2)
+
+7. В типах
+   "Тип: Общие поля извещений" (notificationType)
+   "Тип: Общие поля документов закупки" (purchaseDocumentType)
+   "Тип: Разъяснение /Дополнительная информация" (clarificationType)
+
+   - у блока "Электронный документ, полученный из внешней системы" (extPrintFormInfo)
+   к аннотации добавлена фраза ". Игнорируется при приеме-передаче, добавлено на развитие"
+
+
+===========================================================================================fcsPrintForm.xsd===============================================================================================================================
+
+FCSNF-5534 Интеграция проектов контрактов. Прием из внешних систем электронных документов, подтверждающих исполнение контракта
+
+1. Созданы элементы: 
+   - "Проект контракта без подписей" (cpContractProject);
+   - "Доработанный проект контракта на основании размещенного поставщиком протокола разногласий" (cpContractProjectChange);
+   - "Проект контракта, подписанный поставщиком" (cpContractProjectSign);
+   - "Подписанный контракт" (cpContractSign);
+   - "Протокол разногласий" (cpProtocolDisagreements);
+   - "Уведомление об уклонении от заключения контракта" (cpNoticeDeviation);
+   - "Уведомление об отказе от заключения контракта" (cpNoticeEvasion);
+   - "Извещение об отмене процедуры заключения контракта" (cpProcedureCancel);
+   - "Информация из проекта контракта, направляемая на контроль по 99 статье в орган контроля" (cpControl99ContractProjectExtract)
+  
+
+2. В тексте 
+   - ссылки на тип oos:kppType заменены на тип base:kppType
+   - ссылки на тип oos:innType заменены на тип base:innType
+   - ссылки на тип oos:zfcs_ogrnType заменены на тип base:ogrnCodeType
+   - ссылки на тип oos:zfcs_moneyPositiveType заменены на тип base:moneyPositiveType
+
+  - ссылки на тип oos:zfcs_placingWayType заменены на тип base:placingWayRef
+  - ссылки на тип oos:zfcs_spzNumType заменены на тип base:spzNumType
+  - ссылки на тип oos:zfcs_innOrganizationType заменены на тип base:innOrganizationType
+
+  - ссылки на тип oos:zfcs_okopfRef заменены на тип base:OKOPFRef
+  - ссылки на тип oos:zfcs_OKTMORef заменены на тип base:OKTMORef
+  - ссылки на тип oos:zfcs_kbkType заменены на тип base:kbkType
+  - ссылки на тип oos:zfcs_yearType заменены на тип base:yearType
+  - ссылки на тип oos:zfcs_moneyType заменены на тип base:moneyType
+  - ссылки на тип oos:zfcs_phoneType заменены на тип base:phoneType
+  - ссылки на тип oos:zfcs_eMailType заменены на тип base:eMailType
+	
+===========================================================================================fcsExport.xsd===============================================================================================================================
+
+FCSNF-5534 Интеграция проектов контрактов. Прием из внешних систем электронных документов, подтверждающих исполнение контракта
+
+1. Созданы элементы: 
+   - "Проект контракта без подписей" (cpContractProject);
+   - "Доработанный проект контракта на основании размещенного поставщиком протокола разногласий"" (cpContractProjectChange);
+   - "Подписанный контракт" (cpContractSign);
+   - "Извещение об отмене процедуры заключения контракта" (cpProcedureCancel)
+   - "Отмена извещения об отмене процедуры заключения контракта" (cpProcedureCancelFailure)
+
+FCSNF-5888 Интеграция проектов контрактов. Доработка выгрузки НСИ
+
+2. Создан элемент "Справочник: Обоснования изменения цены контракта в проекте контракта" (nsiChangePriceFoundations)
+
+FCSNF-5956 Интеграция РПГ, ПРИЗ, РК. Усложение "ручной" корректировки лекарств
+
+3. Добавлен элемент "Причины корректировки справочных данных о лекарственных препаратах" (nsiDrugChangeReasons)
+
+FCSNF-6467 Интеграция. Выгрузка справочников на FTP и в составе masterData
+
+4. Добавлен блок "Справочник: Общероссийский классификатор форм собственности (ОКФС) (nsiOKFS)" (export/nsiOKFSList)
+
+FCSNF-5534 Интеграция проектов контрактов. Прием из внешних систем электронных документов, подтверждающих исполнение контракта
+
+5. Добавлен элемент "Проект контракта, подписанный поставщиком" (cpContractProjectSign)
+
+6. Добавлен элемент "Протокол разногласий" (cpProtocolDisagreements)
+
+7. Добавлен элемент "Уведомление об уклонении от заключения контракта" (cpNoticeDeviation)
+
+8. Добавлен элемент "Уведомление об отказе от заключения контракта" (cpNoticeEvasion)
+
+
+===========================================================================================fcsIntegration.xsd===============================================================================================================================
+
+FCSNF-5534 Интеграция проектов контрактов. Прием из внешних систем электронных документов, подтверждающих исполнение контракта
+
+1. Созданы элементы: 
+   - "Проект контракта без подписей" (cpContractProject);
+   - "Доработанный проект контракта на основании размещенного поставщиком протокола разногласий" (cpContractProjectChange);
+   - "Проект контракта, подписанный поставщиком" (cpContractProjectSign);
+   - "Подписанный контракт" (cpContractSign);
+   - "Протокол разногласий" (cpProtocolDisagreements);
+   - "Уведомление об уклонении от заключения контракта" (cpNoticeDeviation);
+   - "Уведомление об отказе от заключения контракта" (cpNoticeEvasion);
+   - "Извещение об отмене процедуры заключения контракта" (cpProcedureCancel);
+   - "Пакет данных:Отмена извещения об отмене процедуры заключения контракта" (cpProcedureCancelFailure)
+
+2. В тип "Перечисление типов объектов" (indexObjectTypeEnum) добавлено значение:
+   "CP - Проекты контрактов"
+
+3. Добавлена ссылка на namespace base="http://zakupki.gov.ru/oos/base/1"
+
+4. В тексте 
+   - ссылки на тип oos:zfcs_signatureType заменены на тип base:signatureType
+   
+===========================================================================================fcsInternal.xsd===============================================================================================================================
+
+FCSNF-5534 Интеграция проектов контрактов. Прием из внешних систем электронных документов, подтверждающих исполнение контракта
+
+1. Созданы элементы: 
+   - "Проект контракта без подписей" (cpContractProject);
+   - "Доработанный проект контракта на основании размещенного поставщиком протокола разногласий" (cpContractProjectChange);
+   - "Проект контракта, подписанный поставщиком" (cpContractProjectSign);
+   - "Подписанный контракт" (cpContractSign);
+   - "Протокол разногласий" (cpProtocolDisagreements);
+   - "Уведомление об уклонении от заключения контракта" (cpNoticeDeviation);
+   - "Уведомление об отказе от заключения контракта" (cpNoticeEvasion);
+   - "Извещение об отмене процедуры заключения контракта" (cpProcedureCancel)
+   - "Информация из проекта контракта (РПК), направляемая на контроль по 99 статье в орган контроля" (control99ContractProjectExtract)
+   - "Отмена извещения об отмене процедуры заключения контракта" (cpProcedureCancelFailure)
+
+
+===========================================================================================fcsExtegration.xsd===============================================================================================================================
+	
+
+FCSNF-5534 Интеграция проектов контрактов. Прием из внешних систем электронных документов, подтверждающих исполнение контракта
+
+1. Созданы элементы: 
+   - "Проект контракта без подписей" (cpContractProject);
+   - "Доработанный проект контракта на основании размещенного поставщиком протокола разногласий" (cpContractProjectChange);
+   - "Проект извещения об отмене процедуры заключения контракта" (cpProcedureCancel)
+
+FCSNF-5028 Интеграция ПП РФ 615. Взаимодействие с ВСРЗ по процедуре предварительного отбора подрядных организаций
+
+1. Добавлен элемент "Извещение о проведении ПО (предварительный отбор) по ПП РФ № 615" (pprf615NotificationPO)
+
+===========================================================================================docs-ws-api.xsd===============================================================================================================================
+
+
+
+===========================================================================================eisSignIncoming.xsd===============================================================================================================================
+
+1. Добавлена ссылка на namespace base="http://zakupki.gov.ru/oos/base/1"
+
+2. В тексте 
+   - ссылки на тип oos:zfcs_guidType заменены на тип base:guidType 
+   - ссылки на тип oos:zfcs_signatureType заменены на тип base:signatureType
+
+===========================================================================================fcsControl99.xsd===============================================================================================================================
+
+1. В тексте 
+   - ссылки на тип oos:zfcs_guidType заменены на тип base:guidType
+   - ссылки на тип oos:zfcs_innOrganizationType заменены на тип base:innOrganizationType
+   - ссылки на тип oos:zfcs_kppType заменены на тип base:kppType
+   - ссылки на тип oos:zfcs_consRegistryNumType заменены на тип base:consRegistryNumType
+   - ссылки на тип oos:zfcs_moneyPositiveType заменены на тип base:moneyPositiveType
+   - ссылки на тип oos:zfcs_kbk2016Type заменены на тип base:kbkType
+   - ссылки на тип oos:zfcs_innType заменены на тип base:innType
+   - ссылки на тип oos:zfcs_moneyType заменены на тип base:moneyType
+
+===========================================================================================boServiceInternal.xsd===============================================================================================================================
+
+
