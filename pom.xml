@@ -39,10 +39,10 @@
                 </executions>
                 <configuration>
                     <xjbSources>
-                        <xjbSource>src/main/resources/8.2.100/export.xjb</xjbSource>
+                        <xjbSource>src/main/resources/8.2.150/export.xjb</xjbSource>
                     </xjbSources>
                     <sources>
-                        <source>src/main/resources/8.2.100/fcsExport.xsd</source>
+                        <source>src/main/resources/8.2.150/fcsExport.xsd</source>
                     </sources>
                 </configuration>
             </plugin>
