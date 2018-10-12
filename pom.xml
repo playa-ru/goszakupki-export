@@ -15,8 +15,8 @@
     </properties>
 
     <scm>
-        <url>scm:git:https://github.com/playa-ru/goszakupki-export.git</url>
-        <developerConnection>scm:git:https://github.com/playa-ru/goszakupki-export.git</developerConnection>
+        <url>scm:git:git@github.com:playa-ru/goszakupki-export.git</url>
+        <developerConnection>scm:git:git@github.com:playa-ru/goszakupki-export.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
