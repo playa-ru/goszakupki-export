@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.gov.zakupki</groupId>
     <artifactId>eis-export-fz44</artifactId>
-    <version>8.2.150-SNAPSHOT</version>
+    <version>8.2.150</version>
     <name>Java библиотека для схем экспорта данных ЕИС</name>
 
     <properties>
@@ -17,7 +17,7 @@
     <scm>
         <url>scm:git:git@github.com:playa-ru/goszakupki-export.git</url>
         <developerConnection>scm:git:git@github.com:playa-ru/goszakupki-export.git</developerConnection>
-        <tag>v8.2.2</tag>
+        <tag>v8.2.150</tag>
     </scm>
 
     <build>
