@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.gov.zakupki</groupId>
     <artifactId>eis-export-fz44</artifactId>
-    <version>8.3.0.6-SNAPSHOT</version>
+    <version>8.2.2-SNAPSHOT</version>
     <name>Java библиотека для схем экспорта данных ЕИС</name>
 
     <properties>
@@ -15,8 +15,8 @@
     </properties>
 
     <scm>
-        <url>scm:git:git@github.com:playa-ru/goszakupki-export.git</url>
-        <developerConnection>scm:git:git@github.com:playa-ru/goszakupki-export.git</developerConnection>
+        <url>scm:git:https://github.com/playa-ru/goszakupki-export.git</url>
+        <developerConnection>scm:git:https://github.com/playa-ru/goszakupki-export.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -39,10 +39,10 @@
                 </executions>
                 <configuration>
                     <xjbSources>
-                        <xjbSource>src/main/resources/export.xjb</xjbSource>
+                        <xjbSource>src/main/resources/8.2.2/export.xjb</xjbSource>
                     </xjbSources>
                     <sources>
-                        <source>src/main/resources/fcsExport.xsd</source>
+                        <source>src/main/resources/8.2.2/fcsExport.xsd</source>
                     </sources>
                 </configuration>
             </plugin>
