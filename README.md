@@ -26,6 +26,20 @@
 
 https://nexus.playa.ru/nexus/content/repositories/releases/ru/gov/zakupki/eis-export-fz44
 
+Для выпуска новой версии (например 8.7.6):
+
+* создать папку с номером схемы (8.7.6) в src/main/resources
+* скопировать туда необходимые XSD файлы
+* скопировать туда файл export.xjb из последней папки
+* настроить в файле имена пакетов (заменить vXXX на v876)
+* в pom.xml поменять версию проекта на <номер версии схемы>-SNAPSHOT (8.7.6-SNAPSHOT)
+* в pom.xml поменять путь к файлу fcsExport.xsd (src/main/resources/8.7.6/fcsExport.xsd), чтобы он указывал в нужную папку
+* в pom.xml поменять путь к файлу export.xjb (src/main/resources/8.7.6/export.xjb), чтобы он указывал в нужную папку
+* выполнить mvn clean package, проверить результат (нет ошибок, правильные имена пакетов)
+* если есть права доступа к проекту на github - выполнить git commit, push
+* если есть права доступа к nexus - выполнить mvn release:prepare , mvn release:perform, git push
+
+
 Не выпущены схемы версий:
 
 * 1.0
