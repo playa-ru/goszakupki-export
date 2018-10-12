@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.gov.zakupki</groupId>
     <artifactId>eis-export-fz44</artifactId>
-    <version>8.2.2</version>
+    <version>8.2.100-SNAPSHOT</version>
     <name>Java библиотека для схем экспорта данных ЕИС</name>
 
     <properties>
