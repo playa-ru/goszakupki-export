@@ -1,0 +1,45 @@
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1">
+    
+  <bindings schemaLocation="fcsExport.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v834.export"/>
+    </schemaBindings>
+  </bindings>
+
+  <bindings schemaLocation="IntegrationTypes.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v834.it"/>
+    </schemaBindings>
+  </bindings>
+
+  <bindings schemaLocation="Integration615Types.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v834.it615"/>
+    </schemaBindings>
+  </bindings>
+  
+  <bindings schemaLocation="BaseTypes.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v834.base"/>
+    </schemaBindings>
+  </bindings>
+
+  <bindings schemaLocation="CommonTypes.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v834.common"/>
+    </schemaBindings>
+  </bindings>
+
+  <bindings schemaLocation="IntegrationCPTypes.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v834.itcp"/>
+    </schemaBindings>
+  </bindings>
+
+  <bindings schemaLocation="IntegrationEPTypes.xsd">
+    <schemaBindings>
+      <package name="ru.gov.zakupki.v834.itep"/>
+    </schemaBindings>
+  </bindings>
+
+</bindings>

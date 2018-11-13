@@ -1,0 +1,1806 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- FCS INTEGRATION_TYPES Integration Scheme, version 8.3.4, create date 2.11.2018 -->
+<xs:schema xmlns="http://zakupki.gov.ru/oos/CPtypes/1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:base="http://zakupki.gov.ru/oos/base/1" xmlns:cmn="http://zakupki.gov.ru/oos/common/1" targetNamespace="http://zakupki.gov.ru/oos/CPtypes/1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://zakupki.gov.ru/oos/base/1" schemaLocation="BaseTypes.xsd"/>
+	<xs:import namespace="http://zakupki.gov.ru/oos/common/1" schemaLocation="CommonTypes.xsd"/>
+	<!--Основные документы-->
+	<xs:complexType name="contractProjectType">
+		<xs:annotation>
+			<xs:documentation>Тип: Проект контракта без подписей</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="contractProjectCommonType">
+				<xs:sequence>
+					<xs:element name="commonInfo" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Общая информация. Обязательно заполнение блока при приёме изменений</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence minOccurs="0">
+								<xs:element name="number" type="base:contractProjNumType" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Номер проекта контракта. 
+Элемент не заполняется при приёме первой версии документа. Присваивается автоматически после размещения. Должен быть заполнен при приёме изменения документа</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="docNumber" type="base:contractProjDocNumType" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Номер документа. Элемент игнорируется при приёме. Заполняется при передаче номером документа, присвоенным в ЕИС</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="publishDTInEIS" type="xs:dateTime" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Дата размещения документа в ЕИС. Элемент игнорируется при приёме. При передаче заполняется датой размещения документа в ЕИС</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="href" type="base:hrefType" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Гиперссылка на размещённый в ЕИС документ. Элемент игнорируется при приёме. При передаче заполняется ссылкой на карточку размещенного документа</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="docDirectDT" type="xs:dateTime" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Дата направления на размещение. Игнорируется при приеме. Заполняется автоматически датой направления на размещение (проверку) текущей версии</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="requirementsInfo" type="contractRequirementDocType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Требования к подтверждающим документам и информации. Блок игнорируется при приёме. Заполняется при передаче из связанного извещения (foundationInfo/purchaseNumber)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="contractProjectFilesInfo">
+						<xs:annotation>
+							<xs:documentation>Файлы проекта контракта, направляемого поставщику</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="contractProjectFileInfo" type="contractProjectFileType" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:documentation>Файл проекта контракта, направляемого поставщику</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="modificationInfo" type="modificationType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Основание внесения изменений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="extPrintFormInfo" type="cmn:extPrintFormType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Электронный документ, полученный из внешней системы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="contractProjectChangeType">
+		<xs:annotation>
+			<xs:documentation>Тип: Доработанный проект контракта на основании размещенного поставщиком протокола разногласий</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="contractProjectCommonType">
+				<xs:sequence>
+					<xs:element name="commonInfo">
+						<xs:annotation>
+							<xs:documentation>Общая информация</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="commonInfoType">
+									<xs:sequence>
+										<xs:element name="docDirectDT" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Дата направления на размещение. Игнорируется при приеме. Заполняется автоматически датой направления на размещение (проверку) текущей версии</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="requirementsInfo" type="contractRequirementDocType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Требования к подтверждающим документам и информации. Блок игнорируется при приёме. Заполняется при передаче из связанного извещения (foundationInfo/purchaseNumber)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="contractProjectFilesInfo">
+						<xs:annotation>
+							<xs:documentation>Файлы проекта контракта, направляемого поставщику</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="contractProjectFileInfo" type="contractProjectFileType" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:documentation>Файл проекта контракта, направляемого поставщику</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="changeInfo">
+						<xs:annotation>
+							<xs:documentation>Информация об изменении в поекте контракта, направляемого участнику </xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:choice>
+								<xs:element name="totallyAccepted" type="xs:boolean" fixed="true">
+									<xs:annotation>
+										<xs:documentation>Учтены все замечания</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="partlyAcceptedreasonDocInfo" type="cmn:attachmentListType">
+									<xs:annotation>
+										<xs:documentation>Замечания учтены частично</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="notAcceptedreasonDocInfo" type="cmn:attachmentListType">
+									<xs:annotation>
+										<xs:documentation>Замечания не учтены</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="modificationInfo" type="modificationType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Основание внесения изменений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="extPrintFormInfo" type="cmn:extPrintFormType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Электронный документ, полученный из внешней системы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="contractProjectSignType">
+		<xs:annotation>
+			<xs:documentation>Тип: Проект контракта, подписанный поставщиком</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="additionalDocType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="contractSignType">
+		<xs:annotation>
+			<xs:documentation>Тип: Подписанный контракт</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="contractProjectCommonType">
+				<xs:sequence>
+					<xs:element name="commonInfo">
+						<xs:annotation>
+							<xs:documentation>Общая информация</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="commonInfoType">
+									<xs:sequence>
+										<xs:element name="signDate" type="xs:date">
+											<xs:annotation>
+												<xs:documentation>Дата подписания контракта</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="contractProjectFilesInfo">
+						<xs:annotation>
+							<xs:documentation>Файлы подписанного контракта</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="contractProjectFileInfo" type="contractFileType" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:documentation>Файл подписанного контракта</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="protocolDisagreementsType">
+		<xs:annotation>
+			<xs:documentation>Тип: Протокол разногласий</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор документа ЕИС. Элемент игнорируется при приёме. Заполняется при передаче идентификатором документа в ЕИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externalId" type="base:externalIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Внешний идентификатор документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parentVersionNumber" type="base:versionNumberType">
+				<xs:annotation>
+					<xs:documentation>Номер версии документа основания. Проверяется наличие размещенного и не отменённого документа основания с указанной версией</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commonInfo">
+				<xs:annotation>
+					<xs:documentation>Общая информация</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="number" type="base:contractProjNumType">
+							<xs:annotation>
+								<xs:documentation>Номер проекта контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="docNumber" type="base:contractProjDocNumType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Номер документа. Элемент ингорируется при приёме. Заполняется при передаче номером документа присвоенным в ЕИС</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="publishDTInETP" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>Дата и время размещения документа на ЭТП</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="customerInfo" type="cmn:organizationType">
+				<xs:annotation>
+					<xs:documentation>Заказчик. Проверяется наличие заказчика в документе основании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="participantInfo" type="participantType">
+				<xs:annotation>
+					<xs:documentation>Поставщик. Проверяется наличие поставщика в документе основании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="disagreementsText" type="base:text2000Type">
+				<xs:annotation>
+					<xs:documentation>Краткое описание разногласий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="printFormInfo" type="cmn:printFormType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Печатная форма документа.
+Элемент игнорируется при приёме. При передаче заполняется ссылкой на печатную форму и электронную подпись размещенного в ЕИС документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protocolDisagreementsDocsInfo" type="cmn:attachmentListType">
+				<xs:annotation>
+					<xs:documentation>Файлы протокола разногласий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extPrintFormInfo" type="cmn:extPrintFormType">
+				<xs:annotation>
+					<xs:documentation>Электронный документ, полученный из внешней системы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="schemeVersion" type="base:schemeVersionType" use="required">
+			<xs:annotation>
+				<xs:documentation>Версия схемы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="noticeDeviationType">
+		<xs:annotation>
+			<xs:documentation>Тип: Уведомление об уклонении от заключения контракта</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="noticeCommonType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="noticeEvasionType">
+		<xs:annotation>
+			<xs:documentation>Тип: Уведомление об отказе от заключения контракта</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="noticeCommonType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="procedureCancelType">
+		<xs:annotation>
+			<xs:documentation>Тип: Извещение об отмене процедуры заключения контракта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор документа ЕИС. Элемент игнорируется при приё-ме. Заполняется при передаче идентификатором документа в ЕИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externalId" type="base:externalIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Внешний идентификатор документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commonInfo" type="commonInfoType">
+				<xs:annotation>
+					<xs:documentation>Общая информация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placerInfo">
+				<xs:annotation>
+					<xs:documentation>Информация об организации, разместившей извещение об отмене</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="responsibleOrg" type="base:organizationRef">
+							<xs:annotation>
+								<xs:documentation>Организация, разместившая извещение об отмене</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="responsibleRole" type="base:placerRoleContractProjectEnum">
+							<xs:annotation>
+								<xs:documentation>Роль организации, организации, разместившая извещение об отмене:
+
+CU - Заказчик;
+RA - Уполномоченный орган;
+AI - Уполномоченное учреждение;
+OA - Организация, осуществляющая полномочия заказчика на осуществление закупок на основании договора (соглашения);
+CS - Заказчик, осуществляющий закупки в соответствии с частью 5 статьи 15 Федерального закона № 44-ФЗ;
+RO - Специализированная некоммерческая организация, которая осуществляет деятельность, направленную на обеспечение проведения капитального ремонта общего имущества в многоквартирных домах (региональный оператор);
+TKO - Региональный оператор по обращению с твёрдыми коммунальными отходами;
+AU - Заказчик, осуществляющий закупку на проведение обязательного аудита;
+CC - Заказчик по Федеральному закону 223-ФЗ, осуществляющий закупки в соответствии с Федеральным законом № 44-ФЗ, в случаях, предусмотренных Федеральным законом № 223-ФЗ.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="cancelInfo" type="cancelType">
+				<xs:annotation>
+					<xs:documentation>Информация об отмене процедуры заключения контракта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="printFormInfo" type="cmn:printFormType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Печатная форма документа.
+Элемент игнорируется при приёме. При передаче заполняется ссылкой на печатную форму и электронную подпись размещенного в ЕИС документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extPrintFormInfo" type="cmn:extPrintFormType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Электронный документ, полученный из внешней системы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="printFormFieldsInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дополнительная информация для печатной формы. Игнорируется при приёме, заполняется при передаче из проекта контракта</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence minOccurs="0">
+						<xs:element name="contractProjectInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Информация из проекта контрактов</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence minOccurs="0">
+									<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Полное наименование заказчика</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="participantInfo" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Поставщик</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:choice minOccurs="0">
+												<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Полное наименование</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="nameInfo" type="cmn:personType" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>ФИО</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:choice>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="subject" type="base:text2000Type" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Предмет контракта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="price" type="base:moneyPositiveType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Цена контракта
+(в валюте контракта)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="currency" type="base:currencyRef" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Валюта контракта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="purchaseNumber" type="base:purchaseNumberType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Номер закупки</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="schemeVersion" type="base:schemeVersionType" use="required">
+			<xs:annotation>
+				<xs:documentation>Версия схемы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="procedureCancelFailureType">
+		<xs:annotation>
+			<xs:documentation>Тип: Отмена извещения об отмене процедуры заключения контракта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="number" type="base:contractProjNumType">
+				<xs:annotation>
+					<xs:documentation>Номер проекта контракта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="canceledDocNumber" type="base:contractProjDocNumType">
+				<xs:annotation>
+					<xs:documentation>Номер отменяемого документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cancelDT" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Дата и время отмены</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cancelText" type="base:text2000Type">
+				<xs:annotation>
+					<xs:documentation>Информация об отмене</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="schemeVersion" type="base:schemeVersionType" use="required">
+			<xs:annotation>
+				<xs:documentation>Версия схемы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="control99ContractProjectExtractType">
+		<xs:annotation>
+			<xs:documentation>Тип: Информация из проекта контракта (РПК), направляемая на контроль по 99 статье в орган контроля</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="regNum" type="base:contractProjNumType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер проекта контракта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер версии документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="editionNumber" type="base:versionNumberType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер редакции в рамках версии документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id" type="xs:long">
+				<xs:annotation>
+					<xs:documentation>Идентификатор проекта контракта в ЕИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sIdInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор результата контроля предыдущей версии информации</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="noticeComplianceSId" type="xs:long">
+							<xs:annotation>
+								<xs:documentation>Идентификатор уведомления о соответствии контролируемой информации</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="protocolMismatchSId" type="xs:long">
+							<xs:annotation>
+								<xs:documentation>Идентификатор протокола о несоответствии контролируемой информации</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="documentType" type="base:control99DocumentTypeEnum">
+				<xs:annotation>
+					<xs:documentation>Тип документа, направляемого на контроль:
+contract - Сведения о контракте;
+contractProcedure - Сведения об исполнении (расторжении) контракта;
+purchasePlan - План закупок;
+tenderPlan2017 - План график с 01.01.2017;
+notification - Извещение (конкурсная документация);
+protocol - Итоговый протокол определения поставщика, подрядчика, исполнителя;
+contractProject - Проект контракта без подписей;
+contractProjectChange - Доработанный проект контракта на основании размещенного поставщиком протокола разногласий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externalId" type="base:externalIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Внешний идентификатор документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="refPacketUid" type="base:guidType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор принятого извне пакета данных</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="controlAuthorityInfo" type="cmn:control99ControlAuthorityInfoType">
+				<xs:annotation>
+					<xs:documentation>Сведения об органе контроля</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commonInfo">
+				<xs:annotation>
+					<xs:documentation>Общая информация о проекте контракта</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="controlDirectionDate" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>Дата/время направления на контроль</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="placingWay" type="base:placingWayRef">
+							<xs:annotation>
+								<xs:documentation>Подспособ определения поставщика</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="subject" type="base:text2000Type">
+							<xs:annotation>
+								<xs:documentation>Предмет контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="number" type="base:documentNumberType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Номер контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="price" type="base:moneyPositiveType">
+							<xs:annotation>
+								<xs:documentation>Цена контракта
+(в валюте контракта)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="currency" type="base:currencyRef">
+							<xs:annotation>
+								<xs:documentation>Валюта контракта. При приеме код контролируется на  присутствие в справочнике "Общероссийский классификатор валют (ОКВ)" (nsiCurrency)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="purchaseCode" type="base:ikzCodeType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Идентификационный код закупки (ИКЗ)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="isSecondParticipant" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Контракт заключается с участником, которому по результатам процедуры определения поставщика присвоен воторой номер. В поле указывается значение "false" в случае процедуры подписания контракта с победителем процедуры определения поставщика</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="changePriceFoundation" type="base:changePriceFoundationRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Обоснование изменения цены контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="documentLink" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Ссылка на карточку проекта контракта</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="url" type="base:text1000Type">
+										<xs:annotation>
+											<xs:documentation>Ссылка для перехода на карточку документа</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="customerInfo">
+				<xs:annotation>
+					<xs:documentation>Сведения о заказчике</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="cmn:control99CustomerInfoType">
+							<xs:sequence>
+								<xs:element name="OKTMOPPO" type="base:OKTMOPPORef" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>ОКТМО публично-правового образования (ППО)</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="placerInfo">
+				<xs:annotation>
+					<xs:documentation>Информация об организации, разместившей проект контракта</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="responsibleOrg" type="base:organizationRef">
+							<xs:annotation>
+								<xs:documentation>Организация, разместившая проект контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="responsibleRole" type="base:placerRoleContractProjectEnum">
+							<xs:annotation>
+								<xs:documentation>Роль организации, организации, разместившей контракт:
+
+CU - Заказчик;
+RA - Уполномоченный орган;
+AI - Уполномоченное учреждение;
+OA - Организация, осуществляющая полномочия заказчика на осуществление закупок на основании договора (соглашения);
+CS - Заказчик, осуществляющий закупки в соответствии с частью 5 статьи 15 Федерального закона № 44-ФЗ;
+RO - Специализированная некоммерческая организация, которая осуществляет деятельность, направленную на обеспечение проведения капитального ремонта общего имущества в многоквартирных домах (региональный оператор);
+TKO - Региональный оператор по обращению с твёрдыми коммунальными отходами;
+AU - Заказчик, осуществляющий закупку на проведение обязательного аудита;
+CC - Заказчик по Федеральному закону 223-ФЗ, осуществляющий закупки в соответствии с Федеральным законом № 44-ФЗ, в случаях, предусмотренных Федеральным законом № 223-ФЗ.
+</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="purchaseInfo">
+				<xs:annotation>
+					<xs:documentation>Сведения о закупке</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="purchaseNumber" type="base:purchaseNumberType">
+							<xs:annotation>
+								<xs:documentation>Номер закупки</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Номер текущей версии извещения</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="editionNumber" type="base:versionNumberType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Номер текущией редакции в рамках версии извещения</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="quantityUndefined" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Невозможно определить количество товара, объем подлежащих выполнению работ, оказанию услуг</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="severalWinners" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Несколько победителей</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="jointPurchase" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Признак совместной централизованной закупки</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="maxPrice" type="base:moneyPositiveType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Начальная (максимальная) цена контракта (НМЦК)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="currency" type="base:currencyRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Валюта НМЦК по ОКВ</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="isMaxPriceCurrency" type="cmn:purchaseIsMaxPriceCurrencyType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Указать НМЦК в валюте контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="customerRequirementInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Требование заказчика</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence minOccurs="0">
+									<xs:element name="maxPrice" type="base:moneyPositiveType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Начальная (максимальная) цена контракта из требований заказчика</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="maxPriceCurrency" type="base:currencyRef" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Валюта НМЦК требования заказчика по ОКВ</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="maxPriceCurrencySum" type="base:moneyType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Начальная (максимальная) цена в валюте контракта.
+ Заполняется автоматически по формуле:
+«Начальная (максимальная) цена контракта» / «Курс конвертации». Игнорируется при приеме и передаче. Добавлено на развитие</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="publishDTInEIS" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>Дата размещения извещения в ЕИC</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="documentLink" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Ссылка на карточку извещения</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="url" type="base:text1000Type">
+										<xs:annotation>
+											<xs:documentation>Ссылка для перехода на карточку документа</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="protocolInfo">
+							<xs:annotation>
+								<xs:documentation>Реквизиты протокола, в котором определён поставщик</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Номер версии документа</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="editionNumber" type="base:versionNumberType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Номер редакции в рамках версии документа</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="name" type="base:docNameType">
+										<xs:annotation>
+											<xs:documentation>Наименование протокола-основаня</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="number" type="base:documentNumberType">
+										<xs:annotation>
+											<xs:documentation>Номер протокола-основания</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="publishDTInEIS" type="xs:dateTime">
+										<xs:annotation>
+											<xs:documentation>Дата размещения итогового протокола в ЕИC</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="price" type="base:moneyPositiveType">
+										<xs:annotation>
+											<xs:documentation>Цена предложения победителя</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="currency" type="base:currencyRef">
+										<xs:annotation>
+											<xs:documentation>Валюта цены победителя</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="concludeContractRight" type="xs:boolean">
+										<xs:annotation>
+											<xs:documentation>Торги проводили на право заключения контратка</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="documentLink" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Ссылка на карточку протокола</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="url" type="base:text1000Type">
+													<xs:annotation>
+														<xs:documentation>Ссылка для перехода на карточку документа</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="contractProjectFilesInfo">
+				<xs:annotation>
+					<xs:documentation>Файлы проекта контракта, направляемого поставщику</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contractProjectFileInfo" type="contractProjectFileType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Файл проекта контракта, направляемого поставщику</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="changeInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Информация об изменении в поекте контракта, направляемого участнику </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="totallyAccepted" type="xs:boolean" fixed="true">
+							<xs:annotation>
+								<xs:documentation>Учтены все замечания</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="partlyAccepted" type="xs:boolean" fixed="true">
+							<xs:annotation>
+								<xs:documentation>Замечания учтены частично</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="notAccepted" type="xs:boolean" fixed="true">
+							<xs:annotation>
+								<xs:documentation>Замечания не учтены</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="printForm" type="cmn:attachmentType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Печатная форма документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extPrintForm" type="cmn:extPrintFormType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Электронный документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="schemeVersion" type="base:schemeVersionType" use="required">
+			<xs:annotation>
+				<xs:documentation>Версия схемы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!--Вспомогательные типы-->
+	<xs:complexType name="commonInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Общая информация</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="number" type="base:contractProjNumType">
+				<xs:annotation>
+					<xs:documentation>Номер проекта контракта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="docNumber" type="base:contractProjDocNumType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер документа. Элемент игнорируется при приёме. Заполняется при передаче номером документа, присвоенным в ЕИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishDTInEIS" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата размещения документа в ЕИС. Элемент игнорируется при приёме. При передаче заполняется датой размещения документа в ЕИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="href" type="base:hrefType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Гиперссылка на размещённый в ЕИС документ. Элемент игнорируется при приёме. При передаче заполняется ссылкой на карточку размещенного документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="noticeCommonType">
+		<xs:annotation>
+			<xs:documentation>Тип: Общий тип для уведомлений</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор документа ЕИС. Элемент игнорируется при приёме. Заполняется при передаче идентификатором документа в ЕИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externalId" type="base:externalIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Внешний идентификатор документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parentVersionNumber" type="base:versionNumberType">
+				<xs:annotation>
+					<xs:documentation>Номер версии документа основания. Проверяется наличие размещенного и не отменённого документа основания с указанной версией</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commonInfo">
+				<xs:annotation>
+					<xs:documentation>Общая информация</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="number" type="base:contractProjNumType">
+							<xs:annotation>
+								<xs:documentation>Номер проекта контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="docNumber" type="base:contractProjDocNumType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Номер документа. Элемент ингорируется при приёме. Заполняется при передаче номером документа присвоенным в ЕИС</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="publishDTInETP" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>Дата и время размещения документа на ЭТП</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="participantInfo" type="participantType">
+				<xs:annotation>
+					<xs:documentation>Поставщик</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="noticeText" type="base:text2000Type">
+				<xs:annotation>
+					<xs:documentation>Текст уведомления</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="printFormInfo" type="cmn:printFormType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Печатная форма документа.
+Элемент игнорируется при приёме. При передаче заполняется ссылкой на печатную форму и электронную подпись размещенного в ЕИС документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extPrintFormInfo" type="cmn:extPrintFormType">
+				<xs:annotation>
+					<xs:documentation>Электронный документ, полученный из внешней системы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="schemeVersion" type="base:schemeVersionType" use="required">
+			<xs:annotation>
+				<xs:documentation>Версия схемы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="additionalDocType">
+		<xs:annotation>
+			<xs:documentation>Тип: Информация, полученная от поставщика вместе с подписанным проектом контракта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор документа ЕИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externalId" type="base:externalIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Внешний идентификатор документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер версии документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parentVersionNumber" type="base:versionNumberType">
+				<xs:annotation>
+					<xs:documentation>Номер версии документа основания. Проверяется наличие размещенного и не отменённого документа основания с указанной версией</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commonInfo">
+				<xs:annotation>
+					<xs:documentation>Общая информация</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="number" type="base:contractProjNumType">
+							<xs:annotation>
+								<xs:documentation>Номер проекта контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="docNumber" type="base:contractProjDocNumType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Номер документа. Элемент игнорируется при приёме. Заполняется при передаче номером документа, присвоенным в ЕИС</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="signDate" type="xs:date">
+							<xs:annotation>
+								<xs:documentation>Дата подписания проекта контракта на ЭП</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="publishDTInETP" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>Дата и время размещения документа на ЭТП</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="requirementsDocInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Документы, подтверждающие обеспечение исполнения контракта</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="paymentOrderInfo" type="cmn:attachmentListType">
+							<xs:annotation>
+								<xs:documentation>Платёжное поручение</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="bankGuaranteeInfo">
+							<xs:annotation>
+								<xs:documentation>Банковская гарантия. В рамках блока должен быть заполнено поле regNumber и/или блок bankGuaranteeDocInfo</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="bankGuarantee" type="xs:boolean" fixed="true">
+										<xs:annotation>
+											<xs:documentation>Документом, подтверждающим обеспечение исполнения контракта является банковская гарантия</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="regNumber" type="base:bankGuaranteeRegNumberType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Номер реестровой записи банковской гарантии</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="bankGuaranteeDocInfo" type="cmn:attachmentListType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Подписанная скан-копия банковской гарантии. В случае, если в реестре банковских гарантий ЕИС не найдена банковская гарантия с номером, указанным в поле regNumber, то требуется обязательное заполнение блока</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="conscientiousnessDocsInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Документы, подтверждающие добросовестность участника</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contractPeriod" type="base:contractPeriodEnum">
+							<xs:annotation>
+								<xs:documentation>Период, в течении которого заключен контракт до даты подачи заявки:
+1 - Контракты, заключённые в течении 1 года до даты подачи заявки;
+2 - Контракты, заключённые в течении 2-х лет до даты подачи заявки;
+3 - Контракты, заключённые в течении 3-х лет до даты подачи заявки</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="conscientiousnessDocInfo" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Документ, подтверждающий добросовестность участника</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="contractRegNumInfo" type="base:contractRegNumType">
+										<xs:annotation>
+											<xs:documentation>Номер реестровой записи государственного или муниципального контракта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="contractPriceFoundationDocInfo" type="cmn:attachmentListType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обоснование предлагаемой цены</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractProjectFilesInfo">
+				<xs:annotation>
+					<xs:documentation>Файлы проекта контракта, подписанные поставщиком</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contractProjectFileInfo" type="contractProjectSignFileType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Файл проекта контракта, подписанный поставщиком. 
+При приёме в ЕИС в блоке контролируется наличие элемента "Уникальный идентификатор контента прикреплённого документа на ЕИС" (contentId).
+При приёме в ЕИС проверяется наличие у проекта контракта (доработанного проекта контракта при наличии) с номером, указанным в поле "Номер проекта контракта" (commonInfo/number), файла с тем же именем (fileName),  уникальным идентификатором контента прикреплённого документа в ЕИС (contentId), совпадающего по размеру (fileSize) и с совпадающим отпечатком файла (fileFingerPrint)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="modificationInfo" type="modificationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Основание внесения изменений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extPrintFormInfo" type="cmn:extPrintFormType">
+				<xs:annotation>
+					<xs:documentation>Электронный документ, полученный из внешней системы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="schemeVersion" type="base:schemeVersionType" use="required">
+			<xs:annotation>
+				<xs:documentation>Версия схемы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="participantType">
+		<xs:annotation>
+			<xs:documentation>Тип: Поставщик</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="legalEntityRFInfo">
+				<xs:annotation>
+					<xs:documentation>Юридическое лицо РФ</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Полное наименование. Игнорируется при приёме. Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком с указанными ИНН КПП</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="INN" type="base:innEntityType">
+							<xs:annotation>
+								<xs:documentation>ИНН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="KPP" type="base:kppType">
+							<xs:annotation>
+								<xs:documentation>КПП</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="legalEntityForeignStateInfo">
+				<xs:annotation>
+					<xs:documentation>Юридическое лицо иностранного государства</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Полное наименование. Игнорируется при приёме.  Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком со значением указанным в поле "Код налогоплательщика в стране регистрации или его аналог" (taxPayerCode)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="INN" type="base:innEntityType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>ИНН. Игнорируется при приёме. Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком со значением указанным в поле "Код налогоплательщика в стране регистрации или его аналог" (taxPayerCode)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="taxPayerCode" type="base:taxPayerCode">
+							<xs:annotation>
+								<xs:documentation>Код налогоплательщика в стране регистрации или его аналог</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="country" type="base:OKSMRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Страна регистрации. Игнорируется при приёме. Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком со значением указанным в поле "Код налогоплательщика в стране регистрации или его аналог" (taxPayerCode)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="individualPersonRFInfo">
+				<xs:annotation>
+					<xs:documentation>Физическое лицо РФ</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nameInfo" type="cmn:personType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>ФИО. Игнорируется при приёме. Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком с указанным ИНН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="INN" type="base:innIndividualType">
+							<xs:annotation>
+								<xs:documentation>ИНН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="isIP" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Индивидуальный предприниматель. Игнорируется при приёме. Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком с указанным ИНН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="individualPersonForeignStateInfo">
+				<xs:annotation>
+					<xs:documentation>Физическое лицо иностранного государства</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nameInfo" type="cmn:personType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>ФИО. Игнорируется при приёме. Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком со значением указанным в поле "Код налогоплательщика в стране регистрации или его аналог" (taxPayerCode)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="INN" type="base:innIndividualType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>ИНН. Игнорируется при приёме. Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком со значением указанным в поле "Код налогоплательщика в стране регистрации или его аналог" (taxPayerCode)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="taxPayerCode" type="base:taxPayerCode">
+							<xs:annotation>
+								<xs:documentation>Код налогоплательщика в стране регистрации или его аналог</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="country" type="base:OKSMRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Страна регистрации. Игнорируется при приёме. Заполняется при выгрузке из связанного итогового протокола (foundationInfo/protocolInfo/number) поставщиком со значением указанным в поле "Код налогоплательщика в стране регистрации или его аналог" (taxPayerCode)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="contractProjectCommonType">
+		<xs:annotation>
+			<xs:documentation>Тип: Общий тип для проекта контракта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор документа ЕИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externalId" type="base:externalIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Внешний идентификатор документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="versionNumber" type="base:versionNumberType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер версии документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="foundationInfo">
+				<xs:annotation>
+					<xs:documentation>Основание заключения контракта</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="purchaseNumber" type="base:purchaseNumberType">
+							<xs:annotation>
+								<xs:documentation>Номер закупки</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ETP" type="base:ETPRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Электронная торговая площадка. Блок игнорируется при приёме. Заполняется при передаче из связанного извещения (foundationInfo/purchaseNumber)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="placingWay" type="base:placingWayRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Подспособ определения поставщика. Блок игнорируется при приёме. Заполняется при передаче из связанного извещения (foundationInfo/purchaseNumber)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="purchaseCode" type="base:ikzCodeType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Идентификационный код закупки. Элемент игнорируется при приёме. Заполняется при передаче из связанного извещения (foundationInfo/purchaseNumber)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<!--xs:element name="реквизиты письма КО с согласованием размещения у единственного поставщика, бывают случаи просто указания на пункты 94-ФЗ"/-->
+						<xs:element name="protocolInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Реквизиты протокола, в котором определён поставщик. Блок игнорируется при приёме. Заполняется при передаче из связанного извещения (foundationInfo/purchaseNumber)</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="name" type="base:docNameType">
+										<xs:annotation>
+											<xs:documentation>Наименование протокола-основаня</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="number" type="base:documentNumberType">
+										<xs:annotation>
+											<xs:documentation>Номер протокола-основания, сформированный в ЕИС</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="publishDTInEIS" type="xs:dateTime">
+										<xs:annotation>
+											<xs:documentation>Дата размещения документа в ЕИC</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="customerInfo" type="cmn:organizationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заказчик. 
+- В случае если в связанном извещении (foundationInfo/purchaseNumber) указан один заказчик, блок игнорируется при приёме, заполняется из связанного извещения;
+- В случае если в связанном извещении (foundationInfo/purchaseNumber) указано более одного заказчика, требуется обязательное заполнение и проверяется наличие заказчика в связанном извещении </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placerInfo">
+				<xs:annotation>
+					<xs:documentation>Информация об организации, разместившей контракт</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="responsibleOrg" type="base:organizationRef">
+							<xs:annotation>
+								<xs:documentation>Организация, разместившая контракт</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="responsibleRole" type="base:placerRoleContractProjectEnum">
+							<xs:annotation>
+								<xs:documentation>Роль организации, организации, разместившей контракт:
+
+CU - Заказчик;
+RA - Уполномоченный орган;
+AI - Уполномоченное учреждение;
+OA - Организация, осуществляющая полномочия заказчика на осуществление закупок на основании договора (соглашения);
+CS - Заказчик, осуществляющий закупки в соответствии с частью 5 статьи 15 Федерального закона № 44-ФЗ;
+RO - Специализированная некоммерческая организация, которая осуществляет деятельность, направленную на обеспечение проведения капитального ремонта общего имущества в многоквартирных домах (региональный оператор);
+TKO - Региональный оператор по обращению с твёрдыми коммунальными отходами;
+AU - Заказчик, осуществляющий закупку на проведение обязательного аудита;
+CC - Заказчик по Федеральному закону 223-ФЗ, осуществляющий закупки в соответствии с Федеральным законом № 44-ФЗ, в случаях, предусмотренных Федеральным законом № 223-ФЗ.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="participantInfo" type="participantType">
+				<xs:annotation>
+					<xs:documentation>Поставщик. При приёме проверяется 
+- Наличие указанного поставщика в связанном итоговом протоколе (foundationInfo/protocolInfo/number);
+- Отсутствие по закупке с номером указанным в поле (foundationInfo/purchaseNumber) для указанного поставщика размещенного протокола отказа от заключения контратка (fcsProtocolEvasion), или протокола о признании участника уклонившимся от заключения контракта (fcsProtocolDeviation)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isSecondParticipant" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Контракт заключается с участником, которому по результатам процедуры определения поставщика присвоен воторой номер. Элементигнорируется при приёме. Заполняется из связанного итогового протокола (foundationInfo/protocolInfo/number) </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractInfo">
+				<xs:annotation>
+					<xs:documentation>Информация о контракте</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="subject" type="base:text2000Type">
+							<xs:annotation>
+								<xs:documentation>Предмет контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="concludeContractRight" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Торги проводили на право заключения контратка. Элемент игнорируется при приёме. Заполняется из связанного итогового протокола (foundationInfo/protocolInfo/number) </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="changePriceInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Цена контракта изменена относительно предложения поставщика в итоговом протоколе, В случае если блок заполнен проверяется наличие в итоговом протоколе (foundationInfo/protocolInfo/number) отсутствие флага "Торги проводили на право заключения контратка" (concludeContractRight) с выставленным значением true</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="changePrice" type="base:moneyPositiveType">
+										<xs:annotation>
+											<xs:documentation>Изменённая цена контракта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="changePriceFoundation" type="base:changePriceFoundationRef">
+										<xs:annotation>
+											<xs:documentation>Обоснование изменения цены контракта. При приёме проверяется наличие значения в справочнике "Обоснования изменения цены контратка" (nsiChangePriceFoundation)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="price" type="base:moneyPositiveType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Цена контракта (в валюте контракта). Элемент игнорируется при приёме. Заполняется из поля "Измененая цена контратка" (contractInfo/changePriceInfo/changePrice) при наличии, иначе из связанного итогового протокола (foundationInfo/protocolInfo/number) </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="currency" type="base:currencyRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Валюта контракта. Блок игнорируется при приёме. Заполняется из связанного извещения (foundationInfo/purchaseNumber)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="number" type="base:documentNumberType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Номер контракта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="printFormInfo" type="cmn:printFormType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Печатная форма документа.
+Элемент игнорируется при приёме. При передаче заполняется ссылкой на печатную форму и электронную подпись размещенного в ЕИС документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="schemeVersion" type="base:schemeVersionType" use="required">
+			<xs:annotation>
+				<xs:documentation>Версия схемы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="contractRequirementDocType">
+		<xs:annotation>
+			<xs:documentation>Тип: Требования к подтверждающим документам и информации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="notRequired" type="xs:boolean" fixed="true">
+					<xs:annotation>
+						<xs:documentation>Подтверждение предоставления обеспечения контракта не требуется </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="contractGuaranteeConfirmations">
+					<xs:annotation>
+						<xs:documentation>Подтверждения предоставления обеспечения исполнения контракта и информацию подтверждающую добросовестность участника</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="contractGuaranteeConfirmation" type="base:contractGuaranteeConfirmationsEnum" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Подтверждение предоставления обеспечения исполнения контракта и информацию подтверждающую добросовестность участника:
+
+GN - в размере, указанном в извещении;
+GA - не менее чем в размере аванса;
+G1.5N - в размере, превышающем в полтора раза размер обеспечения исполнения контракта в извещении;
+GNC - в размере, указанном в извещении, и информация, подтверждающая добросовестность участника</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="contractPriceFoundation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Обоснование цены контракта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="modificationType">
+		<xs:annotation>
+			<xs:documentation>Тип: Основание внесения изменений в контракт</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="info" type="base:text2000Type">
+				<xs:annotation>
+					<xs:documentation>Краткое описание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="attachmentsInfo" type="cmn:attachmentListType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Прикрепленные документы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reasonInfo">
+				<xs:annotation>
+					<xs:documentation>Основание</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="responsibleDecisionInfo">
+							<xs:annotation>
+								<xs:documentation>По решению заказчика (организации, осуществляющей определение поставщика для заказчика)</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="isResponsibleDecision" type="xs:boolean" fixed="true">
+										<xs:annotation>
+											<xs:documentation>По решению заказчика</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="authorityPrescriptionInfo" type="authorityPrescriptionType">
+							<xs:annotation>
+								<xs:documentation>Предписание органа, уполномоченного на осуществление контроля</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="courtDecisionInfo" type="courtDecisionType">
+							<xs:annotation>
+								<xs:documentation>Решение судебного органа</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="cancelType">
+		<xs:annotation>
+			<xs:documentation>Тип: Информация об отмене процедуры заключения контракта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="attachmentsInfo" type="cmn:attachmentListType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Прикрепленные документы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reasonInfo">
+				<xs:annotation>
+					<xs:documentation>Основание отмены процедуры заключения контракта</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="responsibleDecisionInfo">
+							<xs:annotation>
+								<xs:documentation>По решению заказчика (организации, осуществляющей определение поставщика для заказчика)</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="reasonText" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Основание для отмены процедуры заключения контракта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="authorityPrescriptionInfo" type="authorityPrescriptionType">
+							<xs:annotation>
+								<xs:documentation>Предписание органа, уполномоченного на осуществление контроля</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="courtDecisionInfo" type="courtDecisionType">
+							<xs:annotation>
+								<xs:documentation>Решение судебного органа</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="autoCreationInfo">
+							<xs:annotation>
+								<xs:documentation>Автоматическое создание документа</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="reasonText" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Основание для отмены процедуры заключения контракта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="courtDecisionType">
+		<xs:annotation>
+			<xs:documentation>Тип: Решение судебного органа</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="courtName" type="base:text2000Type">
+				<xs:annotation>
+					<xs:documentation>Наименование судебного органа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decisionPropertyInfo" type="cmn:docPropertyType">
+				<xs:annotation>
+					<xs:documentation>Реквизиты документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="authorityPrescriptionType">
+		<xs:annotation>
+			<xs:documentation>Тип: Предписание органа, уполномоченного на осуществление контроля</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="reestrPrescriptionInfo" type="reestrPrescriptionType">
+				<xs:annotation>
+					<xs:documentation>Предписание органа, уполномоченного на осуществление контроля, содержащееся в реестре результатов контроля</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externalPrescriptionInfo" type="prescriptionType">
+				<xs:annotation>
+					<xs:documentation>Предписание отсутствует в реестре результатов контроля</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="prescriptionType">
+		<xs:annotation>
+			<xs:documentation>Тип: Предписание органа, уполномоченного на осуществление контроля, не содержащееся в реестре результатов контроля</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="authorityName" type="base:text2000Type">
+				<xs:annotation>
+					<xs:documentation>Наименование органа, уполномоченного на осуществление контроля</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorityType" type="base:authorityType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид органа, уполномоченного на осуществление контроля
+
+FA - Федеральная антимонопольная служба;
+FO - Федеральная служба по оборонному заказу;
+S - Орган исполнительной власти субъекта РФ;
+M - Орган местного самоуправления муниципального района, городского округа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prescriptionProperty" type="cmn:docPropertyType">
+				<xs:annotation>
+					<xs:documentation>Реквизиты предписания контролирующего органа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="reestrPrescriptionType">
+		<xs:annotation>
+			<xs:documentation>Тип: Предписание органа, уполномоченного на осуществление контроля, содержащееся в реестре результатов контроля</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="checkResultNumber" type="base:checkResultNumberType">
+				<xs:annotation>
+					<xs:documentation>Номер результата контроля по предписанию</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prescriptionNumber" type="base:prescriptionNumberType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер предписания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="foundation" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Основание внесения изменений по предписанию</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorityName" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование органа, уполномоченного на осуществление контроля (для печатной формы)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="docDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата документа (для печатной формы)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--Файлы-->
+	<xs:complexType name="fileType">
+		<xs:annotation>
+			<xs:documentation>Тип: Файл. Базовый тип</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="publishedContentId" type="base:guidType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор контента прикрепленного документа на ЕИС. Элемент игнорируется при приёме, заполняется при передаче</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fileName" type="base:fileNameType">
+				<xs:annotation>
+					<xs:documentation>Имя файла</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="docDescription" type="base:text4000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание прикрепляемого документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="url" type="base:hrefType">
+					<xs:annotation>
+						<xs:documentation>Ссылка для скачивания прикрепленного документа</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="contentId" type="base:guidType">
+					<xs:annotation>
+						<xs:documentation>Уникальный идентификатор контента прикрепленного документа на ЕИС</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="content" type="xs:base64Binary">
+					<xs:annotation>
+						<xs:documentation>Содержимое файла</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contractProjectFileType">
+		<xs:annotation>
+			<xs:documentation>Тип: Файл проекта контрактов</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="fileType">
+				<xs:sequence>
+					<xs:element name="fileSize" type="base:fileSizeType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Размер файла. Элемент игнорируется при приёме, автомастически заполняется при передаче</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="fileFingerPrint" type="base:fileHashType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Отпечаток контента файла (хэш). Элемент игнорируется при приёме, автоматически заполняется при передаче значением хэша файла</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="contractProjectSignFileType">
+		<xs:annotation>
+			<xs:documentation>Тип: Файл проекта контрактов подписанный поставщиком</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="fileType">
+				<xs:sequence>
+					<xs:element name="fileSize" type="base:fileSizeType">
+						<xs:annotation>
+							<xs:documentation>Размер файла</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="fileFingerPrint" type="base:fileHashType">
+						<xs:annotation>
+							<xs:documentation>Отпечаток контента файла (хэш)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="supplierSignature" type="cmn:signatureType">
+						<xs:annotation>
+							<xs:documentation>Электронная подпись поставщика</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="contractFileType">
+		<xs:annotation>
+			<xs:documentation>Тип: Файл контракта </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="fileType">
+				<xs:sequence>
+					<xs:element name="fileSize" type="base:fileSizeType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Размер файла</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="fileFingerPrint" type="base:fileHashType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Отпечаток контента файла (хэш)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="customerSignature" type="cmn:signatureType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Электронная подпись заказчика</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="supplierSignature" type="cmn:signatureType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Электронная подпись поставщика</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
