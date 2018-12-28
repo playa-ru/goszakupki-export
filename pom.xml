@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.gov.zakupki</groupId>
     <artifactId>eis-export-fz44</artifactId>
-    <version>8.3.5-SNAPSHOT</version>
+    <version>9.0.6-SNAPSHOT</version>
     <name>Java библиотека для схем экспорта данных ЕИС</name>
 
     <properties>
@@ -39,10 +39,10 @@
                 </executions>
                 <configuration>
                     <xjbSources>
-                        <xjbSource>src/main/resources/8.3.4/export.xjb</xjbSource>
+                        <xjbSource>src/main/resources/9.0.6/export.xjb</xjbSource>
                     </xjbSources>
                     <sources>
-                        <source>src/main/resources/8.3.4/fcsExport.xsd</source>
+                        <source>src/main/resources/9.0.6/fcsExport.xsd</source>
                     </sources>
                 </configuration>
             </plugin>

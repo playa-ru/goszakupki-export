@@ -1,0 +1,1915 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- COMMON_TYPES Integration Scheme, version 9.0, create date 25.12.2018 -->
+<xs:schema xmlns="http://zakupki.gov.ru/oos/common/1" xmlns:cmn="http://zakupki.gov.ru/oos/common/1" xmlns:base="http://zakupki.gov.ru/oos/base/1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://zakupki.gov.ru/oos/common/1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://zakupki.gov.ru/oos/base/1" schemaLocation="BaseTypes.xsd"/>
+	<!--Общие типы-->
+	<xs:complexType name="attachmentListType">
+		<xs:annotation>
+			<xs:documentation>Тип: Прикрепленные документы</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="attachmentInfo" type="attachmentType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Вложенный файл</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="attachmentListSignCheckUrlType">
+		<xs:annotation>
+			<xs:documentation>Тип: Прикрепленные документы с полем signatureCheckUrl</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="attachmentInfo" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Вложенный файл</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="attachmentType">
+							<xs:sequence minOccurs="0">
+								<xs:element name="signatureCheckUrl" type="base:hrefType">
+									<xs:annotation>
+										<xs:documentation>Ссылка на страницу проверки подписи на ЭП</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="attachmentType">
+		<xs:annotation>
+			<xs:documentation>Тип: Прикрепленный документ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="publishedContentId" type="base:guidType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор контента прикрепленного документа на ЕИС. Игнорируется при приеме, автоматически заполняется при передаче</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fileName" type="base:fileNameType">
+				<xs:annotation>
+					<xs:documentation>Имя файла</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fileSize" type="base:fileSizeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер файла</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="docDescription" type="base:text4000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание прикрепляемого документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="docDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время прикрепления документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="url" type="base:hrefType">
+					<xs:annotation>
+						<xs:documentation>Ссылка для скачивания прикрепленного документа. Контролируется недопустимость указания значения поля при приёме в ЕИС, автоматически заполняется при передач</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="contentId" type="base:guidType">
+					<xs:annotation>
+						<xs:documentation>Уникальный идентификатор контента прикрепленного документа в ЕИС</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="content">
+					<xs:annotation>
+						<xs:documentation>Содержимое файла</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:base64Binary">
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="cryptoSigns" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Электронная подпись документа</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="signature" type="signatureType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Электронная подпись</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="appRejectedReasonType">
+		<xs:annotation>
+			<xs:documentation>Тип: Причины отказа рассмотрения заявки</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rejectReason" type="base:rejectReasonRef">
+				<xs:annotation>
+					<xs:documentation>Причина отказа. При приеме содержимое контролируется на  присутствие в справочнике "Справочник причин отказа в допуске" (nsiPurchaseRejectReason). Для записи должен быть элемент placingWays/placingWay/code со значением указанным в извещении</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="explanation" type="base:text2000Type">
+				<xs:annotation>
+					<xs:documentation>Обоснование решения об отказе в допуске участника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="commissionType">
+		<xs:annotation>
+			<xs:documentation>Тип: Комиссии по размещению заказа (определению поставщика)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="commissionName" type="base:text2000Type">
+				<xs:annotation>
+					<xs:documentation>Название комиссии</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commissionMembers">
+				<xs:annotation>
+					<xs:documentation>Участники комиссии</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="commissionMember" type="commissionMemberType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Участник комиссии</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addInfo" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дополнительная информация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="commissionMemberType">
+		<xs:annotation>
+			<xs:documentation>Тип: Член комиссии</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="memberNumber" type="xs:positiveInteger">
+				<xs:annotation>
+					<xs:documentation>Порядковый номер члена комиссии</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nameInfo" type="cmn:personType">
+				<xs:annotation>
+					<xs:documentation>ФИО члена комиссии</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="role" type="commissionRoleType">
+				<xs:annotation>
+					<xs:documentation>Роль члена комиссии. При приеме содержимое контролируется на  присутствие в справочнике "Справочник: Роли членов комиссий" (nsiCommissionRole)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="commissionRoleType">
+		<xs:annotation>
+			<xs:documentation>Тип: Роли членов комиссий</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="code" type="base:commissionRoleCodeType">
+				<xs:annotation>
+					<xs:documentation>Код роли комиссии</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="base:nameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование роли. Игнорируется при приеме, автоматически заполняется при передаче по коду роли комиссии из справочника "Справочник: Роли членов комиссий" (nsiCommissionRole)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rightVote" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Имеет право голоса. Игнорируется при приеме, автоматически заполняется при передаче по коду роли комиссии из справочника "Справочник: Роли членов комиссий" (nsiCommissionRole)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="currencyRateType">
+		<xs:annotation>
+			<xs:documentation>Тип: Курс валюты</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rate">
+				<xs:annotation>
+					<xs:documentation>Курс валюты по отношению к рублю</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:fractionDigits value="4"/>
+						<xs:totalDigits value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="raiting" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номинал валюты.
+Поле игнорируется при приеме, заполняется автоматически значением из ОКВ на дату последнего сохранения извещения/изменения извещения (приема интеграционного пакета)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="docPropertyType">
+		<xs:annotation>
+			<xs:documentation>Тип: Реквизиты документа</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="docName" type="base:docNameType">
+				<xs:annotation>
+					<xs:documentation>Наименование документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="docNumber" type="base:docNumberType">
+				<xs:annotation>
+					<xs:documentation>Номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="docDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Дата документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="docType">
+		<xs:annotation>
+			<xs:documentation>Тип: Тип документа в рамках закупки</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="code">
+				<xs:annotation>
+					<xs:documentation>Кодовое наименование типа</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование типа документа</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="350"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="extPrintFormType">
+		<xs:annotation>
+			<xs:documentation>Тип: Электронный документ, полученный из внешней системы</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="content" type="xs:base64Binary">
+					<xs:annotation>
+						<xs:documentation>Содержимое файла электронного документа. Контролируется заполнение поля content или contentID при приёме. Поле не заполняется при передаче</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="contentId" type="base:guidType">
+					<xs:annotation>
+						<xs:documentation>Уникальный идентификатор контента прикрепленного документа в ЕИС. Поле не заполняется при передаче</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="url" type="base:hrefType">
+					<xs:annotation>
+						<xs:documentation>Ссылка для скачивания электронного документа. При приеме в ЕИС контролируется недопустимость заполнения данного поля. Поле заполняется при передаче</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="signature">
+				<xs:annotation>
+					<xs:documentation>Электронная подпись электронного документа</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:base64Binary">
+							<xs:attribute name="type" type="base:signatureType">
+								<xs:annotation>
+									<xs:documentation>Тип электронной подписи:
+CAdES-BES;
+CAdES-A</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fileType" type="base:printFormFileType">
+				<xs:annotation>
+					<xs:documentation>Тип файла электронного документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="organizationType">
+		<xs:annotation>
+			<xs:documentation>Тип: Данные организации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="regNum" type="base:spzNumType">
+				<xs:annotation>
+					<xs:documentation>Код по СПЗ. В случае если организация идентифицируется по коду СвР, а код СПЗ неизвестен, необходимо заполнить данное поле значением 00000000000, и обязательно указать код СвР</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="consRegistryNum" type="base:consRegistryNumType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код по Сводному Реестру. Должен быть заполнен в случае, если в поле spzCode указано значение 00000000000</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Полное наименование. Игнорируется при приеме, автоматически заполняется при передаче по коду организации из справочника "Организации" (nsiOrganization)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shortName" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сокращенное наименование. Игнорируется при приеме, автоматически заполняется при передаче по коду организации из справочника "Организации" (nsiOrganization)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postAddress" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Почтовый адрес организации. Игнорируется при приеме, автоматически заполняется при передаче по коду организации из справочника "Организации" (nsiOrganization)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="factAddress" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес местонахождения организации. Игнорируется при приеме, автоматически заполняется при передаче по коду организации из справочника "Организации" (nsiOrganization)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="INN" type="base:innOrganizationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ИНН организации. Игнорируется при приеме, автоматически заполняется при передаче по коду организации из справочника "Организации" (nsiOrganization)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KPP" type="base:kppType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КПП организации. Игнорируется при приеме, автоматически заполняется при передаче по коду организации из справочника "Организации" (nsiOrganization)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="paymentPropertysType">
+		<xs:annotation>
+			<xs:documentation>Тип: Платежные реквизиты</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bik" type="base:bikType">
+				<xs:annotation>
+					<xs:documentation>БИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="settlementAccount" type="base:settlementAccountType">
+				<xs:annotation>
+					<xs:documentation>Номер расчётного счёта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="personalAccount" type="base:personalAccountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер лицевого счёта </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="participantType">
+		<xs:annotation>
+			<xs:documentation>Тип: Поставщик для протоколов электронных процедур</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="legalEntityRFInfo">
+				<xs:annotation>
+					<xs:documentation>Юридическое лицо РФ</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="fullName" type="base:text2000Type">
+							<xs:annotation>
+								<xs:documentation>Полное наименование</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="shortName" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Сокращенное наименование</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="firmName" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Фирменное наименование</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="INN" type="base:innEntityType">
+							<xs:annotation>
+								<xs:documentation>ИНН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="KPP" type="base:kppType">
+							<xs:annotation>
+								<xs:documentation>КПП</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="registrationDate" type="xs:date" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Дата постановки на учет в налоговом органе</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ogrn" type="base:ogrnCodeType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>ОГРН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="legalForm" type="base:OKOPFRef">
+							<xs:annotation>
+								<xs:documentation>Организационно-правовая форма организации в ОКОПФ. При приеме содержимое контролируется на  присутствие в справочнике "Общероссийский классификатор организационно-правовых форм (ОКОПФ)" (nsiOKOPF)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="contactInfo">
+							<xs:annotation>
+								<xs:documentation>Контактная информация</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="orgPostAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Почтовый адрес организации</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="orgFactAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Адрес местонахождения организации</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactPersonInfo" type="cmn:personType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Контактное лицо</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactEMail" type="base:eMailType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Электронная почта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactPhone" type="base:phoneType">
+										<xs:annotation>
+											<xs:documentation>Контактный телефон</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="legalEntityForeignStateInfo">
+				<xs:annotation>
+					<xs:documentation>Юридическое лицо иностранного государства</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="fullName" type="base:text2000Type">
+							<xs:annotation>
+								<xs:documentation>Полное наименование</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="shortName" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Сокращенное наименование</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="firmName" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Фирменное наименование</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="fullNameLat" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Полное наименование (латинскими буквами)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="taxPayerCode" type="base:taxPayerCode">
+							<xs:annotation>
+								<xs:documentation>Код налогоплательщика в стране регистрации или его аналог</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ogrn" type="base:ogrnCodeType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>ОГРН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="legalForm" type="base:OKOPFRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Организационно-правовая форма организации в ОКОПФ</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="registerInRFTaxBodiesInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Поставщик состоит на учете в налоговых органах на территории РФ</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="INN" type="base:innEntityType">
+										<xs:annotation>
+											<xs:documentation>ИНН</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="KPP" type="base:kppType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>КПП</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="registrationDate" type="xs:date" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Дата постановки на учет в налоговом органе</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="placeOfStayInRegCountryInfo">
+							<xs:annotation>
+								<xs:documentation>Место нахождения в стране регистрации</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="country" type="base:OKSMRef">
+										<xs:annotation>
+											<xs:documentation>Страна регистрации. 
+При приеме содержимое контролируется на присутствие в справочнике "Общероссийский классификатор стран мира (ОКСМ)" (nsiOKSM)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="orgPostAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Почтовый адрес организации в стране регистрации</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="orgFactAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Адрес местонахождения организации в стране регистрации</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactEMail" type="base:eMailType">
+										<xs:annotation>
+											<xs:documentation>Электронная почта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactPhone" type="base:phoneType">
+										<xs:annotation>
+											<xs:documentation>Контактный телефон</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="placeOfStayInRFInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Наличие у поставщика места пребывания на территории РФ</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="orgPostAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Почтовый адрес организации</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="orgFactAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Адрес местонахождения организации</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactEMail" type="base:eMailType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Электронная почта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactPhone" type="base:phoneType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Контактный телефон</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="individualPersonRFInfo">
+				<xs:annotation>
+					<xs:documentation>Физическое лицо РФ</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nameInfo" type="cmn:personType">
+							<xs:annotation>
+								<xs:documentation>ФИО</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="INN" type="base:innIndividualType">
+							<xs:annotation>
+								<xs:documentation>ИНН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="registrationDate" type="xs:date" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Дата постановки на учет в налоговом органе</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="postAddress" type="base:text2000Type">
+							<xs:annotation>
+								<xs:documentation>Почтовый адрес </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="factAddress" type="base:text2000Type">
+							<xs:annotation>
+								<xs:documentation>Адрес местонахождения </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="contactEMail" type="base:eMailType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Электронная почта</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="contactPhone" type="base:phoneType">
+							<xs:annotation>
+								<xs:documentation>Контактный телефон</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="isIP" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Индивидуальный предприниматель</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="individualPersonForeignStateInfo">
+				<xs:annotation>
+					<xs:documentation>Физическое лицо иностранного государства</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nameInfo" type="cmn:personType">
+							<xs:annotation>
+								<xs:documentation>ФИО</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="nameLatInfo" type="cmn:personType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>ФИО (латинскими буквами)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="taxPayerCode" type="base:taxPayerCode">
+							<xs:annotation>
+								<xs:documentation>Код налогоплательщика в стране регистрации или его аналог</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="registerInRFTaxBodiesInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Поставщик состоит на учете в налоговых органах на территории РФ</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="INN" type="base:innIndividualType">
+										<xs:annotation>
+											<xs:documentation>ИНН</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="registrationDate" type="xs:date" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Дата постановки на учет в налоговом органе</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="placeOfStayInRegCountryInfo">
+							<xs:annotation>
+								<xs:documentation>Место нахождения в стране регистрации</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="country" type="base:OKSMRef">
+										<xs:annotation>
+											<xs:documentation>Страна регистрации</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="postAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Почтовый адрес </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="factAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Адрес местонахождения </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactEMail" type="base:eMailType">
+										<xs:annotation>
+											<xs:documentation>Электронная почта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactPhone" type="base:phoneType">
+										<xs:annotation>
+											<xs:documentation>Телефон</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="placeOfStayInRFInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Наличие у поставщика места пребывания на территории РФ</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="postAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Почтовый адрес </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="factAddress" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Адрес местонахождения </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactEMail" type="base:eMailType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Электронная почта</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="contactPhone" type="base:phoneType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Телефон</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="printFormType">
+		<xs:annotation>
+			<xs:documentation>Тип: Печатная форма</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="url" type="base:hrefType">
+				<xs:annotation>
+					<xs:documentation>Ссылка для скачивания печатной формы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="signature" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Электронная подпись печатной формы</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:base64Binary">
+							<xs:attribute name="type" type="base:signatureType">
+								<xs:annotation>
+									<xs:documentation>Тип электронной подписи:
+CAdES-BES;
+CAdES-A</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="purchaseObjectsType">
+		<xs:annotation>
+			<xs:documentation>Тип: Информация по объектам закупки, не являющимся лекарственными препаратами</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="purchaseObject" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Объект закупки</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice>
+							<xs:element name="OKPD2">
+								<xs:annotation>
+									<xs:documentation>Классификация по ОКПД2</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="base:OKPD2Ref">
+											<xs:sequence>
+												<xs:element name="addCharacteristics" type="base:text4000Type" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Функциональные, технические, качественные характеристики, эксплуатационные характеристики</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="KTRU">
+								<xs:annotation>
+									<xs:documentation>Классификация по КТРУ</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="base:KTRURef">
+											<xs:sequence>
+												<xs:element name="characteristics" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Характеристики товара, работы, услуги позиции КТРУ.
+Контролируется обязательное заполнение хотя бы одного из дочерних блоков characteristicsUsingReferenceInfo и/или characteristicsUsingTextForm</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="characteristicsUsingReferenceInfo" type="refKTRUCharacteristicType" minOccurs="0" maxOccurs="unbounded">
+																<xs:annotation>
+																	<xs:documentation>Характеристика товара, работы услуги позиции КТРУ формируется с использованием справочной информации (справочник Каталог товаров, работ, услуг (КТРУ) (nsiKTRU))</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="characteristicsUsingTextForm" type="manualKTRUCharacteristicType" minOccurs="0" maxOccurs="unbounded">
+																<xs:annotation>
+																	<xs:documentation>Характеристика товара, работы услуги позиции КТРУ формируется в текстовой форме</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="addCharacteristicInfoReason" type="base:text2000Type" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>Обоснование включения дополнительной информации в сведения о товаре, работе, услуге.
+Обязательность заполнения контролируется бизнес-контролем.</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:element name="name" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Наименование товара, работы, услуги.
+Игнорируется и заполняется наименованием КТРУ, если указана классификация по КТРУ (KTRU/code). 
+Если указана классификация по ОКПД2 (OKPD2/code), то если поле  заполнено в принимаемом документе, то сохраняется это "ручное" значение, иначе поле автоматически заполняется наименованием ОКПД2 по его коду</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="OKEI" type="base:OKEIRef" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Единица измерения</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="customerQuantities" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Количество по заказчикам</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="customerQuantity" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="customer" type="base:organizationRef">
+													<xs:annotation>
+														<xs:documentation>Организация заказчика</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="quantity" type="base:quantity18p11Type">
+													<xs:annotation>
+														<xs:documentation>Количество для заказчика</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="price" type="base:moneyType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Цена за единицу измерения</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="quantity">
+							<xs:annotation>
+								<xs:documentation>Общее количество по объекту закупки</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="value" type="base:quantity18p11Type">
+										<xs:annotation>
+											<xs:documentation>Количество</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="undefined" type="xs:boolean" fixed="true">
+										<xs:annotation>
+											<xs:documentation>Невозможно определить количество</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="sum" type="base:moneyType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Стоимость позиции</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="totalSum" type="base:moneyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общая сумма позиций</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalSumCurrency" type="base:moneyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общая сумма позиций в валюте контракта </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="purchaseIsMaxPriceCurrencyType">
+		<xs:annotation>
+			<xs:documentation>Тип: НМЦК в валюте контракта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="maxPriceCurrency" type="base:moneyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начальная (максимальная) цена в валюте контракта.
+Заполняется автоматически по формуле:
+Для валют с номиналом = 1 или номинал не указан:
+maxPrice / currencyRate/rate, где  currencyRate/rate - курс валюты по отношению к рублю на дату последнего сохранения извещения/изменения извещения (приема интеграционного пакета).
+Для валют с номиналом не равным 1:
+maxPrice * «Номинал» (из справочника валют для соответствующей валюты) / currencyRate/rate</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currency" type="base:currencyCBRFRef">
+				<xs:annotation>
+					<xs:documentation>Валюта из справочника "Список валют, курс на которые устанавливается ЦБ РФ" (nsiContractCurrencyCBRF) </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currencyRate" type="currencyRateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Курс валюты по отношению к рублю на дату последнего сохранения извещения/изменения извещения (приема интеграционного пакета). Если блок не задан, то поле "Курс валюты по отношению к рублю"(rate) заполняется автоматически значением из ОКВ курса ЦБ РФ на дату последнего сохранения извещения/изменения извещения (приема интеграционного пакета)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="preferenseType">
+		<xs:annotation>
+			<xs:documentation>Тип: Преимущество для участников</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="preferenseRequirementInfo" type="base:prefsReqsRef">
+				<xs:annotation>
+					<xs:documentation>Преимущество (требование, ограничение)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefValue" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Величина преимущества</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:double">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="requirementRestrictionType">
+		<xs:annotation>
+			<xs:documentation>Тип: Требование (ограничение) к участникам</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="preferenseRequirementInfo" type="base:prefsReqsRef">
+				<xs:annotation>
+					<xs:documentation>Требование (ограничение)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="content" type="base:text4000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Содержание требования (ограничения)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="personType">
+		<xs:annotation>
+			<xs:documentation>Тип: ФИО</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lastName" type="base:nameType">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="firstName" type="base:nameType">
+				<xs:annotation>
+					<xs:documentation>Имя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="middleName" type="base:nameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отчество</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="restrictionType">
+		<xs:annotation>
+			<xs:documentation>Тип: Ограничение для участников</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="preferenseRequirementInfo" type="base:prefsReqsRef">
+				<xs:annotation>
+					<xs:documentation>Требование (ограничение)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="0">
+				<xs:element name="content" type="base:text4000Type" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Содержание требования (ограничения)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="restrictionsSt14" type="restrictionSt14Type" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Перечень требований, нормативно-правовых актов, конкретизирующих особенностей применения национального режима. Указание допустимо и обязательно для ограничения «Запрет на допуск товаров, работ, услуг при осуществлении закупок, а также ограничения и условия допуска в соответствии с требованиями, установленными статьей 14 Федерального закона № 44-ФЗ» (код JB2149)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="restrictionSt14Type">
+		<xs:annotation>
+			<xs:documentation>Тип: Сведения по запрету, ограничению участия, условию допуска</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="restrictionSt14" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Сведения по запрету, ограничению участия, условию допуска</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="requirementsType">
+							<xs:annotation>
+								<xs:documentation>Виды требований</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="requirementType" maxOccurs="2">
+										<xs:annotation>
+											<xs:documentation>Вид требования</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="type">
+													<xs:annotation>
+														<xs:documentation>Вид требования:
+AC - условия допуска;
+RA - ограничение допуска;
+BAN - запрет.</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="AC"/>
+															<xs:enumeration value="RA"/>
+															<xs:enumeration value="BAN"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="NPAInfo" type="base:NPASt14Ref">
+							<xs:annotation>
+								<xs:documentation>Сведения о нормативно-правовом акте</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="exception" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Присутствуют обстоятельства, допускающие исключение, влекущее неприменение запрета, ограничения допуска</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="imposibilityBan" type="xs:boolean" fixed="true">
+										<xs:annotation>
+											<xs:documentation>Присутствуют обстоятельства, допускающие исключение, влекущее неприменение запрета, ограничения допуска</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="imposibilityBanReason" type="base:text2000Type">
+										<xs:annotation>
+											<xs:documentation>Обоснование невозможности запрета, ограничения допуска</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="note" type="base:text2000Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Примечание</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="signatureType">
+		<xs:annotation>
+			<xs:documentation>Тип: Электронная подпись</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:base64Binary">
+				<xs:attribute name="type" type="base:signatureType">
+					<xs:annotation>
+						<xs:documentation>Тип электронной подписи:
+CAdES-BES;
+CAdES-A</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<!--Контроль по 99 статье-->
+	<xs:complexType name="control99CustomerInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Сведения о заказчике в ПЗ/ПГ для контроля по 99 статье</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="regNum" type="base:spzNumType">
+				<xs:annotation>
+					<xs:documentation>Код по СПЗ. В случае если организация идентифицируется по коду СвР, а код СПЗ неизвестен, необходимо заполнить данное поле значением 00000000000, и обязательно указать код СвР</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="consRegistryNum" type="base:consRegistryNumType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код по Сводному Реестру. Должен быть заполнен в случае, если в поле spzCode указано значение 00000000000</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Полное наименование организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="INN" type="base:innType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ИНН организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KPP" type="base:kppType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КПП организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OKFS" type="base:OKFSRef" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Форма собственности организации по ОКФС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="orgBudget" type="base:budgetFundsContractRef" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Бюджет организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="factAddress" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес местонахождения организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OKOPF" type="base:OKOPFRef" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Организационно-правовая форма организации по ОКОПФ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OKTMO" type="base:OKTMORef" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Территориально-муниципальное образование организации по ОКТМО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="control99ControlAuthorityInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Сведения об органе контроля для контроля по 99 статье</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="regNum" type="base:spzNumType">
+				<xs:annotation>
+					<xs:documentation>Код по СПЗ. В случае если организация идентифицируется по коду СвР, а код СПЗ неизвестен, необходимо заполнить данное поле значением 00000000000, и обязательно указать код СвР</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="consRegistryNum" type="base:consRegistryNumType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код по Сводному Реестру. Должен быть заполнен в случае, если в поле spzCode указано значение 00000000000</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fullName" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Полное наименование организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="INN" type="base:innType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ИНН организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KPP" type="base:kppType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КПП организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IKU" type="base:ikuType">
+				<xs:annotation>
+					<xs:documentation>ИКУ организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--Типы лекарственных препаратов-->
+	<xs:complexType name="drugInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Сведения о МНН, ТН, лекарственной форме и дозировке</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MNNInfo" type="MNNInfoType">
+				<xs:annotation>
+					<xs:documentation>Международное, группировочное или химическое наименование лекарственного препарата (МНН). При приеме контролируется принадлежность каждого из набора МНН лекарственных препаратов к одному и тому же списку МНН (т.е. МНН в списке должны иметь одни и те же наименования) </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tradeInfo" type="tradeInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Торговое наименование (ТН) лекарственного препарата. Бизнес-контролем проверяется, что блок может быть заполнен только в случае если способ определения поставщика по закупке -- «Закупка у единственного поставщика(подрядчика, исполнителя)» ИЛИ
+- «Запрос предложений» и в извещении должен быть установлен признак «Закупка в соответствии с пунктом 7 части 2 статьи 83 Закона № 44-ФЗ»</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicamentalFormInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лекарственная форма. Игнорируется при приеме, автоматически заполняется при передаче по справочнику "Лекарственные препараты" </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="medicamentalFormName" type="base:drugNameType">
+							<xs:annotation>
+								<xs:documentation>Наименование лекарственной формы по справочнику "Лекарственные препараты" (nsiFarmDrugDictionary) (поле MNNsInfo\MNNInfo\medicamentalFormInfo\medicamentalFormName)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="dosageInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дозировка. Игнорируется при приеме, автоматически заполняется при передаче по справочнику "Лекарственные препараты"</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="dosageGRLSValue" type="base:drugNameType">
+							<xs:annotation>
+								<xs:documentation>Полная форма дозировки по справочнику   "Лекарственные препараты" (nsiFarmDrugDictionary) (поле MNNsInfo\MNNInfo\dosagesInfo\dosageInfo\dosageGRLSValue )</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="dosageUserOKEI" type="base:OKEIRef">
+							<xs:annotation>
+								<xs:documentation>Потребительская единица  измерения дозировки по справочнику  "Лекарственные препараты" (nsiFarmDrugDictionary) (блок MNNsInfo\MNNInfo\dosagesInfo\dosageInfo\dosageUser\ dosageUserOKEI). Ссылка на классификатор ОКЕИ (nsiOKEI)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="packagingInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сведения об упаковке. В  случае заполнения блока mustSpecifyDrugPackage при приеме контролируется заполненность блока packagingInfo во всех  вариантах поставки лекарственных препаратов</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="packaging1Quantity" type="base:drugPackaging1QuantityType">
+							<xs:annotation>
+								<xs:documentation>Количество лекарственных форм в первичной упаковке.  (поле MNNInfo\positionsTradeName\positionTradeName\packagingsInfo\packagingInfo\packaging1Quantity справочника nsiFarmDrugDictionary). При приеме контролируется наличие в справочнике "Лекарственные препараты" ЕИС лекарственного препарата по торговому наименованию с таким количеством и принадлежность лекарственного препарата по торговому наименованию к МНН, указанному  в блоке MNNInfo</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="packaging2Quantity" type="base:drugPackaging2QuantityType">
+							<xs:annotation>
+								<xs:documentation>Количество первичных упаковок во вторичной (потребительской) упаковке (поле MNNInfo\positionsTradeName\positionTradeName\packagingsInfo\packagingInfo\packaging2Quantity справочника nsiFarmDrugDictionary). При приеме контролируется наличие в справочнике "Лекарственные препараты" ЕИС лекарственного препарата по торговому наименованию с таким количеством и принадлежность лекарственного препарата по торговому наименованию к МНН, указанному  в блоке MNNInfo</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="sumaryPackagingQuantity" type="base:drugSumaryPackagingQuantityType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Количество лекарственных форм во вторичной (потребительской) упаковке. Игнорируется при приеме, автоматически рассчитывается как произведение packaging1Quantity*packaging2Quantity</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="manualUserOKEI" type="base:OKEIRef" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Единица измерения товара, введенная вручную . Если  заполнено в принимаемом документе, то считается, что внешняя система явно указала этот блок, содержимое контролируется на  присутствие в справочнике "Справочник: Единицы измерения потребительских единиц измерения лекарственных препаратов по ОКЕИ" (nsiDrugOKEI)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="basicUnit" type="xs:boolean" fixed="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак основного варианта поставки. При приеме контролируется обязательность заполнения поля только для одного значения блока drugInfo в составе двух блоков objectInfoUsingReferenceInfo и objectInfoUsingTextForm</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="drugInfoUsingTextFormType">
+		<xs:annotation>
+			<xs:documentation>Тип: Сведения о МНН, ТН, лекарственной форме и дозировке в случае когда информация о лекарственных препаратах формируется в текстовой форме</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MNNInfo">
+				<xs:annotation>
+					<xs:documentation>Международное, группировочное или химическое наименование лекарственного препарата (МНН). При приеме контрролируется, что МНН в списке лекарственных препаратов  должны иметь одни и те же наименования </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MNNName" type="base:drugNameType">
+							<xs:annotation>
+								<xs:documentation>Наименование МНН</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="drugChangeInfo" type="drugChangeInfoType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Информация, указываемая при ручном изменении лекарственного препарата. При приеме контролируется обязательность заполнения в случае указания наименования МНН в текстовой форме</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="tradeInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Торговое наименование (ТН) лекарственного препарата. Бизнес-контролем проверяется, что блок может быть заполнен только в случае если способ определения поставщика по закупке - «Закупка у единственного поставщика (подрядчика, исполнителя)»</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tradeName" type="base:drugNameType">
+							<xs:annotation>
+								<xs:documentation>Торговое наименование (ТН) препарата</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="drugChangeInfo" type="drugChangeInfoType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Информация указываемая при ручном изменении лекарственного препарата. При приеме контролируется обязательность заполнения в случае указания наименования ТН в текстовой форме</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="medicamentalFormInfo">
+					<xs:annotation>
+						<xs:documentation>Лекарственная форма</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="medicamentalFormName" type="base:drugNameType">
+								<xs:annotation>
+									<xs:documentation>Наименование лекарственной формы</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="dosageInfo">
+					<xs:annotation>
+						<xs:documentation>Дозировка</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="dosageGRLSValue" type="base:drugNameType">
+								<xs:annotation>
+									<xs:documentation>Полная форма дозировки</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="packagingInfo" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Сведения об упаковке. В  случае заполнения блока mustSpecifyDrugPackage при приеме контролируется заполненность блока packagingInfo во всех  вариантах поставки лекарственных препаратов</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="packaging1Quantity" type="base:drugPackaging1QuantityType">
+								<xs:annotation>
+									<xs:documentation>Количество лекарственных форм в первичной упаковке</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="packaging2Quantity" type="base:drugPackaging2QuantityType">
+								<xs:annotation>
+									<xs:documentation>Количество первичных упаковок во вторичной (потребительской) упаковке</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="sumaryPackagingQuantity" type="base:drugSumaryPackagingQuantityType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Количество лекарственных форм во вторичной (потребительской) упаковке. Игнорируется при приеме, автоматически рассчитывается как произведение packaging1Quantity*packaging2Quantity</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="manualUserOKEI" type="base:OKEIRef">
+					<xs:annotation>
+						<xs:documentation>Единица измерения товара. При приеме содержимое контролируется на  присутствие в справочнике "Справочник: Единицы измерения потребительских единиц измерения лекарственных препаратов по ОКЕИ" (nsiDrugOKEI)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="drugChangeInfo" type="drugChangeInfoType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Информация указываемая при ручном изменении лекарственного препарата. При приеме контролируется обязательность заполнения в случае указания лекарственной формы, дозировки, упаковки, единицы измерения  в текстовой форме</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="basicUnit" type="xs:boolean" fixed="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак основного варианта поставки. При приеме контролируется обязательность заполнения поля только для одного значения блока drugInfo в составе двух блоков objectInfoUsingReferenceInfo и objectInfoUsingTextForm</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="purchaseDrugObjectsInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Сведения об объектах закупки в том случае, когда объектами закупки являются лекарственные препараты (ПРИЗ)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="drugPurchaseObjectInfo" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Сведения об объекте закупки в том случае, когда объектом закупки является лекарственный препарат</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice>
+							<xs:element name="objectInfoUsingReferenceInfo">
+								<xs:annotation>
+									<xs:documentation>Информация о вариантах поставки лекарственных препаратов формируется с использованием справочной информации (не в текстовой форме)</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="drugsInfo">
+											<xs:annotation>
+												<xs:documentation>Сведения о вариантах поставки лекарственных препаратов</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="drugInfo" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>Сведения о варианте поставки лекарственного препарата</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:complexContent>
+																<xs:extension base="drugInfoType">
+																	<xs:sequence>
+																		<xs:element name="drugQuantity" type="base:quantity18p11Type">
+																			<xs:annotation>
+																				<xs:documentation>Количество (объем) закупаемого лекарственного препарата</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:extension>
+															</xs:complexContent>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="mustSpecifyDrugPackage" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Необходимо указание сведений об упаковке закупаемого лекарственного препарата. В случае указания блока контролируется заполненность блока packagingInfo во всех  вариантах поставки лекарственных препаратов</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="specifyDrugPackageReason" type="base:text4000Type">
+														<xs:annotation>
+															<xs:documentation>Обоснование необходимости указания сведений об упаковке лекарственного препарата</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="objectInfoUsingTextForm">
+								<xs:annotation>
+									<xs:documentation>Информация о вариантах поставки лекарственных препаратов  формируется в текстовой форме</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="drugsInfo">
+											<xs:annotation>
+												<xs:documentation>Сведения о вариантах поставки лекарственных препаратов</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="drugInfo" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>Сведения о варианте поставки лекарственного препарата</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:complexContent>
+																<xs:extension base="drugInfoUsingTextFormType">
+																	<xs:sequence>
+																		<xs:element name="drugQuantity" type="base:quantity18p11Type">
+																			<xs:annotation>
+																				<xs:documentation>Количество (объем) закупаемого лекарственного препарата</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:extension>
+															</xs:complexContent>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="mustSpecifyDrugPackage" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Необходимо указание сведений об упаковке закупаемого лекарственного препарата. В случае указания блока контролируется заполненность блока packagingInfo во всех  вариантах поставки лекарственных препаратов</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="specifyDrugPackageReason" type="base:text4000Type">
+														<xs:annotation>
+															<xs:documentation>Обоснование необходимости указания сведений об упаковке лекарственного препарата</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:element name="isZNVLP" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Признак включения в реестр жизненно необходимые и важнейших лекарственных препаратов (ЖНВЛП)  для основного варианта поставки. Если поле при приеме в ЕИС заполнено, считается, что признак заполнен вручную, иначе заполняется автоматически из справочника "Лекарственные препараты" (поле MNNInfo\isZNVLP документа nsiFarmDrugDictionary) для того лекарственного препарата из блока drugsInfo, у которого в поле basicUnit установлено true</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="drugQuantityCustomersInfo">
+							<xs:annotation>
+								<xs:documentation>Количество (объем) закупаемого лекарственного препарата в разбивке по заказчикам в основном варианте поставки. Поле total в составе блока рассчитывается автоматически</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="drugQuantityCustomerInfo" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Количество (объем) закупаемого лекарственного препарата для заказчика</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="customer" type="base:organizationRef">
+													<xs:annotation>
+														<xs:documentation>Организация заказчика</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="quantity" type="base:quantity18p11Type">
+													<xs:annotation>
+														<xs:documentation>Количество</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="total" type="base:quantity18p11Type" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Всего. Значение игнорируется при приеме. автоматически рассчитывается как сумма количества по всем заказчикам.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="pricePerUnit" type="base:moneyType">
+							<xs:annotation>
+								<xs:documentation>Цена за единицу в основном варианте поставки</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="positionPrice" type="base:moneyType">
+							<xs:annotation>
+								<xs:documentation>Стоимость позиции в основном варианте поставки. Заполняется внешней системой как произведение количества (объема) закупаемого лекарственного препарата в основном варианте поставки (drugsInfo\drugInfo\drugQuantity) на цену за единицу в основном варианте поставки (pricePerUnit)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="total" type="base:moneyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Всего. Значение игнорируется при приеме. автоматически рассчитывается как сумма стоимости позиций (positionPrice) по всем лекарственным препаратам</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalSumCurrency" type="base:moneyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общая сумма позиций в валюте контракта </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MNNInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Международное, группировочное или химическое наименование лекарственного препарата (МНН)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MNNExternalCode" type="base:drugExternalCodeType">
+				<xs:annotation>
+					<xs:documentation>Уникальный внешний код МНН по справочнику "Лекарственные препараты" (поле MNNInfo\MNNExternalCode документа nsiFarmDrugDictionary). При приеме контролируется наличие в справочнике "Лекарственные препараты" ЕИС МНН с таким кодом</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MNNName" type="base:drugNameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование МНН. Игнорируется при приеме, автоматически заполняется при передаче из справочника "Лекарственные препараты" (поле MNNInfo\MNNName документа nsiFarmDrugDictionary)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tradeInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Торговое наименование (ТН) лекарственного препарата</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="positionTradeNameExternalCode" type="base:drugExternalCodeType">
+				<xs:annotation>
+					<xs:documentation>Уникальный внешний код лекарственного препарата по справочнику "Лекарственные препараты" (поле MNNInfo\positionsTradeName\positionTradeName\positionTradeNameExternalCode документа nsiFarmDrugDictionary). При приеме контролируется наличие в справочнике "Лекарственные препараты" ЕИС лекарственного препарата с таким кодом и принадлежность лекарственного препарата с указанным кодом к МНН с кодом, указанным в поле MNNInfo\MNNExternalCode </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tradeName" type="base:drugNameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Торговое наименование (ТН) препарата по справочнику "Лекарственные препараты" (nsiFarmDrugDictionary).  Игнорируется при приеме, автоматически заполняется при передаче из справочника "Лекарственные препараты" (поле MNNInfo\positionsTradeName\positionTradeName документа nsiFarmDrugDictionary)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="drugChangeInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Информация указываемая при ручном изменении лекарственного препарата</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="drugChangeReason" type="base:drugChangeReasonRef">
+				<xs:annotation>
+					<xs:documentation>Причина корректировки сведений о лекарственных препаратах. При приеме код контролируется на  присутствие в справочнике "Причины корректировки справочных данных о лекарственных препаратах" (nsiDrugChangeReason)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commentOrRequestNumber" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий / номер обращения в службу технической поддержки. Требуется обязательное указание, если в справочнике "Причины корректировки справочных данных о лекарственных препаратах" (nsiDrugChangeReason) для записи с соответствующим кодом причины корректировки поле "Признак «Обязательно указание комментарий / номер обращения в службу тех поддержки»" (mustSpecifyCommentOrRequestNumber) имеет значение true</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="drugRef" type="base:text2000Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ссылка на сведения о лекарственном препарате в ГРЛС. Требуется обязатеьное указание, если в справочнике "Причины корректировки справочных данных о лекарственных препаратах" (nsiDrugChangeReason) для записи соответствующим кодом причины корректировки поле "Признак «Обязательно указание ссылки на сведения о ЛП в ГРЛС»" (mustSpecifyDrugRef) имеет значение true</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--КТРУ. Типы-->
+	<xs:complexType name="KTRUCharacteristicValueType">
+		<xs:annotation>
+			<xs:documentation>Тип КТРУ: Значение характеристики позиции КТРУ</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>Заполняется для качественной характеристики</xs:documentation>
+				</xs:annotation>
+				<xs:element name="qualityDescription" type="base:ktruDictNameType">
+					<xs:annotation>
+						<xs:documentation>Текстовое описание значения качественной характеристики</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>Заполняется для количественной характеристики</xs:documentation>
+				</xs:annotation>
+				<xs:element name="OKEI" type="base:OKEIRef" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Единица измерения. Ссылка на классификатор ОКЕИ (nsiOKEI)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="valueFormat" type="base:ktruCharacteristicValueFormatType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Формат значения характеристики:
+
+N-числовой;
+A-дополнительный
+
+В случае если поле при приеме не указано, по умолчанию считается, что формат значения характеристики - числовой</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:choice>
+					<xs:annotation>
+						<xs:documentation>Заполняется для количественных характеристик</xs:documentation>
+					</xs:annotation>
+					<xs:element name="rangeSet">
+						<xs:annotation>
+							<xs:documentation>Набор диапазонов значений характеристик</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="valueRange">
+									<xs:annotation>
+										<xs:documentation>Диапазон значений</xs:documentation>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:sequence minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>В случае отсутствия должна быть задана верхняя граница диапазона (maxMathNotation + max) </xs:documentation>
+												</xs:annotation>
+												<xs:element name="minMathNotation" type="base:ktruMinMathNotationType" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Математическое обозначение отношения к минимальному значению диапазона</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="min" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Минимальное значение диапазона</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:decimal">
+															<xs:totalDigits value="10"/>
+															<xs:fractionDigits value="4"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+											<xs:sequence minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>В случае отсутствия должна быть задана нижняя граница диапазона (minMathNotation + min)</xs:documentation>
+												</xs:annotation>
+												<xs:element name="maxMathNotation" type="base:ktruMaxMathNotationType" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Математическое обозначение отношения к максимальному значению диапазона</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="max" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Максимальное значение диапазона</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:decimal">
+															<xs:totalDigits value="10"/>
+															<xs:fractionDigits value="4"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="valueSet">
+						<xs:annotation>
+							<xs:documentation>Набор конкретных значений характеристики</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="concreteValue">
+									<xs:annotation>
+										<xs:documentation>Конкретное значение</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:decimal">
+											<xs:totalDigits value="10"/>
+											<xs:fractionDigits value="4"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="manualKTRUCharacteristicType">
+		<xs:annotation>
+			<xs:documentation>Тип КТРУ: Характеристика товаров, работ, услуг для ввода в текстовой форме</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="base:ktruDictNameType">
+				<xs:annotation>
+					<xs:documentation>Наименование характеристики</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="base:ktruCharacteristicTypeType">
+				<xs:annotation>
+					<xs:documentation>Тип характеристики:
+
+1 - качественная; 
+2 - количественная.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="values">
+				<xs:annotation>
+					<xs:documentation>Допустимые значения характеристики</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="value" type="KTRUCharacteristicValueType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Допустимое значение характеристики </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="refKTRUCharacteristicType">
+		<xs:annotation>
+			<xs:documentation>Тип КТРУ: Характеристика товаров, работ, услуг для ввода из справочника</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="code" type="base:ktruDictCodeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код характеристики. Игнорируется при приеме.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="base:ktruDictNameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование характеристики. Контролируется обязательность заполнения. Является полем, идентифицирующим характеристику</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="base:ktruCharacteristicTypeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип характеристики позиции КТРУ. Контролируется обязательность заполнения. Является полем, идентифицирующим характеристику:
+
+1 - качественная; 
+2 - количественная</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="kind" type="base:ktruCharacteristicKindType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид характеристики позиции КТРУ
+(игнорируется при приеме, заполняется автоматически на основе кода характеристики):
+
+1 - неизменяемая заказчиком (в применении КТРУ невозможно переопределить справочные значения); 
+2 - изменяемая заказчиком с выбором одного значения;
+3 - изменяемая заказчиком, выбор нескольких значений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="values" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Допустимые значения характеристики позиции КТРУ. 
+Если значение поля «Вид характеристики» (kind) = "неизменяемая заказчиком", то значение в блоке игнорируется, из справочника nsiKTRU автоматически заполняется полным набор значений для данной характеристики.
+Если «Вид характеристики» = "изменяемая заказчиком, выбор нескольких значений", то контролируется заполненность одного или нескольких значений характеристики.
+Если «Вид характеристики» = "изменяемая заказчиком с выбором одного значения", то контролируется заполненность ровно одного значения характеристики</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="value" type="KTRUCharacteristicValueType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Допустимое значение характеристики позиции КТРУ.
+Контролируется соответствие выбранного значения коду характеристики (positions/position/purchaseObjectInfo/productsSpecification/product/KTRU/characteristics/characteristicsUsingReferenceInfo/code) по справочнику Каталог товаров, работ, услуг (КТРУ) (nsiKTRU). 
+Также контролируется соответствие кода по ОКЕИ (блок OKEI)  коду характеристики</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--Разные реестры. Типы-->
+	<xs:complexType name="bankSupportContractRequiredInfoType">
+		<xs:annotation>
+			<xs:documentation>Тип: Информации о банковском и (или) казначейском сопровождении контакта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bankSupportContractRequired" type="xs:boolean" fixed="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Требуется банковское сопровождение контракта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="treasurySupportContractRequired" type="xs:boolean" fixed="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Требуется казначейское сопровождение контракта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
